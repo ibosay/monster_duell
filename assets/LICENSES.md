@@ -1,6 +1,6 @@
 # Asset-Lizenzen – Monster-Duell 3D
 
-Alle 3D-Modelle in `assets/models/` stammen von **Quaternius** (https://quaternius.com)
+Alle 3D-Modelle in `assets/models/` außer `goblin.glb` stammen von **Quaternius** (https://quaternius.com)
 und wurden über **Poly Pizza** bezogen. Jedes Modell ist dort als
 **Public Domain (CC0 1.0)** ausgewiesen: https://creativecommons.org/publicdomain/zero/1.0/
 
@@ -23,9 +23,13 @@ Im Spiel werden sie zur Laufzeit eingefärbt und mit Extras ergänzt (Flügel, H
 | dragon.glb | Dragon (Ultimate Monsters) – https://poly.pizza/m/3rUm1cN3yp | Quaternius | CC0 1.0 | Feuerdrache |
 | drake.glb | Dragon Evolved (Ultimate Monsters) – https://poly.pizza/m/LlwD0QNUPj | Quaternius | CC0 1.0 | Greif |
 | horse.glb | White Horse (Animated Animal Pack) – https://poly.pizza/m/bEdE4rmZy9 | Quaternius | CC0 1.0 | Einhorn, Pegasus (Fusion) |
-| orc.glb | Orc (Ultimate Monsters) – https://poly.pizza/m/5vO2YJsPEf | Quaternius | CC0 1.0 | Oger |
 | giant.glb | Giant – https://poly.pizza/m/BldaiPtyJa | Quaternius | CC0 1.0 | Steingolem, Bergkoloss (Fusion) |
 | hywirl.glb | Hywirl (Ultimate Monsters) – https://poly.pizza/m/zjr7CmWGER | Quaternius | CC0 1.0 | Fee |
+
+| goblin.glb | Eigenes Modell, vom Spieler bereitgestellt (Goblin, ohne Rig) | Spieler / Projektinhaber | vom Projektinhaber bereitgestellt (nicht CC0) | Goblin, Goblinkönig (Mega) |
+
+`goblin.glb` wurde optimiert: weld, Vereinfachung auf ca. 20k Dreiecke (meshoptimizer simplifyWithAttributes),
+Texturen als WebP (Farbe 1024 px, Normal/MR 512 px), Meshopt. Er wird im Spiel prozedural animiert.
 
 Pack-Seiten:
 - https://poly.pizza/bundle/Ultimate-Monsters-Bundle-5oyGWAmOB6
