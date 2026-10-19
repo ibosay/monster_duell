@@ -4,6 +4,8 @@ Monster-Duell ist ein deutsches Kartenspiel im Browser: Du beschwörst Monster i
 
 Die 3D-Version (`index.html`) ist eine einzelne HTML-Datei mit eingebettetem Three.js. Unterstützt das Gerät kein WebGL, führt ein Link zur klassischen 2D-Version (`2d.html`).
 
+Die animierten 3D-Monster stammen von [Quaternius](https://quaternius.com) und stehen unter CC0 1.0. Details stehen in `assets/LICENSES.md`.
+
 **Spielen:** [https://ibosay.github.io/monster_duell/](https://ibosay.github.io/monster_duell/)
 
 Auf dem iPhone in Safari öffnen.
