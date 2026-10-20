@@ -98,6 +98,7 @@ header h1{font-size:clamp(15px,3.6vw,24px);letter-spacing:1px;background:linear-
 #sideBot .hero{flex:1;min-width:0}
 .actbar{display:grid;grid-template-columns:1fr 1fr 1.25fr;gap:6px;pointer-events:auto}
 .actbar .btn{padding:8px 4px;font-size:clamp(12px,3.3vw,15px);text-align:center;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.bon{color:#7fffd4;font-size:.9em}
 .float.fuse{color:#e0aaff;font-size:clamp(20px,5vw,32px);text-shadow:0 0 12px #9d4edd,0 2px 0 #000}
 .hero{background:linear-gradient(160deg,rgba(40,26,80,.78),rgba(12,8,30,.78))!important;border-color:rgba(180,160,255,.3)}
 .mlist.fl{grid-template-columns:1fr}
@@ -227,9 +228,11 @@ header h1{font-size:clamp(15px,3.6vw,24px);letter-spacing:1px;background:linear-
       <li><b>🃏 Beschwörungsruf:</b> Für <b>2 💎</b> ziehst du eine Extrakarte – so oft du willst, solange Mana, Deck und Handplatz reichen.</li>
       <li><b>Beschwören:</b> Tippe auf eine Karte in deiner Hand, um das Monster für seine Manakosten in die Arena zu rufen (max. <b>5 Monster</b>).</li>
       <li><b>Angreifen:</b> Tippe auf eines deiner bereiten Monster (grüner Ring) und dann auf ein Ziel (roter Ring): ein gegnerisches Monster oder den gegnerischen Kristall bzw. das Spielerfeld oben.</li>
-      <li>Kämpfen zwei Monster, fügen sich <b>beide</b> Schaden in Höhe ihres Angriffs ⚔️ zu. Fallen die Lebenspunkte ❤️ auf 0, stirbt das Monster.</li>
+      <li>Kämpfen zwei Monster, fügen sich <b>beide</b> genau so viel Schaden zu, wie ihr Angriff ⚔️ zeigt (plus Bonus, wenn eine Fähigkeit das ausdrücklich sagt). Fallen die Lebenspunkte ❤️ auf 0, stirbt das Monster.</li>
+      <li><b>🤢 Vergiftet:</b> Ein vergiftetes Monster verliert zu Beginn jedes eigenen Zuges 1 ❤️ (bis es stirbt). Gift tötet nicht mehr sofort.</li>
       <li>Frisch beschworene Monster schlafen 💤 und können erst im <b>nächsten Zug</b> angreifen. Jedes Monster greift einmal pro Zug an.</li>
       <li>Mit <b>„Zug beenden“</b> ist der Gegner dran.</li>
+      <li><b>💎 Ausgleich:</b> Wer als Zweiter dran ist (Spieler 2 bzw. der Computer), bekommt in seinen <b>ersten 4 Zügen je +1 Bonus-Mana</b>. So hat der Startspieler keinen unfairen Vorteil.</li>
       <li>Jedes Deck hat <b>36 Karten</b> (jedes Monster 3×). Du startest mit <b>5 Karten</b>, Spieler 2 zum Ausgleich mit <b>6</b>.</li>
       <li>Max. <b>8 Handkarten</b> (weitere gezogene Karten verbrennen). Ist dein Deck leer, verlierst du beim Ziehen immer mehr Leben (1, 2, 3 …).</li>
     </ul>
@@ -8007,44 +8010,45 @@ THREE.GLX={GLTFLoader:GLTFLoader,MeshoptDecoder:MeshoptDecoder,SkeletonUtils:{cl
 })();</script>
 <script>"use strict";
 var MAX_HP = 30, MAX_MANA = 10, MAX_BOARD = 5, MAX_HAND = 8;
+var P2_BONUS_TURNS = 4;
 var START_HAND = 5, DRAW_PER_TURN = 2, DRAW_COST = 2, DECK_COPIES = 3;
 var ABIL = {
   rush:   {icon:'⚡', name:'Ansturm', desc:'Kann sofort im Zug der Beschwörung angreifen.'},
   fly:    {icon:'🪶', name:'Fliegen', desc:'Ignoriert gegnerische Wächter.'},
   shield: {icon:'🛡️', name:'Schild', desc:'Der erste erlittene Schaden wird komplett geblockt (blaue Schutzblase).'},
-  poison: {icon:'☠️', name:'Gift', desc:'Vernichtet jedes Monster, dem es Schaden zufügt.'},
+  poison: {icon:'☠️', name:'Gift', desc:'Wer von ihm Schaden nimmt (auch beim Gegenangriff), wird vergiftet 🤢: verliert zu Beginn jedes eigenen Zuges 1 ❤️.'},
   guard:  {icon:'🧱', name:'Wächter', desc:'Gegner müssen zuerst Wächter angreifen (außer fliegende Monster).'}
 };
 var MONSTERS = [
   {id:'ratte',    name:'Rattenschwarm', emoji:'🐀', cost:1, atk:1, hp:2, ab:[]},
   {id:'fleder',   name:'Fledermaus',    emoji:'🦇', cost:1, atk:2, hp:1, ab:['fly']},
-  {id:'wolf',     name:'Wolf',          emoji:'🐺', cost:2, atk:3, hp:1, ab:['rush']},
-  {id:'schlange', name:'Giftschlange',  emoji:'🐍', cost:2, atk:1, hp:2, ab:['poison']},
+  {id:'wolf',     name:'Wolf',          emoji:'🐺', cost:2, atk:2, hp:1, ab:['rush']},
+  {id:'schlange', name:'Giftschlange',  emoji:'🐍', cost:2, atk:1, hp:3, ab:['poison']},
   {id:'skelett',  name:'Skelettritter', emoji:'💀', cost:2, atk:2, hp:2, ab:[]},
-  {id:'fee',      name:'Heilfee',       emoji:'🧚', cost:3, atk:1, hp:4, ab:[]},
+  {id:'fee',      name:'Heilfee',       emoji:'🧚', cost:3, atk:2, hp:5, ab:[]},
   {id:'kroete',   name:'Panzerkröte',   emoji:'🐢', cost:3, atk:2, hp:5, ab:['guard']},
-  {id:'greif',    name:'Greif',         emoji:'🦅', cost:4, atk:4, hp:3, ab:['fly']},
-  {id:'einhorn',  name:'Einhorn',       emoji:'🦄', cost:4, atk:3, hp:4, ab:['shield']},
-  {id:'oger',     name:'Goblin',         emoji:'👹', cost:5, atk:6, hp:5, ab:[]},
-  {id:'golem',    name:'Steingolem',    emoji:'🗿', cost:6, atk:4, hp:9, ab:['guard']},
+  {id:'greif',    name:'Greif',         emoji:'🦅', cost:4, atk:4, hp:4, ab:['fly']},
+  {id:'einhorn',  name:'Einhorn',       emoji:'🦄', cost:4, atk:3, hp:3, ab:['shield']},
+  {id:'oger',     name:'Goblin',         emoji:'👹', cost:5, atk:7, hp:6, ab:[]},
+  {id:'golem',    name:'Steingolem',    emoji:'🗿', cost:6, atk:4, hp:7, ab:['guard']},
   {id:'drache',   name:'Feuerdrache',   emoji:'🐉', cost:8, atk:8, hp:7, ab:['fly']}
 ];
 var MBYID = {};
 MONSTERS.forEach(function(m){MBYID[m.id]=m;});
 /* ---------- Fusion ---------- */
-var FUSE_COST = 1;
+var FUSE_COST = 1, MEGA_MULT = 1.75;
 var MEGA_NAMES = {ratte:'Rattenkönig',fleder:'Vampirfürst',wolf:'Alphawolf',schlange:'Basilisk',skelett:'Knochenkönig',fee:'Feenkönigin',kroete:'Titanenkröte',greif:'Sturmgreif',einhorn:'Sternen-Einhorn',oger:'Goblinkönig',golem:'Urgolem',drache:'Drachenkönig'};
 var RECIPES = [
   {a:'wolf',b:'fleder',id:'vampirwolf',name:'Vampirwolf',emoji:'🐺',atk:5,hp:5,ab:['fly','rush']},
   {a:'ratte',b:'schlange',id:'pestschwarm',name:'Pestschwarm',emoji:'🦠',atk:3,hp:6,ab:['poison','guard']},
-  {a:'skelett',b:'oger',id:'todesritter',name:'Todesritter',emoji:'⚔️',atk:8,hp:8,ab:['shield','rush']},
-  {a:'fee',b:'einhorn',id:'pegasus',name:'Lichtpegasus',emoji:'🪽',atk:5,hp:9,ab:['fly','shield']},
-  {a:'kroete',b:'golem',id:'bergkoloss',name:'Bergkoloss',emoji:'🏔️',atk:6,hp:16,ab:['guard','shield']},
-  {a:'schlange',b:'drache',id:'hydra',name:'Hydra',emoji:'🐲',atk:10,hp:10,ab:['fly','poison']}
+  {a:'skelett',b:'oger',id:'todesritter',name:'Todesritter',emoji:'⚔️',atk:7,hp:7,ab:['shield','rush']},
+  {a:'fee',b:'einhorn',id:'pegasus',name:'Lichtpegasus',emoji:'🪽',atk:4,hp:8,ab:['fly','shield']},
+  {a:'kroete',b:'golem',id:'bergkoloss',name:'Bergkoloss',emoji:'🏔️',atk:5,hp:14,ab:['guard','shield']},
+  {a:'schlange',b:'drache',id:'hydra',name:'Hydra',emoji:'🐲',atk:9,hp:9,ab:['fly','poison']}
 ];
 MONSTERS.forEach(function(m){
   var ab=m.ab.slice();ab.push(ab.indexOf('shield')<0?'shield':'rush');
-  MBYID['mega_'+m.id]={id:'mega_'+m.id,base:m.id,name:MEGA_NAMES[m.id],emoji:m.emoji,cost:m.cost*2,atk:m.atk*2,hp:m.hp*2,ab:ab,fused:true,mega:true};
+  MBYID['mega_'+m.id]={id:'mega_'+m.id,base:m.id,name:MEGA_NAMES[m.id],emoji:m.emoji,cost:m.cost*2,atk:Math.round(m.atk*MEGA_MULT),hp:Math.round(m.hp*MEGA_MULT),ab:ab,fused:true,mega:true};
 });
 RECIPES.forEach(function(r){MBYID[r.id]={id:r.id,name:r.name,emoji:r.emoji,cost:MBYID[r.a].cost+MBYID[r.b].cost,atk:r.atk,hp:r.hp,ab:r.ab.slice(),fused:true,recipe:r};});
 /* ---------- Spezialfähigkeiten: jedes Monster hat seine eigene ---------- */
@@ -8067,21 +8071,21 @@ var SPEC={
     enter:function(pi,m){var o=others(pi,m).filter(function(x){return !x.shield;});if(o.length)giveShield(o[Math.floor(Math.random()*o.length)]);}},
   oger:{i:'💰',n:'Plünderer',s:'Held-Treffer: +1 Karte',d:'Trifft er den gegnerischen Helden, ziehst du 1 Karte.',
     heroHit:function(pi,m){drawBonus(pi,1);}},
-  golem:{i:'🪨',n:'Steinhaut',s:'Max. 3 Schaden',d:'Erleidet höchstens 3 Schaden pro Treffer.',cap:3},
-  drache:{i:'🔥',n:'Feueratem',s:'2 Schaden an alle',d:'Beim Beschwören: 2 Schaden an alle gegnerischen Monster.',
-    can:function(pi){return G.players[1-pi].board.length>0;},enter:function(pi,m){aoe(pi,2,false);}},
+  golem:{i:'🪨',n:'Steinhaut',s:'−1 Schaden je Treffer',d:'Erleidet bei jedem Treffer 1 Schaden weniger.',armor:1},
+  drache:{i:'🔥',n:'Feueratem',s:'1 Schaden an alle',d:'Beim Beschwören: 1 Schaden an alle gegnerischen Monster.',
+    can:function(pi){return G.players[1-pi].board.length>0;},enter:function(pi,m){aoe(pi,1,false);}},
   mega_ratte:{i:'👑',n:'Rattenarmee',s:'Jeden Zug Mini-Ratte',d:'Zu Beginn deines Zuges kommt eine Mini-Ratte (1/1) dazu.',
     can:function(pi){return G.players[pi].board.length<MAX_BOARD;},turn:function(pi,m){spawnToken(pi,'ratte','Mini-Ratte',1,1,m);}},
   mega_fleder:{i:'🩸',n:'Blutfürst',s:'Heilt dich & sich',d:'Du und er heilen so viel ❤️, wie er Schaden macht.',
     hit:function(pi,m,d){healHero(pi,d);if(m.hp>0)healMon(m,d);}},
-  mega_wolf:{i:'🌕',n:'Leitwolf',s:'Andere +2 ⚔️',d:'Beim Entstehen bekommen deine anderen Monster +2 ⚔️.',
-    can:function(pi,m){return others(pi,m).length>0;},enter:function(pi,m){buffOthers(pi,m,2);}},
-  mega_schlange:{i:'🧊',n:'Steinblick',s:'Gegner erstarren',d:'Beim Entstehen erstarren alle gegnerischen Monster: Sie können ihren nächsten Zug nicht angreifen.',
-    can:function(pi){return G.players[1-pi].board.length>0;},enter:function(pi,m){G.players[1-pi].board.forEach(function(x){x.frozen=true;fxFloatMon(x.uid,'🧊 Erstarrt!','info');});}},
+  mega_wolf:{i:'🌕',n:'Leitwolf',s:'Andere +1/+1',d:'Beim Entstehen bekommen deine anderen Monster +1 ⚔️ und +1 ❤️.',
+    can:function(pi,m){return others(pi,m).length>0;},enter:function(pi,m){others(pi,m).forEach(function(x){x.atk+=1;x.hp+=1;x.maxHp+=1;fxFloatMon(x.uid,'+1/+1','info');});}},
+  mega_schlange:{i:'🧊',n:'Steinblick',s:'Stärkster Gegner erstarrt',d:'Beim Entstehen erstarrt das stärkste gegnerische Monster: Es kann seinen nächsten Zug nicht angreifen.',
+    can:function(pi){return G.players[1-pi].board.length>0;},enter:function(pi,m){var b=G.players[1-pi].board.slice().sort(function(x,y){return y.atk-x.atk;})[0];if(b){b.frozen=true;fxFloatMon(b.uid,'🧊 Erstarrt!','info');}}},
   mega_skelett:{i:'⚰️',n:'Totenbeschwörer',s:'Tote werden Skelette',d:'Stirbt ein anderes deiner Monster, erhebt sich ein Skelett (1/1).',
     allyDeath:function(pi,m,dead){spawnToken(pi,'skelett','Skelett',1,1,m);}},
-  mega_fee:{i:'⛲',n:'Lebensquell',s:'Volle Heilung jeden Zug',d:'Zu Beginn deines Zuges: deine Monster werden voll geheilt und du +3 ❤️.',
-    turn:function(pi,m){healHero(pi,3);G.players[pi].board.forEach(function(x){healMon(x,x.maxHp);});}},
+  mega_fee:{i:'⛲',n:'Lebensquell',s:'Heilt +2 jeden Zug',d:'Zu Beginn deines Zuges: deine Monster +2 ❤️ und du +3 ❤️.',
+    turn:function(pi,m){healHero(pi,3);G.players[pi].board.forEach(function(x){healMon(x,2);});}},
   mega_kroete:{i:'🌵',n:'Dornenpanzer',s:'Angreifer −3 ❤️',d:'Wer sie angreift, erleidet 3 Extraschaden.',thorns:3},
   mega_greif:{i:'🌪️',n:'Orkan',s:'Nach Angriff: Sturm',d:'Nach jedem seiner Angriffe: 1 Schaden an alle gegnerischen Monster.',
     can:function(pi){return G.players[1-pi].board.some(function(x){return x.hp>0;});},after:function(pi,m){aoe(pi,1,false);}},
@@ -8089,17 +8093,18 @@ var SPEC={
     enter:function(pi,m){G.players[pi].board.forEach(function(x){if(!x.shield)giveShield(x);});}},
   mega_oger:{i:'💎',n:'Goldrausch',s:'Held-Treffer: 2 Karten +2💎',d:'Trifft er den gegnerischen Helden: Du ziehst 2 Karten und bekommst +2 💎 Mana.',
     heroHit:function(pi,m){drawBonus(pi,2);var p=G.players[pi];p.mana=Math.min(MAX_MANA,p.mana+2);}},
-  mega_golem:{i:'⛰️',n:'Urfels',s:'Max. 2 Schaden',d:'Erleidet höchstens 2 Schaden pro Treffer.',cap:2},
-  mega_drache:{i:'☄️',n:'Inferno',s:'Jeden Zug Feuer',d:'Zu Beginn deines Zuges: 2 Schaden an alle Gegner – Monster und Held.',
-    turn:function(pi,m){aoe(pi,2,true);}},
+  mega_golem:{i:'⛰️',n:'Erdbeben',s:'1 an alle, −1 Schaden',d:'Beim Entstehen: 1 Schaden an alle gegnerischen Monster. Erleidet bei jedem Treffer 1 Schaden weniger.',armor:1,
+    enter:function(pi,m){aoe(pi,1,false);}},
+  mega_drache:{i:'☄️',n:'Inferno',s:'Jeden Zug 1 an alle',d:'Zu Beginn deines Zuges: 1 Schaden an alle gegnerischen Monster.',
+    can:function(pi){return G.players[1-pi].board.length>0;},turn:function(pi,m){aoe(pi,1,false);}},
   vampirwolf:{i:'🩸',n:'Blutrausch',s:'Sieg: nochmal angreifen',d:'Besiegt er ein Monster, darf er (1× pro Zug) gleich nochmal angreifen.',
     can:function(pi,m){return !m.extraUsed&&m.hp>0;},kill:function(pi,m){m.extraUsed=true;m.canAttack=true;}},
   pestschwarm:{i:'🦠',n:'Seuche',s:'Tod: 2 an alle',d:'Stirbt er, erleiden alle gegnerischen Monster 2 Schaden.',
     death:function(pi,m){aoe(pi,2,false);}},
   todesritter:{i:'👻',n:'Seelenernte',s:'Sieg: +2/+2',d:'Besiegt er ein Monster, bekommt er +2 ⚔️ und +2 ❤️.',
     can:function(pi,m){return m.hp>0;},kill:function(pi,m){m.atk+=2;m.hp+=2;m.maxHp+=2;fxFloatMon(m.uid,'+2/+2','heal');}},
-  pegasus:{i:'☀️',n:'Himmelslicht',s:'Heilt & schützt',d:'Zu Beginn deines Zuges: du +3 ❤️ und ein eigenes Monster ohne Schild bekommt einen 🛡️ Schild.',
-    turn:function(pi,m){healHero(pi,3);var o=G.players[pi].board.filter(function(x){return !x.shield&&x.hp>0;});if(o.length)giveShield(o[Math.floor(Math.random()*o.length)]);}},
+  pegasus:{i:'☀️',n:'Himmelslicht',s:'Heilt & schützt',d:'Zu Beginn deines Zuges: du +2 ❤️ und ein eigenes Monster ohne Schild bekommt einen 🛡️ Schild.',
+    turn:function(pi,m){healHero(pi,2);var o=G.players[pi].board.filter(function(x){return !x.shield&&x.hp>0;});if(o.length)giveShield(o[Math.floor(Math.random()*o.length)]);}},
   bergkoloss:{i:'🏔️',n:'Bergfestung',s:'Freunde −1 Schaden',d:'Deine anderen Monster erleiden 1 Schaden weniger pro Treffer.'},
   hydra:{i:'🐲',n:'Drei Köpfe',s:'Trifft auch Nachbarn',d:'Greift sie ein Monster an, erleiden dessen Nachbarn je 2 Schaden.',splash:2}
 };
@@ -8215,6 +8220,8 @@ async function startTurn(){
   var p=G.players[G.cur];
   if(G.mode==='pvp') setCamAngle(G.cur===0?0:Math.PI,false);
   p.maxMana=Math.min(MAX_MANA,p.maxMana+1);p.mana=p.maxMana;
+  // Ausgleich für den Nachziehenden: Spieler 2 bekommt in seinen ersten Zügen +1 💎 Bonus
+  if(G.cur===1&&(p.turns||0)<P2_BONUS_TURNS){p.mana+=1;p.bonusMana=true;log('💎 Ausgleich: '+(isDu(p)?'Du bekommst':p.name+' bekommt')+' +1 Bonus-Mana.');}else p.bonusMana=false;
   p.board.forEach(function(m){m.canAttack=true;m.fresh=false;m.extraUsed=false;m.stunned=false;if(m.frozen){m.frozen=false;m.stunned=true;m.canAttack=false;}});
   p.fusedThisTurn=false;G.fuseMode=false;G.fuseFirst=null;
   G.sel=null;
@@ -8224,6 +8231,8 @@ async function startTurn(){
   if(p.turns>1){for(var dc=0;dc<DRAW_PER_TURN&&!G.over;dc++){drawCard(G.cur,false);if(dc===0&&DRAW_PER_TURN>1)await sleep(120);}}
   render();
   if(checkWin())return;
+  var pois=p.board.filter(function(m){return m.poisoned&&m.hp>0;});
+  if(pois.length){pois.forEach(function(m){m.hp-=1;try{fxHitMon(m.uid,'🤢-1');}catch(e){}});log('🤢 Gift: '+pois.map(function(m){return m.emoji+' '+m.name;}).join(', ')+(pois.length>1?' verlieren je':' verliert')+' 1 ❤️.');render();await sleep(500);await removeDead();render();if(checkWin())return;}
   var pi0=G.cur,tm=p.board.slice();
   var hasTurnFx=tm.some(function(x){var xs=spec(x);return xs&&xs.turn;});
   if(hasTurnFx)G.busy=true;
@@ -8244,7 +8253,7 @@ async function startTurn(){
   render();
   if(checkWin())return;
   if(gen!==G.gen)return;
-  if(G.mode==='cpu'&&G.cur===1&&gen===G.gen){await aiTurn(gen);}
+  if(((G.mode==='cpu'&&G.cur===1)||G.mode==='sim')&&gen===G.gen){await aiTurn(gen);}
 }
 
 async function endTurn(){
@@ -8301,11 +8310,12 @@ function dealDamage(target,amt,src){
   if(target.shield){target.shield=false;fxShieldPop(target.uid);fxFloatMon(target.uid,'🛡️ Geblockt!','info');return 0;}
   var ts=spec(target);
   if(ts&&ts.cap&&amt>ts.cap){amt=ts.cap;announce(target);}
+  if(ts&&ts.armor){amt-=ts.armor;announce(target);if(amt<=0){fxFloatMon(target.uid,'🪨 Kein Schaden','info');return 0;}}
   var o=ownerOf(target);
   if(o>=0&&G.players[o].board.some(function(x){return x!==target&&x.sp==='bergkoloss'&&x.hp>0;})){amt-=1;if(amt<=0){fxFloatMon(target.uid,'🏔️ Bergfestung!','info');return 0;}}
   target.hp-=amt;
   fxHitMon(target.uid,'-'+amt);
-  if(src&&has(src,'poison')&&target.hp>0){target.hp=0;fxPoison(target.uid);}
+  if(src&&has(src,'poison')&&target.hp>0&&!target.poisoned){target.poisoned=true;fxPoison(target.uid);log('🤢 '+target.emoji+' '+target.name+' ist vergiftet.');}
   return amt;
 }
 
@@ -8397,7 +8407,7 @@ function checkWin(){
 async function aiTurn(gen){
   G.busy=true;render();
   await sleep(800);
-  var me=1,p=G.players[me];
+  var me=G.cur,p=G.players[me];
   var played=true;
   var extra=0;
   while(played&&!G.over&&gen===G.gen){
@@ -8418,7 +8428,7 @@ async function aiTurn(gen){
     var ready=p.board.filter(function(m){return m.canAttack;});
     if(!ready.length)break;
     var a=ready.sort(function(x,y){return y.atk-x.atk;})[0];
-    var tgt=aiChooseTarget(a);
+    var tgt=aiChooseTarget(a,me);
     G.busy=false;
     await attack(me,a.uid,tgt);
     G.busy=true;
@@ -8428,16 +8438,17 @@ async function aiTurn(gen){
   G.busy=false;
   if(!G.over){await sleep(400);await endTurn();}
 }
-function aiChooseTarget(a){
-  var e=G.players[0];var vt=validTargets(1,a);
-  var lethal=G.players[1].board.filter(function(m){return m.canAttack&&(vt.hero||has(m,'fly'));}).reduce(function(s,m){var ms=spec(m);return s+m.atk+(ms&&ms.heroBonus?ms.heroBonus:0);},0);
+function aiChooseTarget(a,me){
+  if(me===undefined)me=1;
+  var e=G.players[1-me];var vt=validTargets(me,a);
+  var lethal=G.players[me].board.filter(function(m){return m.canAttack&&(vt.hero||has(m,'fly'));}).reduce(function(s,m){var ms=spec(m);return s+m.atk+(ms&&ms.heroBonus?ms.heroBonus:0);},0);
   if(vt.hero&&lethal>=e.hp)return 'hero';
   var best=null,bestScore=-1e9;
   vt.mons.forEach(function(uid){
     var t=e.board.filter(function(m){return m.uid===uid;})[0];
-    var ts=spec(t),eff=a.atk;if(ts&&ts.cap)eff=Math.min(eff,ts.cap);
-    var kills=!t.shield&&(eff>=t.hp||has(a,'poison'))&&!(ts&&ts.revive&&!t.revived);
-    var dies=!a.shield&&(t.atk+(ts&&ts.thorns?ts.thorns:0)>=a.hp||has(t,'poison'));
+    var ts=spec(t),eff=a.atk;if(ts&&ts.cap)eff=Math.min(eff,ts.cap);if(ts&&ts.armor)eff-=ts.armor;
+    var kills=!t.shield&&eff>=t.hp&&!(ts&&ts.revive&&!t.revived);
+    var dies=!a.shield&&(t.atk+(ts&&ts.thorns?ts.thorns:0)>=a.hp);
     var s=(kills?t.cost*2+t.atk:0)-(dies?a.cost*2+a.atk:0)+(ts&&(ts.turn||ts.allyDeath)?3:0)+(t.shield?1:0)-(ts&&ts.death&&kills?2:0);
     if(s>bestScore){bestScore=s;best=uid;}
   });
@@ -9091,10 +9102,10 @@ function sync3D(){
       else if(pi!==v&&vt&&vt.mons.indexOf(m.uid)>=0)mode='target';
       r.mode=mode;
       if(!r.popping)r.bub.visible=!!m.shield&&!r.dying;
-      var sig=m.atk+'|'+m.hp+'|'+m.maxHp+'|'+(m.shield?1:0)+'|'+(m.frozen||m.stunned?1:0);
+      var sig=m.atk+'|'+m.hp+'|'+m.maxHp+'|'+(m.shield?1:0)+'|'+(m.frozen||m.stunned?1:0)+'|'+(m.poisoned?1:0);
       if(sig!==r.sig){r.sig=sig;
         var st=r.lbl.children[1];st.children[0].textContent=m.atk;
-        r.lbl.children[0].textContent=(has(m,'guard')?'🧱':'')+((m.frozen||m.stunned)?'🧊':(m.sp&&SPEC[m.sp]?SPEC[m.sp].i:''));
+        r.lbl.children[0].textContent=(m.poisoned?'🤢':(has(m,'guard')?'🧱':''))+((m.frozen||m.stunned)?'🧊':(m.sp&&SPEC[m.sp]?SPEC[m.sp].i:''));
         st.children[1].textContent=Math.max(0,m.hp);
         st.children[1].className='h'+(m.hp<m.maxHp?' dmg':'');
       }
@@ -9183,7 +9194,7 @@ function fxHitMon(uid,text){
   if(r.vis){r.vis.flash();r.vis.play('Hit');}
   tween(300,function(t){var k=Math.sin(t*Math.PI);r.inner.scale.set(1+k*.18,1-k*.22,1+k*.18).multiplyScalar(r.sc);if(t>=1)r.inner.scale.setScalar(r.sc);});
 }
-function fxPoison(uid){var r=E.mons[uid];if(!r||!E.ok)return;setTimeout(function(){fxFloatMon(uid,'☠️ Gift!','info');},250);burst(monMid(r),0x9dff3a,30,{speed:1.8,up:1.5,life:1100,size:.22,grav:-.5});}
+function fxPoison(uid){var r=E.mons[uid];if(!r||!E.ok)return;setTimeout(function(){fxFloatMon(uid,'🤢 Vergiftet','info');},250);burst(monMid(r),0x9dff3a,30,{speed:1.8,up:1.5,life:1100,size:.22,grav:-.5});}
 function fxShieldPop(uid){
   var r=E.mons[uid];if(!r||!E.ok)return;
   r.popping=true;var b=r.bub;var s0=b.scale.clone();
@@ -9655,7 +9666,7 @@ function heroHTML(pi,isActive,targetable,showBacks){
   var backs='';if(showBacks){for(var k=0;k<p.hand.length;k++)backs+='<span class="back"></span>';}
   return '<div class="hero'+(isActive?' active':'')+(targetable?' target':'')+'" data-hero="'+pi+'">'+
     '<div class="face">'+p.face+'</div><div><div class="nm">'+p.name+'</div>'+
-    '<div class="stats"><span class="hp">❤️ '+Math.max(0,p.hp)+'</span><span>💎 '+p.mana+'/'+p.maxMana+'</span></div>'+
+    '<div class="stats"><span class="hp">❤️ '+Math.max(0,p.hp)+'</span><span>💎 '+p.mana+'/'+p.maxMana+(p.bonusMana&&G.cur===pi?' <b class="bon">+1</b>':'')+'</span></div>'+
     '<div class="mana">'+gems+'</div></div>'+
     (showBacks?'<div class="backs">'+backs+'</div>':'')+
     '<div class="deckinfo">🃏 '+p.deck.length+'<br>✋ '+p.hand.length+'</div></div>';
@@ -9723,7 +9734,7 @@ function init(){
       '<li>ℹ️ <b>Info:</b> Halte ein Monster in der Arena (auch gegnerische) oder eine Handkarte kurz gedrückt, um seine Fähigkeiten zu sehen.</li>'+
       '<li>🐣 <b>Mini-Monster</b> (z.&nbsp;B. Mini-Ratte, Skelett) entstehen durch Fähigkeiten und haben keine eigene Fähigkeit.</li>'+
       '<li>🧊 <b>Erstarrt:</b> Das Monster kann in seinem nächsten Zug nicht angreifen.</li>';
-    $('fusionList').innerHTML='<div><b>2× gleiches Monster</b> → Mega-Form: doppelter ⚔️ und ❤️, voll geheilt, ⭐ Krone + zusätzlich 🛡️ Schild (wer schon Schild hat, bekommt ⚡ Ansturm) und eine neue Mega-Fähigkeit:</div>'+
+    $('fusionList').innerHTML='<div><b>2× gleiches Monster</b> → Mega-Form: ⚔️ und ❤️ ×1,75 (gerundet), voll geheilt, ⭐ Krone + zusätzlich 🛡️ Schild (wer schon Schild hat, bekommt ⚡ Ansturm) und eine neue Mega-Fähigkeit:</div>'+
       MONSTERS.map(function(m){var mg=MBYID['mega_'+m.id];return '<div>'+m.emoji+' <b>'+mg.name+'</b> ⚔️'+mg.atk+' ❤️'+mg.hp+(mg.ab.length?' · '+kwLine(mg.ab):'')+'<br>'+specLine(mg.id)+'</div>';}).join('')+
       RECIPES.map(function(r){var a=MBYID[r.a],b=MBYID[r.b];return '<div>'+a.emoji+' '+a.name+' + '+b.emoji+' '+b.name+' → <b>'+r.emoji+' '+r.name+'</b> ⚔️'+r.atk+' ❤️'+r.hp+' · '+kwLine(r.ab)+'<br>'+specLine(r.id)+'</div>';}).join('');
     fillMonsterList();
