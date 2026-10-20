@@ -1,6 +1,6 @@
 # Asset-Lizenzen – Monster-Duell 3D
 
-Alle 3D-Modelle in `assets/models/` außer `goblin.glb` stammen von **Quaternius** (https://quaternius.com)
+Alle 3D-Modelle in `assets/models/` außer `goblin.glb` (siehe unten, Meshy / lionnik2013, ebenfalls CC0) stammen von **Quaternius** (https://quaternius.com)
 und wurden über **Poly Pizza** bezogen. Jedes Modell ist dort als
 **Public Domain (CC0 1.0)** ausgewiesen: https://creativecommons.org/publicdomain/zero/1.0/
 
@@ -25,11 +25,13 @@ Im Spiel werden sie zur Laufzeit eingefärbt und mit Extras ergänzt (Flügel, H
 | horse.glb | White Horse (Animated Animal Pack) – https://poly.pizza/m/bEdE4rmZy9 | Quaternius | CC0 1.0 | Einhorn, Pegasus (Fusion) |
 | giant.glb | Giant – https://poly.pizza/m/BldaiPtyJa | Quaternius | CC0 1.0 | Steingolem, Bergkoloss (Fusion) |
 | hywirl.glb | Hywirl (Ultimate Monsters) – https://poly.pizza/m/zjr7CmWGER | Quaternius | CC0 1.0 | Fee |
+| goblin.glb | „Goblin“ auf Meshy – https://www.meshy.ai/3d-models/goblin-019d6dd2-556a-79af-83df-8308aba33c57 | lionnik2013 | CC0 1.0 | Goblin, Goblinkönig (Mega) |
 
-| goblin.glb | Eigenes Modell, vom Spieler bereitgestellt (Goblin, ohne Rig) | Spieler / Projektinhaber | vom Projektinhaber bereitgestellt (nicht CC0) | Goblin, Goblinkönig (Mega) |
-
-`goblin.glb` wurde optimiert: weld, Vereinfachung auf ca. 20k Dreiecke (meshoptimizer simplifyWithAttributes),
-Texturen als WebP (Farbe 1024 px, Normal/MR 512 px), Meshopt. Er wird im Spiel prozedural animiert.
+`goblin.glb` (Meshy, statisch, ohne Rig: alter Goblin auf Moosfelsen mit Speer) wurde für Handys optimiert:
+weld, Vereinfachung von 1,45 Mio. auf ca. 25.000 Dreiecke (meshoptimizer simplifyWithAttributes),
+Texturen als WebP (Farbe 1024 px, Normal/Metall-Rauheit 512 px), Meshopt-Kompression – ca. 0,5 MB statt 54 MB.
+Im Spiel wird er prozedural animiert (Atmen, Speerstoß, Rückstoß, Hüpfer, Umkippen).
+Er ersetzt das frühere goblin.glb, dessen Herkunft/Rechte unklar waren.
 
 Pack-Seiten:
 - https://poly.pizza/bundle/Ultimate-Monsters-Bundle-5oyGWAmOB6
