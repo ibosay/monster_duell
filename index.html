@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8"><meta name="monster-duell-version" content="v18">
+<meta charset="UTF-8"><meta name="monster-duell-version" content="v19">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#bfe6e2">
@@ -277,6 +277,25 @@ header h1 .sprout,header .logo{filter:none}
 #turnInfo{color:#cfe0dc;text-shadow:0 1px 2px rgba(0,0,0,.6)}
 .overlay{background:rgba(18,22,40,.6)}
 .clbl{box-shadow:0 2px 10px rgba(0,0,0,.35)}
+/* ===== v14: Seltenheit (grau / blau / lila / gold) ===== */
+.card.com{border-color:#c9ced3;background:linear-gradient(170deg,#fffefa,#eef2f1)}
+.card.rare{border-color:#5aa8f0;background:linear-gradient(170deg,#fbfdff,#e2eefc);box-shadow:0 4px 12px rgba(60,90,160,.25),0 0 0 1px rgba(90,168,240,.35)}
+.card.epic{border-color:#a96ff0;background:linear-gradient(170deg,#fdfaff,#eadff9);box-shadow:0 4px 12px rgba(90,60,150,.28),0 0 9px rgba(169,111,240,.45)}
+.card.leg{border-color:#e9b13c;background:linear-gradient(170deg,#fffcef,#f9e7b8);box-shadow:0 4px 12px rgba(120,80,20,.25),0 0 13px rgba(240,190,70,.65)}
+.card.com::after,.card.rare::after,.card.epic::after,.card.leg::after{content:"";position:absolute;bottom:3px;left:50%;width:7px;height:7px;margin-left:-3.5px;transform:rotate(45deg);border-radius:1.5px;box-shadow:0 0 0 1px rgba(255,255,255,.9);pointer-events:none}
+.card.com::after{background:#b9bfc6}
+.card.rare::after{background:linear-gradient(135deg,#bfe2ff,#3d8fe6)}
+.card.epic::after{background:linear-gradient(135deg,#e7d2ff,#8f4fe6);box-shadow:0 0 0 1px #fff,0 0 6px rgba(169,111,240,.9)}
+.card.leg::after{background:linear-gradient(135deg,#fff3c4,#e0a020);box-shadow:0 0 0 1px #fff,0 0 8px rgba(255,200,60,1);animation:legGem 2.4s ease-in-out infinite}
+@keyframes legGem{0%,100%{filter:brightness(1)}50%{filter:brightness(1.35)}}
+.hand .card.leg.play::before{background:linear-gradient(115deg,transparent 30%,rgba(255,236,170,.9) 45%,transparent 60%);background-size:250% 100%;animation:shine 2.4s infinite}
+.hand .card.epic.play::before{background:linear-gradient(115deg,transparent 30%,rgba(235,215,255,.85) 45%,transparent 60%);background-size:250% 100%}
+.rtag{font-size:.72em;font-weight:700;padding:1px 6px;border-radius:8px;vertical-align:1px;white-space:nowrap}
+.rtag.rs{background:#e2eefc;color:#2f6fc0}.rtag.re{background:#efe3fc;color:#7a3fd0}.rtag.rl{background:#fbecc2;color:#9a6a08}
+.float.abil.leg{color:#d99a1a;font-size:clamp(17px,4.4vw,24px);letter-spacing:.06em;text-shadow:0 2px 0 #fff,0 0 10px rgba(255,236,170,1),0 0 22px rgba(255,190,60,.8)}
+.hand .card.play.rare{border-color:#5aa8f0;box-shadow:0 0 0 2px #6fd0c3,0 4px 12px rgba(80,90,140,.2),0 0 12px rgba(111,208,195,.6)}
+.hand .card.play.epic{border-color:#a96ff0;box-shadow:0 0 0 2px #6fd0c3,0 4px 12px rgba(80,90,140,.2),0 0 12px rgba(169,111,240,.55)}
+.hand .card.play.leg{border-color:#e9b13c;box-shadow:0 0 0 2px #6fd0c3,0 4px 12px rgba(80,90,140,.2),0 0 14px rgba(240,190,70,.75)}
 /* ===== Kampagne ===== */
 .campBtn{font-size:clamp(14px,3.6vw,18px);padding:10px 18px}
 .panel.camp{max-width:560px;width:min(94vw,560px);max-height:90vh;overflow-y:auto}
@@ -8258,8 +8277,21 @@ var MONSTERS = [
   {id:'einhorn',  name:'Seerose',       emoji:'🪷', cost:4, atk:3, hp:3, ab:['shield']},
   {id:'oger',     name:'Fliegenfalle',  emoji:'🌿', cost:5, atk:7, hp:6, ab:[]},
   {id:'golem',    name:'Eichenwächter', emoji:'🌳', cost:6, atk:4, hp:7, ab:['guard']},
-  {id:'drache',   name:'Feuerlilie',    emoji:'🌺', cost:8, atk:7, hp:7, ab:['fly']}
+  {id:'drache',   name:'Feuerlilie',    emoji:'🌺', cost:8, atk:7, hp:7, ab:['fly']},
+  // seltene Pflanzen (v14)
+  {id:'edelweiss',  name:'Edelweiß',        emoji:'🤍', cost:2, atk:2, hp:3, ab:[]},
+  {id:'kanne',      name:'Kannenpflanze',   emoji:'🫖', cost:3, atk:3, hp:4, ab:[]},
+  {id:'blaulotus',  name:'Blauer Lotus',    emoji:'💠', cost:3, atk:2, hp:6, ab:[]},
+  {id:'mondblume',  name:'Mondblume',       emoji:'🌙', cost:4, atk:4, hp:5, ab:['fly']},
+  {id:'orchidee',   name:'Kristallorchidee',emoji:'💎', cost:5, atk:3, hp:4, ab:['shield']},
+  {id:'drachenbaum',name:'Drachenbaum',     emoji:'🌴', cost:6, atk:4, hp:7, ab:['guard']},
+  {id:'baobab',     name:'Baobab',          emoji:'🌳', cost:8, atk:4, hp:12, ab:['guard']},
+  {id:'titanwurz',  name:'Titanwurz',       emoji:'🌋', cost:9, atk:7, hp:9, ab:[]}
 ];
+/* ---------- Seltenheit: c=Gewöhnlich, s=Selten, e=Episch, l=Legendär (bestimmt auch die Anzahl im Deck) ---------- */
+var RARITY={c:{n:'Gewöhnlich',copies:3},s:{n:'Selten',copies:2},e:{n:'Episch',copies:1},l:{n:'Legendär',copies:1}};
+var RAR={greif:'s',einhorn:'s',oger:'s',golem:'s',drache:'e',edelweiss:'s',kanne:'s',blaulotus:'s',mondblume:'e',orchidee:'e',drachenbaum:'e',baobab:'l',titanwurz:'l'};
+function rarOf(id){var t=MBYID[id];if(t&&t.mega)return 'e';if(t&&t.recipe)return 'e';return RAR[id]||'c';}
 var MBYID = {};
 MONSTERS.forEach(function(m){MBYID[m.id]=m;});
 /* ---------- Zauber- & Fallenkarten ---------- */
@@ -8296,7 +8328,7 @@ function fxc(name,a,b,c,d){try{var f=(typeof window!=='undefined'&&window)?windo
 function track(pi,ev,d){if(!G||G.mode==='sim')return;try{if(typeof metaTrack==='function')metaTrack(pi,ev,d||{});}catch(e){console.warn(e);}}
 /* ---------- Fusion ---------- */
 var FUSE_COST = 1, MEGA_MULT = 1.5, MEGA_NO_EXTRA = ['golem','drache'];
-var MEGA_NAMES = {ratte:'Löwenzahnwiese',fleder:'Ahornsturm',wolf:'Sonnenblumenfeld',schlange:'Frostranke',skelett:'Pilzkreis',fee:'Riesenaloe',kroete:'Riesenkaktus',greif:'Lavendelsturm',einhorn:'Riesenseerose',oger:'Riesenfalle',golem:'Ureiche',drache:'Sonnenlilie'};
+var MEGA_NAMES = {ratte:'Löwenzahnwiese',fleder:'Ahornsturm',wolf:'Sonnenblumenfeld',schlange:'Frostranke',skelett:'Pilzkreis',fee:'Riesenaloe',kroete:'Riesenkaktus',greif:'Lavendelsturm',einhorn:'Riesenseerose',oger:'Riesenfalle',golem:'Ureiche',drache:'Sonnenlilie',edelweiss:'Edelweißwiese',kanne:'Riesenkanne',blaulotus:'Lotusteich',mondblume:'Mondgarten',orchidee:'Kristallgarten',drachenbaum:'Drachenhain',baobab:'Urbaobab',titanwurz:'Titanenblüte'};
 var RECIPES = [
   {a:'wolf',b:'fleder',id:'vampirwolf',name:'Wirbelblüte',emoji:'🍂',atk:4,hp:4,ab:['fly','rush']},
   {a:'ratte',b:'schlange',id:'pestschwarm',name:'Platzkürbis',emoji:'🟠',atk:2,hp:5,ab:['poison','guard']},
@@ -8335,6 +8367,27 @@ var SPEC={
   golem:{i:'🪵',n:'Rinde',s:'−1 Schaden je Treffer',d:'Erleidet bei jedem Treffer 1 Schaden weniger.',armor:1},
   drache:{i:'🔥',n:'Glutpollen',s:'1 Schaden an alle',d:'Beim Pflanzen: 1 Schaden an alle gegnerischen Pflanzen.',
     can:function(pi){return G.players[1-pi].board.length>0;},enter:function(pi,m){aoe(pi,1,false);}},
+  edelweiss:{i:'🏔️',n:'Bergsegen',s:'Freund +2 ❤️',d:'Beim Pflanzen bekommt eine andere deiner Pflanzen dauerhaft +2 ❤️.',
+    can:function(pi,m){return others(pi,m).length>0;},enter:function(pi,m){var o=others(pi,m);var x=o[Math.floor(Math.random()*o.length)];x.hp+=2;x.maxHp+=2;fxFloatMon(x.uid,'+2 ❤️','heal');}},
+  kanne:{i:'🫖',n:'Verdauen',s:'Sieg: +1 ⚔️ & heilt',d:'Besiegt sie eine Pflanze, bekommt sie +1 ⚔️ und heilt sich vollständig.',
+    can:function(pi,m){return m.hp>0;},kill:function(pi,m){m.atk+=1;healMon(m,m.maxHp);fxFloatMon(m.uid,'+1 ⚔️','info');}},
+  blaulotus:{i:'💧',n:'Ruhewasser',s:'Heilt 3 jeden Zug',d:'Zu Beginn deines Zuges: Die am stärksten verletzte eigene Pflanze heilt 3 ❤️ (sonst du +2 ❤️).',
+    turn:function(pi,m){var b=G.players[pi].board.filter(function(x){return x.hp>0&&x.hp<x.maxHp;}).sort(function(x,y){return (y.maxHp-y.hp)-(x.maxHp-x.hp);})[0];if(b)healMon(b,3);else healHero(pi,2);}},
+  mondblume:{i:'🌙',n:'Mondlicht',s:'Jeden Zug: +1/+1',d:'Zu Beginn deines Zuges bekommt eine andere deiner Pflanzen (oder sie selbst, wenn sie allein ist) dauerhaft +1 ⚔️ und +1 ❤️.',
+    turn:function(pi,m){var o=others(pi,m);var x=o.length?o[Math.floor(Math.random()*o.length)]:m;x.atk+=1;x.hp+=1;x.maxHp+=1;fxFloatMon(x.uid,'+1/+1','info');}},
+  orchidee:{i:'🔷',n:'Prismastrahl',s:'3 an stärksten Gegner',d:'Beim Pflanzen: 3 Schaden an die gegnerische Pflanze mit dem meisten ⚔️.',
+    can:function(pi){return G.players[1-pi].board.length>0;},enter:function(pi,m){var b=G.players[1-pi].board.filter(function(x){return x.hp>0;}).sort(function(x,y){return y.atk-x.atk;})[0];if(b)dealDamage(b,3,null);}},
+  drachenbaum:{i:'🩸',n:'Harzpanzer',s:'Max. 3 Schaden je Treffer',d:'Erleidet pro Treffer höchstens 3 Schaden.',cap:3},
+  baobab:{i:'🌳',n:'Lebensbaum',s:'Jeden Zug: alle +1 ❤️, du +2',d:'Zu Beginn deines Zuges: deine Pflanzen heilen 1 ❤️ und du +2 ❤️.',
+    turn:function(pi,m){healHero(pi,2);G.players[pi].board.forEach(function(x){healMon(x,1);});}},
+  titanwurz:{i:'🌋',n:'Riesenblüte',s:'Alle Gegner 🧪 + 1 Schaden',d:'Beim Pflanzen: Alle gegnerischen Pflanzen erleiden 1 Schaden und werden vergiftet 🧪.',
+    can:function(pi){return G.players[1-pi].board.length>0;},enter:function(pi,m){G.players[1-pi].board.slice().forEach(function(x){if(x.hp<=0)return;dealDamage(x,1,null);if(x.hp>0&&!x.poisoned){x.poisoned=true;try{fxPoison(x.uid);}catch(e){}}});}},
+  mega_edelweiss:{i:'🏔️',n:'Alpenglühen',s:'Alle Freunde +2 ❤️',d:'Beim Entstehen bekommen alle deine anderen Pflanzen dauerhaft +2 ❤️.',
+    can:function(pi,m){return others(pi,m).length>0;},enter:function(pi,m){others(pi,m).forEach(function(x){x.hp+=2;x.maxHp+=2;fxFloatMon(x.uid,'+2 ❤️','heal');});}},
+  mega_kanne:{i:'🫖',n:'Großer Hunger',s:'Sieg: +2 ⚔️ & heilt',d:'Besiegt sie eine Pflanze, bekommt sie +2 ⚔️ und heilt sich vollständig.',
+    can:function(pi,m){return m.hp>0;},kill:function(pi,m){m.atk+=2;healMon(m,m.maxHp);fxFloatMon(m.uid,'+2 ⚔️','info');}},
+  mega_blaulotus:{i:'💧',n:'Lotusquelle',s:'Alle heilen 2',d:'Zu Beginn deines Zuges: deine Pflanzen heilen 2 ❤️ und du +2 ❤️.',
+    turn:function(pi,m){healHero(pi,2);G.players[pi].board.forEach(function(x){healMon(x,2);});}},
   mega_ratte:{i:'🌼',n:'Samenflut',s:'Jeden Zug Pusteblume',d:'Zu Beginn deines Zuges wächst eine Pusteblume (1/1) dazu.',
     can:function(pi){return G.players[pi].board.length<MAX_BOARD;},turn:function(pi,m){spawnToken(pi,'ratte','Pusteblume',1,1,m);}},
   mega_fleder:{i:'💧',n:'Nektarquelle',s:'Heilt dich & sich',d:'Du und sie heilen so viel ❤️, wie sie Schaden macht.',
@@ -8441,7 +8494,7 @@ function has(m,a){return m.ab.indexOf(a)>=0;}
 function isDu(p){return p.name==='Du';}
 
 function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
-function makeDeck(){var d=[];MONSTERS.forEach(function(m){for(var c=0;c<DECK_COPIES;c++)d.push(m.id);});SPELLS.forEach(function(x){for(var c=0;c<SPELL_COPIES;c++)d.push(x.id);});return shuffle(d).map(function(id){return {uid:++uidc,id:id};});}
+function makeDeck(){var d=[];MONSTERS.forEach(function(m){var n=RARITY[rarOf(m.id)].copies;for(var c=0;c<n;c++)d.push(m.id);});SPELLS.forEach(function(x){for(var c=0;c<SPELL_COPIES;c++)d.push(x.id);});return shuffle(d).map(function(id){return {uid:++uidc,id:id};});}
 function newPlayer(name,hid){var h=HBYID[hid]||HEROES[0];return {name:name,hero:h.id,face:h.face,hp:MAX_HP,maxMana:0,mana:0,deck:makeDeck(),hand:[],board:[],traps:[],fatigue:0,turns:0,powerUsed:false};}
 function who(p,du,er){return isDu(p)?du:p.name+' '+er;}
 
@@ -8866,7 +8919,7 @@ async function aiPlayPhase(me,gen,late){
   }
 }
 // Schaden, der tatsächlich ankommt (Schild, Steinhaut, Bergfestung)
-function effDmg(m,amt){if(m.shield)return 0;var s=spec(m);if(s&&s.armor)amt-=s.armor;var o=ownerOf(m);if(o>=0&&G.players[o].board.some(function(x){return x!==m&&x.sp==='bergkoloss'&&x.hp>0;}))amt-=1;return Math.max(0,amt);}
+function effDmg(m,amt){if(m.shield)return 0;var s=spec(m);if(s&&s.cap&&amt>s.cap)amt=s.cap;if(s&&s.armor)amt-=s.armor;var o=ownerOf(m);if(o>=0&&G.players[o].board.some(function(x){return x!==m&&x.sp==='bergkoloss'&&x.hp>0;}))amt-=1;return Math.max(0,amt);}
 function wouldKill(m,amt){var s=spec(m);return effDmg(m,amt)>=m.hp&&!(s&&s.revive&&!m.revived);}
 function aiMonValue(m){var s=spec(m);return (m.cost||1)*1.1+m.atk*.4+(s&&(s.turn||s.allyDeath)?2:0)+(m.fused?2:0);}
 function aiOptions(me,late){
@@ -9165,7 +9218,7 @@ var ACH=[
   {id:'flawless',     steam:'ACH_FLAWLESS',     i:'💎', n:'Makellos',       d:'Gewinne, ohne Schaden zu nehmen.'},
   {id:'close_call',   steam:'ACH_CLOSE_CALL',   i:'🍃', n:'Knapp!',         d:'Gewinne mit 3 ❤️ oder weniger.'},
   {id:'speed_win',    steam:'ACH_SPEED_WIN',    i:'⏱️', n:'Blitzsieg',      d:'Gewinne bis Runde 8.'},
-  {id:'all_monsters', steam:'ACH_ALL_MONSTERS', i:'📖', n:'Pflanzenkenner', d:'Pflanze jede der 12 Pflanzen.',       prog:function(){return countKeys(SAVE.summoned);}, goal:12},
+  {id:'all_monsters', steam:'ACH_ALL_MONSTERS', i:'📖', n:'Pflanzenkenner', d:'Pflanze 12 verschiedene Pflanzen.',       prog:function(){return countKeys(SAVE.summoned);}, goal:12},
   {id:'all_heroes',   steam:'ACH_ALL_HEROES',   i:'🧭', n:'Gartenreise',    d:'Spiele ein Duell mit jedem Gärtner.',    prog:function(){return countKeys(SAVE.heroesPlayed);}, goal:5},
   {id:'spells_10',    steam:'ACH_SPELLS_10',    i:'✨', n:'Zauberlehrling', d:'Wirke 10 Zauber.',                      stat:'spells',  goal:10},
   {id:'traps_5',      steam:'ACH_TRAPS_5',      i:'🪤', n:'Fallensteller',  d:'5 deiner Fallen schnappen zu.',         stat:'trapsFired', goal:5},
@@ -9314,7 +9367,7 @@ function renderCardArt(id){
     sc.add(new THREE.HemisphereLight(0xfaf6ff,0x9fc9c0,1.9));var dl=new THREE.DirectionalLight(0xfff4e6,2.4);dl.position.set(1.5,3,2.5);sc.add(dl);
     var rl=new THREE.DirectionalLight(0xc9b8ff,1.0);rl.position.set(-2,1.5,-2);sc.add(rl);
     var g=new THREE.Group();sc.add(g);var vis=null,an=null,ch=1;try{vis=makeModelVisual(id,g);}catch(err){vis=null;}
-    if(vis){an=vis.anim;ch=vis.info.h;var fw=vis.info.foot;var dd=Math.max(ch*1.25,fw*1.05)*2.1;cam.position.set(0,ch*.55+dd*.42,dd);cam.lookAt(0,ch*.45,0);g.rotation.y=-.3;an(0);an(0.45);if(vis.extras)vis.extras.forEach(function(e){if(e.glow)e.glow.visible=false;});}
+    if(vis){an=vis.anim;ch=vis.info.h;var fw=vis.info.foot;var dd=Math.max(ch*1.25,fw*1.05)*2.1;cam.position.set(0,ch*.55+dd*.42,dd);cam.lookAt(0,ch*.45,0);g.rotation.y=-.3;an(0);an(0.45);if(vis.extras)vis.extras.forEach(function(e){if(e.glow)e.glow.visible=false;if(e.rfx){e.rfx.pts.visible=false;if(e.rfx.gs)e.rfx.gs.visible=false;if(e.rfx.ring){e.rfx.ring.visible=false;e.rfx.disc.visible=false;}}});}
     else return null;
     var rt=new THREE.WebGLRenderTarget(W,H,{samples:renderer.capabilities.isWebGL2?4:0});
     var prevT=renderer.getRenderTarget(),pc=new THREE.Color();renderer.getClearColor(pc);var pa=renderer.getClearAlpha();
@@ -9555,7 +9608,9 @@ function fxAbility(uid,text){var r=E.mons[uid];if(!r||!E.ok)return;var s=toScree
   else if(ty==='shake')softBurst(c,[0x8fcf68,0xa6d77d,0xd8f0b0],12,{speed:1.4,up:.4,life:1100,size:.16,tex:'leaf',grav:-1.2});
   else if(ty==='glow'){softBurst(c,[0xffffff,0xc8fff0],14,{speed:.7,up:1.4,life:1200,size:.13,tex:'dot',add:true,grav:.5});shockwave(V3(r.g.position.x,.1,r.g.position.z),col,1.4,700);}
   else if(ty==='spin')softBurst(c,[0xf7c27a,0xffe6b8],12,{speed:1.8,life:800,size:.15,tex:'leaf',grav:-1});
-  else softBurst(monTop(r),[0xffd6ec,0xfff0f6,0xffe8a8],14,{speed:1.2,up:.8,life:1200,size:.17,grav:-.8});}
+  else softBurst(monTop(r),[0xffd6ec,0xfff0f6,0xffe8a8],14,{speed:1.2,up:.8,life:1200,size:.17,grav:-.8});
+  try{var rk=rarKey(r.id);if(rk==='l'){shockwave(V3(r.g.position.x,.1,r.g.position.z),0xffd060,2.0,800);softBurst(c,[0xffd76a,0xfff0b8],16,{speed:1.2,up:1.4,life:1300,size:.15,tex:'spark',add:true,grav:.4});}
+    else if(rk==='e')softBurst(c,[0xd8bcff,0xffffff],10,{speed:1,up:1.2,life:1100,size:.13,tex:'spark',add:true,grav:.4});}catch(err){}}
 function fxFloatMon(uid,text,cls){var r=E.mons[uid];if(!r||!E.ok)return;var s=toScreen(monTop(r));floatAtXY(s.x,s.y,text,cls);}
 function fxFloatHero(pi,text,cls){if(!E.ok)return;var s=toScreen(heroTop(pi));floatAtXY(s.x,s.y,text,cls);}
 
@@ -9939,7 +9994,7 @@ async function fxPit(uid){
 }
 
 /* ================= PFLANZEN (Meshy-Modelle CC0 + prozedurale Pflanzen) – keine Gesichter ================= */
-var GAME_VERSION='v18';
+var GAME_VERSION='v19';
 var ASSETS={ok:false,done:false,list:{},base:'assets/models/',arena:null};
 var PLANT_FILES=['sunflower','mushroom','thornvine','aloe','cactus','lavender','lotus','oak','crystalflower','pumpkin','rose','pine','bamboo'];
 // h = Höhe (Pflanzen-Einheiten), w = max. Breite, st = Steifigkeit (Exponent der Biegung), am = Wind-Amplitude, atk = Angriffsart, ab = Fähigkeits-Bewegung
@@ -9961,7 +10016,16 @@ var PDEF={
   todesritter:{a:'rose',h:1.7,w:1.0,st:1.4,am:1.0,atk:'lash',ab:'bloom',tint:0xffd6e6,vine:0x8f4a6a},
   pegasus:{a:'lotus',h:1.55,w:1.15,st:1.6,am:.8,atk:'petals',ab:'glow',tint:0xfff3dc,em:[0xffe2a8,.22],fly:.18,halo:true},
   bergkoloss:{a:'pine',h:2.25,w:1.3,st:2.6,am:.5,atk:'swing',ab:'shake'},
-  hydra:{a:'bamboo',h:2.05,w:1.15,cl:[[-.24,.05,1,0],[.26,-.02,.88,2.2],[.02,-.26,.78,4.1]],st:1.5,am:1.0,atk:'lash',ab:'shake',vine:0x6fae5a}
+  hydra:{a:'bamboo',h:2.05,w:1.15,cl:[[-.24,.05,1,0],[.26,-.02,.88,2.2],[.02,-.26,.78,4.1]],st:1.5,am:1.0,atk:'lash',ab:'shake',vine:0x6fae5a},
+  // v14 – seltene Pflanzen (prozedural, rares.js)
+  edelweiss:{proc:'edelweiss',h:.86,w:.95,st:1.6,am:.9,atk:'stars',ab:'bloom'},
+  kanne:{proc:'kanne',h:1.25,w:1.1,st:1.6,am:.8,atk:'nectar',ab:'hop'},
+  blaulotus:{proc:'blaulotus',h:1.05,w:1.2,st:1.8,am:.6,atk:'ripple',ab:'glow'},
+  mondblume:{proc:'mondblume',h:1.45,w:1.0,st:1.4,am:1.0,atk:'moon',ab:'glow'},
+  orchidee:{proc:'orchidee',h:1.45,w:1.05,st:1.5,am:.8,atk:'prism',ab:'glow'},
+  drachenbaum:{proc:'drachenbaum',h:1.9,w:1.2,st:2.4,am:.5,atk:'resin',ab:'shake'},
+  baobab:{proc:'baobab',h:2.0,w:1.3,st:2.8,am:.4,atk:'quake',ab:'bloom'},
+  titanwurz:{proc:'titanwurz',h:2.2,w:1.2,st:2.0,am:.55,atk:'bloomblast',ab:'spore'}
 };
 function plantDefFor(id){var t=MBYID[id];if(!t)return null;if(t.mega)return PDEF[t.base]?{def:PDEF[t.base],mega:true}:null;return PDEF[id]?{def:PDEF[id],mega:false}:null;}
 
@@ -10105,14 +10169,17 @@ function makeModelVisual(id,inner,token){
       as.parts.forEach(function(p,i){meshes.push(bendMesh(p.geo,pm0[i],U,sz.y,P,holder));});});
     if(def.pad){var pb0=new PB();buildPond(pb0);var pm=tint(procMat({side:THREE.FrontSide,roughness:.4}));var pond=bendMesh(pb0.geo(),pm,U,H,P,root);pond.castShadow=false;pond.receiveShadow=true;}
   }else{
-    var pb=new PB(),pbS=null;
-    if(def.proc==='dandelion')buildDandelion(pb,token);
+    var pb=new PB(),pbS=null,pg=null,RB=RARE_BUILD[def.proc];
+    if(RB){pg=new PB();RB.f(pb,pg);}
+    else if(def.proc==='dandelion')buildDandelion(pb,token);
     else if(def.proc==='maple'){pbS=new PB();buildMaple(pb,pbS);}
     else if(def.proc==='flytrap')heads=buildFlytrap(pb);
-    var g=pb.geo();g.computeBoundingBox();var top=g.boundingBox.max.y,sc=H/Math.max(.2,top+(def.proc==='maple'?.0:.08));
+    var g=pb.geo();g.computeBoundingBox();var top=g.boundingBox.max.y;var gg=null;if(pg&&pg.list.length){gg=pg.geo();gg.computeBoundingBox();top=Math.max(top,gg.boundingBox.max.y);}var sc=H/Math.max(.2,top+(def.proc==='maple'?.0:.08));
     if(def.proc==='maple'){var fl=new THREE.Group();fl.position.y=(def.fly||.4)*(mega?1.22:1);fl.scale.setScalar(mega?1.22:1);spin.add(fl);meshes.push(bendMesh(g,tint(procMat()),U,.5,1.2,fl));
       var sp=bendMesh(pbS.geo(),tint(procMat()),U,.5,1.2,root);sp.scale.setScalar(mega?1.3:1);extras.push({maple:fl});H=fl.position.y+.32*(mega?1.22:1);foot=.9;}
     else{var hold=new THREE.Group();hold.scale.setScalar(sc);root.add(hold);meshes.push(bendMesh(g,tint(procMat()),U,H/sc,P,hold));
+      if(gg){var gm=tint(procMat({roughness:RB.rough||.6,metalness:RB.metal||0}));gm.roughness=RB.rough||.6;gm.metalness=RB.metal||0;gm.emissive.set(RB.em);gm.emissiveIntensity=RB.ei*(mega?1.2:1);
+        gm.userData.baseEm=gm.emissive.clone();gm.userData.baseEI=gm.emissiveIntensity;meshes.push(bendMesh(gg,gm,U,H/sc,P,hold));}
       if(heads){var lg=geo('trapLobe',trapLobe);var lm=tint(procMat({side:THREE.FrontSide}));
         heads.forEach(function(h,k){var hg=new THREE.Group();hold.add(hg);var up=new THREE.Group(),dn=new THREE.Group();hg.add(up);hg.add(dn);
           var a=new THREE.Mesh(lg,lm),b=new THREE.Mesh(lg,lm);a.castShadow=b.castShadow=true;up.add(a);b.rotation.z=Math.PI;dn.add(b);
@@ -10123,6 +10190,7 @@ function makeModelVisual(id,inner,token){
   if(def.extra==='samaras'){var pbx=new PB();samaraGeo(pbx,[0,0,0],0,.7);var sg=pbx.geo();var ring=new THREE.Group();ring.position.y=H*.82;root.add(ring);
     var sm=tint(procMat());for(var i=0;i<3;i++){var m3=new THREE.Mesh(sg,sm);m3.castShadow=true;m3.position.set(Math.cos(i/3*6.283)*.5,0,Math.sin(i/3*6.283)*.5);ring.add(m3);}extras.push({orbit:ring,y:H*.82});}
   if(def.halo){var hs=new THREE.Sprite(new THREE.SpriteMaterial({map:dotTex,color:0xfff0c0,transparent:true,opacity:.45,blending:THREE.AdditiveBlending,depthWrite:false}));hs.scale.set(1.6,1.6,1);hs.position.y=H*.75;root.add(hs);extras.push({glow:hs});}
+  try{addRarityFX(root,id,H,foot,extras);}catch(err){console.warn('rarity fx',err);}
   var vis={info:{h:H,s:1,bh:H,foot:foot},mats:mats,parts:[],noClips:true,hasDeath:false,U:U,def:def,P:P,H:H,lobes:lobes,open:1,flashT:0,spin:spin,extras:extras,
     play:function(){},
     flash:function(col,ms){vis.flashT=performance.now();vis.flashC=col!=null?new THREE.Color(col):FLASHC;vis.flashMs=ms||300;vis.flashI=col!=null?.32:.38;}};
@@ -10134,7 +10202,8 @@ function makeModelVisual(id,inner,token){
       L.g.rotation.x=-.12-U.uB.value.y*.9;L.g.rotation.z=U.uB.value.x*.9;});
     extras.forEach(function(e){if(e.maple){e.maple.rotation.y=t*(1.6+(vis.spinBoost||0));e.maple.position.y=(def.fly||.4)*(mega?1.22:1)+Math.sin(t*1.9)*.05;}
       if(e.orbit){e.orbit.rotation.y=t*.9+(vis.spinBoost||0)*t;bendAt(U,H,P,0,e.y,0,_o);e.orbit.position.copy(_o);}
-      if(e.glow){e.glow.material.opacity=.35+Math.sin(t*1.8)*.1+(vis.glowBoost||0);}});
+      if(e.glow){e.glow.material.opacity=.35+Math.sin(t*1.8)*.1+(vis.glowBoost||0);}
+      if(e.rfx)rarityTick(e.rfx,t);});
     if(def.fly&&def.a){spin.position.y=Math.sin(t*1.7)*.05;}
   };
   return vis;
@@ -10146,7 +10215,10 @@ var ATK_P={ // W=Ausholen, S=Schlag, F=Nachschwingen (ms); bw/bs = Biegung zurü
   puff:{W:300,S:120,F:560,bw:.08,bs:.1,qw:.72,qs:1.22},spines:{W:280,S:90,F:520,bw:.2,bs:.2,qw:.86,qs:1.1,jig:1},
   swing:{W:380,S:210,F:760,bw:.22,bs:.42,side:.3,fl:.035},seeds:{W:260,S:130,F:560,bw:.38,bs:.62},dive:{W:200,S:200,F:500,bw:.1,bs:.1},
   squirt:{W:260,S:110,F:520,bw:.22,bs:.32,qw:.86,qs:1.12},scent:{W:300,S:150,F:660,bw:.42,bs:.66,wave:.16},petals:{W:300,S:150,F:560,bw:.14,bs:.2,qw:.88,qs:1.14,fl:.025},
-  flare:{W:340,S:150,F:600,bw:.24,bs:.4,qw:.9,qs:1.12},burst:{W:280,S:140,F:560,bw:.05,bs:.08,qw:.76,qs:1.2,hop:.25}};
+  flare:{W:340,S:150,F:600,bw:.24,bs:.4,qw:.9,qs:1.12},burst:{W:280,S:140,F:560,bw:.05,bs:.08,qw:.76,qs:1.2,hop:.25},
+  stars:{W:300,S:150,F:600,bw:.2,bs:.3,qw:.88,qs:1.12,fl:.02},nectar:{W:300,S:120,F:560,bw:.26,bs:.4,qw:.82,qs:1.16},ripple:{W:320,S:150,F:620,bw:.12,bs:.18,qw:.86,qs:1.14,fl:.02},
+  moon:{W:360,S:170,F:640,bw:.3,bs:.42,wave:.12},prism:{W:380,S:160,F:640,bw:.24,bs:.36,qw:.9,qs:1.14},resin:{W:400,S:210,F:760,bw:.2,bs:.36,side:.25,fl:.03},
+  quake:{W:460,S:230,F:820,bw:.14,bs:.3,side:.18,qw:.86,qs:1.12,hop:.12,fl:.03},bloomblast:{W:420,S:170,F:760,bw:.1,bs:.18,qw:.7,qs:1.26,fl:.02}};
 function atkTiming(r){var p=ATK_P[(r.vis&&r.vis.def&&r.vis.def.atk)||'lash']||ATK_P.lash;return p;}
 var MOTION_COL={bloom:0xffd6ec,spore:0xe8f0c8,glow:0xbff7ea,shake:0xd8f0b0,spin:0xffd8a8,hop:0xfff0b0};
 function motionKind(id){var pd=plantDefFor(id);return pd?pd.def.atk:'lash';}
@@ -10185,6 +10257,7 @@ function motionTick(r,t,now){
   }
   // Wachsen beim Pflanzen
   var gT=r.growT!=null?(now-r.growT)/800:1;
+  var hid=gT<0;if(r.inner&&r.inner.visible===hid)r.inner.visible=!hid;
   if(gT<1){var gk=Math.max(0,gT);var el=gk<=0?0:1-Math.pow(2,-9*gk)*Math.cos(gk*Math.PI*2.4);sq*=Math.max(.02,el);sxz=.35+.65*Math.min(1,easeOut(gk*1.3));bx+=.12*Math.sin(gk*9)*(1-gk);}
   if(U){U.uB.value.set(bx,bz);U.uFl.value=fl;U.uSq.value=sq;U.uWv.value.set(wv,wph,wf);}
   else{mo.rotation.set(bz*.8,0,-bx*.8);}
@@ -10211,13 +10284,13 @@ function softBurst(pos,cols,n,o){if(!E.ok)return;o=o||{};var p=new Float32Array(
     var a=Math.random()*Math.PI*2,u=Math.random()*2-1,sp=(o.speed||2)*(.4+Math.random()*.6),rr=Math.sqrt(1-u*u);v.push(Math.cos(a)*rr*sp+(o.dx||0),Math.abs(u)*sp*(o.upB||1)+(o.up||0),Math.sin(a)*rr*sp+(o.dz||0));
     C.set(cols[i%cols.length]);cl[i*3]=C.r;cl[i*3+1]=C.g;cl[i*3+2]=C.b;}
   var g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(p,3));g.setAttribute('color',new THREE.BufferAttribute(cl,3));
-  var m=new THREE.PointsMaterial({vertexColors:true,size:o.size||.16,map:o.tex==='leaf'?leafTex():o.tex==='dot'?dotTex:petalTex(),transparent:true,depthWrite:false,alphaTest:o.add?0:.05,blending:o.add?THREE.AdditiveBlending:THREE.NormalBlending});
+  var m=new THREE.PointsMaterial({vertexColors:true,size:o.size||.16,map:o.tex==='leaf'?leafTex():o.tex==='dot'?dotTex:o.tex==='spark'?sparkTex():petalTex(),transparent:true,depthWrite:false,alphaTest:o.add?0:.05,blending:o.add?THREE.AdditiveBlending:THREE.NormalBlending});
   var pts=new THREE.Points(g,m);scene.add(pts);E.fx.push({pts:pts,v:v,life:o.life||900,s:performance.now(),grav:o.grav!==undefined?o.grav:-2,drag:o.drag||.985});}
 // Geschoss entlang eines Bogens; resolve beim Einschlag
 function projectile(from,to,o){o=o||{};return new Promise(function(res){if(!E.ok){res();return;}
   var n=o.n||8,objs=[],grp=new THREE.Group();scene.add(grp);var ms=o.ms||300,arc=o.arc==null?.6:o.arc;
   for(var i=0;i<n;i++){var ob;if(o.spine){ob=new THREE.Mesh(geo('spineG',function(){var g=new THREE.ConeGeometry(.018,.22,4);g.rotateX(Math.PI/2);return g;}),geo('spineM',function(){return new THREE.MeshStandardMaterial({color:0xf3ecd2,roughness:.5});}));}
-    else{ob=new THREE.Sprite(new THREE.SpriteMaterial({map:o.tex==='leaf'?leafTex():o.tex==='dot'?dotTex:petalTex(),color:o.cols?o.cols[i%o.cols.length]:(o.col||0xffffff),transparent:true,depthWrite:false,blending:o.add?THREE.AdditiveBlending:THREE.NormalBlending,rotation:Math.random()*6}));var z=(o.size||.18)*(.7+Math.random()*.6);ob.scale.set(z,z,1);}
+    else{ob=new THREE.Sprite(new THREE.SpriteMaterial({map:o.tex==='leaf'?leafTex():o.tex==='dot'?dotTex:o.tex==='spark'?sparkTex():petalTex(),color:o.cols?o.cols[i%o.cols.length]:(o.col||0xffffff),transparent:true,depthWrite:false,blending:o.add?THREE.AdditiveBlending:THREE.NormalBlending,rotation:Math.random()*6}));var z=(o.size||.18)*(.7+Math.random()*.6);ob.scale.set(z,z,1);}
     grp.add(ob);objs.push({o:ob,j:new THREE.Vector3((Math.random()-.5),(Math.random()-.5),(Math.random()-.5)).multiplyScalar(o.jit==null?.35:o.jit),d:(o.stagger||0)*i/n*ms});}
   var t0=performance.now(),last=0,prev=new THREE.Vector3();var P=new THREE.Vector3();
   var tick=function(){var now=performance.now(),all=true;
@@ -10286,11 +10359,19 @@ async function fxLunge(uid,target){
     case 'flare':flashSprite(hp,0xffb070,2.6,360);impact=projectile(hp,tp,{n:12,ms:300,arc:.4,cols:[0xffb070,0xffd9a0,0xff8a5c],size:.24,tex:'petal',add:true,jit:.3,stagger:.3,trail:true,trailCols:[0xffc890]});break;
     case 'swing':impact=projectile(hp,tp,{n:12,ms:320,arc:.4,cols:[0x7fbf5a,0xa6d77d,0x5f9e48],size:.2,tex:'leaf',jit:.5,stagger:.35});break;
     case 'burst':impact=projectile(hp,tp,{n:12,ms:340,arc:.9,cols:[0xfff1c8,0xf4d79a],size:.2,tex:'petal',jit:.3,stagger:.4});break;
+    case 'stars':impact=projectile(hp,tp,{n:12,ms:400,arc:.75,cols:[0xffffff,0xf2f6ee,0xfff6d8],size:.26,tex:'spark',add:false,jit:.45,stagger:.45,trail:true,trailCols:[0xffffff]});break;
+    case 'nectar':impact=projectile(hp,tp,{n:12,ms:320,arc:.85,cols:[0xffc84a,0xc9e86a,0xffa860],size:.22,tex:'dot',jit:.18,stagger:.35}).then(function(){softBurst(tp,[0xffc84a,0xe8f0a0],12,{speed:1.6,up:.6,life:600,size:.14,tex:'dot',grav:-3});});break;
+    case 'ripple':impact=projectile(hp,tp,{n:12,ms:420,arc:.7,cols:[0x8fb8ff,0xd8e8ff,0x5f8cff],size:.24,tex:'petal',jit:.4,stagger:.45,trail:true,trailCols:[0xbcd4ff]}).then(function(){shockwave(V3(tp.x,.12,tp.z),0x8fb8ff,1.3,600);});break;
+    case 'moon':flashSprite(hp,0xd8ecff,2.4,360);impact=beamStrike(hp,tp,0xcfe4ff,190).then(function(){softBurst(tp,[0xffffff,0xd8ecff],12,{speed:1.3,up:.5,life:900,size:.16,tex:'petal',grav:-.6});});break;
+    case 'prism':flashSprite(hp,0xe0d0ff,2.6,380);impact=Promise.all([beamStrike(hp,tp,0xc8a8ff,180),beamStrike(hp.clone().add(V3(.08,.06,0)),tp,0x9fd8ff,200),beamStrike(hp.clone().add(V3(-.08,.04,0)),tp,0xffb8e8,220)]).then(function(){softBurst(tp,[0xd8bcff,0xbfe8ff,0xffd0f0],16,{speed:1.8,life:700,size:.14,tex:'spark',add:true,grav:0});});break;
+    case 'resin':impact=projectile(hp,tp,{n:12,ms:340,arc:.45,cols:[0xc8141e,0xff5040,0x7fbf5a],size:.2,tex:'dot',jit:.4,stagger:.35,trail:true,trailCols:[0xff4a3a],add:false});break;
+    case 'quake':impact=projectile(hp,tp,{n:14,ms:380,arc:.5,cols:[0x7fbf5a,0xa6d77d,0xffd76a],size:.22,tex:'leaf',jit:.5,stagger:.35}).then(function(){shockwave(V3(tp.x,.1,tp.z),0xffd060,1.8,650);softBurst(V3(tp.x,.2,tp.z),[0xb39363,0xd8c49a],14,{speed:1.6,up:1.2,life:700,size:.13,tex:'dot',grav:-3});E.shake=Math.max(E.shake,.28);});break;
+    case 'bloomblast':softBurst(hp,[0xffd76a,0xb83a5a,0xfff0c0],18,{speed:1.1,up:.5,life:1000,size:.3,tex:'dot',grav:.2});impact=projectile(hp,tp,{n:18,ms:420,arc:.8,cols:[0xffd870,0xd0506a,0xfff0c0],size:.3,tex:'petal',jit:.5,stagger:.45,trail:true,trailCols:[0xffe090]}).then(function(){shockwave(V3(tp.x,.1,tp.z),0xffc050,1.7,650);flashSprite(tp,0xffe0a0,2.2,320);});break;
     default:impact=projectile(hp,tp,{n:8,ms:300});}
   await impact;
   flashSprite(tp,0xffffff,1.5,260);
   if(kind!=='lash'&&kind!=='snap')softBurst(tp,[0xffffff,0xfff0d0],8,{speed:1.6,life:450,size:.12,tex:'dot',add:true,grav:0});
-  E.shake=Math.max(E.shake,kind==='swing'?.2:.12);
+  E.shake=Math.max(E.shake,kind==='swing'||kind==='resin'?.2:.12);
   setTimeout(function(){r.lock=false;},Math.max(0,p.F-200));
 }
 
@@ -10303,6 +10384,7 @@ function fxSummon(r){
   tween(900,function(t){var s=.4+t*1.1;rip.scale.set(s,s,s);rip.material.opacity=.7*(1-t);if(t>=1){scene.remove(rip);rip.material.dispose();}},easeOut);
   softBurst(V3(pos.x,.12,pos.z),[0xa58a6a,0xc2a882,0x8fcf68],12,{speed:1.1,up:1.2,life:700,size:.11,tex:'dot',grav:-3,spread:.5});
   setTimeout(function(){softBurst(V3(pos.x,.6,pos.z),[0xa6d77d,0xd8f0b0,0xffffff],10,{speed:.8,up:.9,life:1100,size:.15,tex:'leaf',grav:-.5});},250);
+  try{fxRareEntrance(r);}catch(err){console.warn(err);}
 }
 function fxDeath(uid){
   var r=E.mons[uid];if(!r||!E.ok)return;
@@ -10343,6 +10425,186 @@ function renderAllCardArt(){
   if(!E.ok)return;var ids=MONSTERS.map(function(m){return m.id;});
   ids.forEach(function(id){try{var u=renderCardArt(id);if(u)setCardArt(id,u,true);}catch(err){console.warn(err);}});
   try{fillMonsterList();if(typeof G!=='undefined'&&G)render();}catch(e){}
+}
+
+/* ================= v14: Seltene Pflanzen (prozedural, ohne Gesichter) + Seltenheits-Effekte ================= */
+PB.prototype.addPB=function(o,p,r,s){var m=new THREE.Matrix4().compose(new THREE.Vector3(p?p[0]:0,p?p[1]:0,p?p[2]:0),new THREE.Quaternion().setFromEuler(new THREE.Euler(r?r[0]:0,r?r[1]:0,r?r[2]:0,'YXZ')),new THREE.Vector3(s?s[0]:1,s?s[1]:1,s?s[2]:1));
+  var self=this;o.list.forEach(function(g){var q=g.clone();q.applyMatrix4(m);self.list.push(q);});return this;};
+function aimRot(dx,dy,dz){var v=new THREE.Vector3(dx,dy,dz).normalize();var e=new THREE.Euler().setFromQuaternion(new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0,1,0),v),'YXZ');return [e.x,e.y,e.z];}
+// Rotationskörper; rf = Rüschen {n,a,ya}
+function latheGeo(prof,seg,rf){var g=new THREE.LatheGeometry(prof.map(function(p){return new THREE.Vector2(p[0],p[1]);}),seg||14);
+  if(rf){var pa=g.attributes.position,ymax=prof[prof.length-1][1]||1;for(var i=0;i<pa.count;i++){var x=pa.getX(i),y=pa.getY(i),z=pa.getZ(i),ph=Math.atan2(x,z),yn=Math.max(0,y/ymax),w=Math.sin(rf.n*ph)*yn*yn;
+    var k=1+rf.a*w;pa.setXYZ(i,x*k,y+(rf.ya||0)*Math.sin(rf.n*ph+1.3)*yn*yn,z*k);}}
+  g.computeVertexNormals();return g;}
+function ringPts(n,f){for(var i=0;i<n;i++)f(i/n*Math.PI*2,i);}
+
+/* ---- Edelweiß: filzige Rosette, weiße Sternblüten ---- */
+function edelHead(s){var h=new PB();
+  ringPts(10,function(a,i){h.add(leafGeo(.17*s*(i%2?.85:1),.048*s,{p:.55,q:.8,cup:.18,nu:5,nv:2}),0xdfe5da,0xffffff,[0,0,0],[1.36,a,0]);});
+  ringPts(7,function(a){h.add(leafGeo(.1*s,.035*s,{p:.55,q:.8,cup:.2,nu:4,nv:1}),0xe9eee4,0xffffff,[0,.012*s,0],[1.05,a+.22,0]);});
+  [[0,0],[.028,0],[-.028,0],[0,.028],[0,-.028],[.02,.02],[-.02,-.02]].forEach(function(c,k){h.add(new THREE.IcosahedronGeometry(.022*s,0),0xd9c070,0xfff0b0,[c[0]*s,.03*s+(k?0:.008*s),c[1]*s]);});
+  return h;}
+function buildEdelweiss(pb,pg){
+  ringPts(13,function(a,i){pb.add(leafGeo(.32*(i%2?.8:1),.065,{cup:.35,bend:-.12,nu:7,nv:2}),0x86a083,0xd3dfcc,[0,.02,0],[1.18+.1*(i%3),a,0]);});
+  var st=[[0,.62,.04,1.4],[.2,.5,.07,1.2],[-.19,.44,-.03,1.12]];
+  ringPts(8,function(a,i){pb.add(leafGeo(.2,.045,{cup:.4,bend:-.1,nu:6,nv:2}),0x8fa98c,0xdbe6d4,[0,.03,0],[.75+.1*(i%2),a+.4,0]);});
+  st.forEach(function(q){var top=[q[0],q[1],q[2]];pb.add(tubeGeo([[q[0]*.2,0,q[2]*.2],[q[0]*.7,q[1]*.5,q[2]*.6],top],.024,.016,8,5),0x95ab8f,0xc6d4bf);
+    pb.add(leafGeo(.13,.03,{nu:4,nv:1,cup:.3}),0x9fb59a,0xd8e3d2,[q[0]*.6,q[1]*.45,q[2]*.5],[1.0,Math.atan2(q[0],q[2]+.01)+.8,0]);
+    pg.addPB(edelHead(q[3]),top,[.42,0,0]);});
+}
+/* ---- Kannenpflanze: Kannen mit Deckel an Ranken ---- */
+function pitcher(s){var p=new PB();var prof=[[0,0],[.05,.004],[.085,.04],[.1,.1],[.097,.18],[.078,.25],[.07,.29],[.086,.32]].map(function(q){return [q[0]*s,q[1]*s];});
+  p.add(latheGeo(prof,14),0x86b84a,0xc8384c);p.add(flipGeo(latheGeo(prof.map(function(q){return [q[0]*.9,q[1]+.004*s];}),14)),0x4a0c1a,0x8a2234);
+  p.add(new THREE.TorusGeometry(.083*s,.014*s,5,16),0xe25466,0xff9a98,[0,.32*s,0],[Math.PI/2,0,0]);
+  p.add(leafGeo(.15*s,.085*s,{cup:.3,nu:5,nv:2,p:.6}),0x8c2638,0xd8606a,[0,.33*s,-.075*s],[-.75,0,0]);
+  // Streifen (Adern)
+  ringPts(5,function(a){p.add(new THREE.CylinderGeometry(.004*s,.004*s,.22*s,3),0x5f9a3a,0x9a2a3a,[Math.sin(a)*.1*s,.13*s,Math.cos(a)*.1*s],[0,0,0]);});
+  return p;}
+function buildKanne(pb,pg){
+  ringPts(7,function(a,i){pb.add(leafGeo(.4,.1,{cup:.3,bend:-.2,tipW:.3}),0x4a8a3a,0x9fd062,[0,.02,0],[1.1+.12*(i%2),a,0]);});
+  pb.add(tubeGeo([[0,0,0],[.03,.35,0],[-.02,.62,.02],[0,.8,0]],.03,.018,10,6),0x5b9a44,0x8cc565);
+  [[.55,.3],[.7,2.4],[.78,4.3]].forEach(function(q){pb.add(leafGeo(.26,.07,{cup:.3,bend:-.15}),0x4f9a40,0x9cd067,[0,q[0],0],[1.0,q[1],0]);});
+  var P=[[.33,.12,.16,1.25,[.12,.3,.05]],[-.34,.3,.06,1.0,[-.06,.5,0]],[.1,.66,-.16,.82,[.02,.75,-.02]],[-.12,.06,.3,.75,[0,.12,.12]]];
+  P.forEach(function(q){var top=[q[0],q[1]+.32*q[3]+.02,q[2]];pb.add(tubeGeo([q[4],[(q[4][0]+q[0])*.5,q[4][1]+.16,(q[4][2]+q[2])*.5],[q[0]*1.05,top[1]+.06,q[2]*1.05],[q[0],top[1]-.02,q[2]]],.008,.006,10,4),0x6aa84a,0x86b84a);
+    pb.addPB(pitcher(q[3]),[q[0],q[1],q[2]],[0,Math.atan2(q[0],q[2])+Math.PI,0]);
+    pg.add(new THREE.CircleGeometry(.07*q[3],10),0xffc85a,0xffe9a0,[q[0],q[1]+.27*q[3],q[2]],[-Math.PI/2,0,0]);});
+}
+/* ---- Blauer Lotus: Teich, spitze blaue Blüte ---- */
+function lotusFlower(s){var f=new PB();
+  ringPts(11,function(a){f.add(leafGeo(.3*s,.075*s,{p:.62,q:.9,cup:.35,nu:7,nv:2}),0xf2f6ff,0x3f6fe0,[0,0,0],[1.02,a,0]);});
+  ringPts(9,function(a){f.add(leafGeo(.25*s,.065*s,{p:.62,q:.9,cup:.4,nu:6,nv:2}),0xffffff,0x5a86f2,[0,.01*s,0],[.62,a+.3,0]);});
+  ringPts(6,function(a){f.add(leafGeo(.17*s,.05*s,{p:.62,q:.9,cup:.45,nu:5,nv:2}),0xffffff,0x86a8ff,[0,.02*s,0],[.28,a,0]);});
+  ringPts(14,function(a){f.add(new THREE.CylinderGeometry(.004*s,.006*s,.07*s,3),0xffd04a,0xfff0a0,[Math.sin(a)*.045*s,.05*s,Math.cos(a)*.045*s],[.35,a,0]);});
+  f.add(new THREE.CylinderGeometry(.035*s,.03*s,.04*s,10),0xe8d070,0xfff1b0,[0,.04*s,0]);return f;}
+function buildBlauLotus(pb,pg){
+  pb.add(new THREE.CylinderGeometry(.64,.68,.05,30),0x5aa6d8,0x9cd8f2,[0,0,0]);
+  pb.add(new THREE.TorusGeometry(.66,.035,5,30),0x9a9a86,0xc9c3ae,[0,.02,0],[Math.PI/2,0,0]);
+  [[.36,.16,.0,.22],[-.32,.24,1.8,.2],[.06,-.38,3.6,.18],[-.1,.36,5.0,.14]].forEach(function(q){pb.add(new THREE.CircleGeometry(q[3],14,.35,Math.PI*2-.7),0x4f9a4a,0x7cc46b,[q[0],.032,q[1]],[-Math.PI/2,q[2],0]);});
+  pb.add(tubeGeo([[0,0,0],[.03,.25,.02],[0,.5,.04]],.022,.018,8,5),0x4f8a46,0x7ab65a);
+  pg.addPB(lotusFlower(1),[0,.5,.04],[.32,0,0]);
+  pb.add(tubeGeo([[-.2,0,-.1],[-.26,.18,-.08],[-.28,.34,-.06]],.016,.013,8,5),0x4f8a46,0x7ab65a);
+  var bud=latheGeo([[0,0],[.045,.03],[.055,.08],[.04,.14],[0,.2]],8);pg.add(bud,0xe8f0ff,0x4a78e8,[-.28,.33,-.06],[.2,0,.15]);
+  pg.addPB(lotusFlower(.45),[.3,.03,.2],[0,0,0]);
+}
+/* ---- Mondblume: Rankende Winde, leuchtende weiße Trichterblüten ---- */
+function trumpet(s){var t=new PB();t.add(latheGeo([[.012,0],[.018,.1],[.032,.17],[.07,.215],[.14,.238],[.165,.244]].map(function(q){return [q[0]*s,q[1]*s];}),15,{n:5,a:.08,ya:.012*s}),0xbfe8c8,0xffffff);
+  ringPts(5,function(a){t.add(leafGeo(.15*s,.012*s,{nu:4,nv:1}),0xeaf8d8,0xf6fff0,[Math.sin(a)*.03*s,.1*s,Math.cos(a)*.03*s],[aimRot(Math.sin(a)*.6,.4,Math.cos(a)*.6)[0],a,0]);});
+  t.add(new THREE.IcosahedronGeometry(.02*s,0),0xfff4b0,null,[0,.17*s,0]);return t;}
+function buildMondblume(pb,pg){
+  ringPts(5,function(a){pb.add(leafGeo(.24,.13,{p:.42,q:1.1,cup:.3,bend:-.1}),0x2f6a3a,0x5f9e4e,[0,.02,0],[1.2,a,0]);});
+  pb.add(tubeGeo([[0,0,0],[0,.4,0],[0,.85,0],[0,1.05,0]],.018,.012,6,5),0x7a6a52,0x9a8a6a); // Stab
+  for(var v=0;v<2;v++){var pts=[];for(var i=0;i<=14;i++){var u=i/14,an=u*Math.PI*4.2+v*Math.PI;pts.push([Math.cos(an)*.075,u*1.02,Math.sin(an)*.075]);}
+    pb.add(tubeGeo(pts,.016,.01,40,5),0x3f7a3a,0x6aa84f);}
+  [[.12,1,.0],[.22,3.6,1],[.32,2.2,1],[.4,5.6,0],[.46,4.0,0],[.55,2.6,1],[.6,.9,1],[.68,4.8,1],[.72,3.2,0],[.8,1.5,0],[.84,5.3,1],[.93,1.9,0]].forEach(function(q){var y=q[0]*1.02,an=q[1];
+    pb.add(leafGeo(.22,.14,{p:.42,q:1.1,cup:.3,bend:-.08,nu:7,nv:2}),0x2f6e3a,0x62a452,[Math.cos(an)*.08,y,Math.sin(an)*.08],[1.05,Math.atan2(Math.cos(an),Math.sin(an)),0]);});
+  pg.addPB(trumpet(1.3),[0,1.04,.03],aimRot(0,1,.5));
+  pg.addPB(trumpet(1.2),[.12,.74,.06],aimRot(.75,.35,.6));
+  pg.addPB(trumpet(1.15),[-.12,.5,.06],aimRot(-.75,.3,.6));
+  pg.add(latheGeo([[0,0],[.02,.03],[.025,.08],[.012,.14],[0,.17]],6,{n:5,a:.2}),0xd6f0dc,0xffffff,[.09,.3,-.04],aimRot(.7,.6,-.2));
+}
+/* ---- Kristallorchidee: Kristallsplitter + gläserne Blüten am Bogen ---- */
+function orchidFlower(s){var f=new PB();
+  [0,2.15,-2.15].forEach(function(a){f.add(leafGeo(.14*s,.036*s,{p:.6,q:.8,cup:.15,nu:5,nv:1}),0xe0d4ff,0xffffff,[0,0,0],[0,0,a]);});
+  [1.15,-1.15].forEach(function(a){f.add(leafGeo(.125*s,.07*s,{p:.55,q:.9,cup:.2,nu:5,nv:2}),0xd8c8ff,0xfaf6ff,[0,0,.006*s],[0,0,a]);});
+  f.add(leafGeo(.11*s,.065*s,{p:.45,q:1,cup:.6,nu:5,nv:2}),0xa070f0,0xffc8f0,[0,-.01*s,.012*s],[-.7,0,Math.PI]);
+  f.add(new THREE.IcosahedronGeometry(.018*s,0),0xfff2b0,null,[0,.01*s,.02*s],null,[1,1.4,1]);return f;}
+function crystal(pb,p,r,s,c0,c1){pb.add(new THREE.OctahedronGeometry(.07,0),c0,c1,p,r,[s,s*3,s]);}
+function buildOrchidee(pb,pg){
+  ringPts(5,function(a,i){pb.add(leafGeo(.46-.06*(i%2),.13,{cup:.25,bend:.12,tipW:.45}),0x2c5f48,0x6fae84,[0,.06,0],[1.3-.12*(i%2),a+.4,0]);});
+  pb.add(new THREE.DodecahedronGeometry(.16,0),0x7a7a94,0xa6a6c0,[0,.03,0],null,[1.2,.45,1.1]);
+  [[.17,.02,.1,.4,.3,.9],[-.18,.02,.06,-.35,.2,.75],[.04,.02,-.18,.1,-.35,.7],[-.07,.02,.17,-.15,.4,.6],[.22,.02,-.1,.5,-.3,.55]].forEach(function(q){crystal(pg,[q[0],q[1]+.05,q[2]],[q[4],0,q[3]],q[5],0x8f6ee6,0xeee6ff);});
+  var sp=[[0,.05,0],[.02,.45,-.02],[.06,.85,0],[.2,1.08,.06],[.36,1.1,.1]];pb.add(tubeGeo(sp,.02,.012,16,5),0x5a7a52,0x8a7aa8);
+  var cv=new THREE.CatmullRomCurve3(sp.map(function(p){return new THREE.Vector3(p[0],p[1],p[2]);}));
+  [[.62,1],[.75,1],[.87,.9],[.98,.75]].forEach(function(q,k){var P=cv.getPointAt(q[0]);pg.addPB(orchidFlower(q[1]*1.25),[P.x,P.y-.04,P.z+.04],[.15,(k%2?.35:-.25),0]);});
+  pg.add(latheGeo([[0,0],[.025,.02],[.02,.05],[0,.07]],6),0xd8c8ff,0xffffff,[.37,1.06,.1]);
+}
+/* ---- Drachenbaum: verzweigter Stamm, Schopf-Rosetten, Drachenblut-Harz ---- */
+function buildDrachenbaum(pb,pg){
+  pb.add(latheGeo([[.0,0],[.19,0],[.15,.05],[.11,.14],[.1,.2]],10),0x857a68,0x9c8f7c);
+  pb.add(tubeGeo([[0,.05,0],[.02,.4,0],[0,.72,0]],.13,.1,8,8),0x968a76,0xb4a790);
+  var tips=[];
+  ringPts(4,function(a,i){var c=Math.cos(a+.4),s=Math.sin(a+.4);var E=[c*.26,1.0+.05*(i%2),s*.26];
+    pb.add(tubeGeo([[0,.68,0],[c*.1,.84,s*.1],E],.065,.045,8,6),0x9c8f7c,0xb8ab95);
+    [-.6,0,.6].forEach(function(d){var c2=Math.cos(a+.4+d),s2=Math.sin(a+.4+d);var T=[E[0]+c2*.18,E[1]+.2+.04*(i%2),E[2]+s2*.18];
+      pb.add(tubeGeo([E,[E[0]+c2*.08,E[1]+.12,E[2]+s2*.08],T],.042,.03,6,5),0xa49784,0xbcaf98);tips.push(T);});});
+  tips.forEach(function(T,k){var n=15;for(var j=0;j<n;j++){var a=j/n*Math.PI*2+k;var tilt=.3+.95*((j*7)%n)/n;
+      pb.add(leafGeo(.34-.06*tilt,.028,{p:.5,q:.6,nu:5,nv:1,bend:-.05*tilt}),0x2d6a4a,0x82c06e,T,[tilt,a,0]);}});
+  [[.09,.32,.05,.03],[-.07,.5,.07,.025],[.05,.6,-.08,.022],[.1,.18,-.03,.02]].forEach(function(q){pg.add(new THREE.IcosahedronGeometry(q[3],1),0xa8101c,0xff4a3a,[q[0],q[1],q[2]],null,[1,1.5,1]);});
+  [[.24,.02,.1],[-.2,.02,.16],[.05,.02,-.24]].forEach(function(q,i){pb.add(new THREE.DodecahedronGeometry(.07+.02*i,0),0x8a8a8a,0xb0aca0,q,[i,i*2,0],[1,.6,1]);});
+}
+/* ---- Baobab: Flaschenstamm, kleine Krone, leuchtende Blüten ---- */
+function buildBaobab(pb,pg){
+  pb.add(latheGeo([[0,0],[.34,0],[.37,.04],[.38,.2],[.38,.42],[.34,.66],[.25,.86],[.18,.97],[.155,1.02],[0,1.02]],20,{n:9,a:.035}),0x9e7f6d,0xc7a994);
+  ringPts(6,function(a,i){pb.add(new THREE.SphereGeometry(.1,7,5),0x8f7362,0xa88a76,[Math.sin(a)*.36,.02,Math.cos(a)*.36],[0,a,0],[1.4,.5,.8]);});
+  var tips=[];
+  ringPts(7,function(a,i){var c=Math.sin(a+.2),s=Math.cos(a+.2),L=.42+.1*(i%3);var E=[c*L,1.22+.08*(i%2),s*L];
+    pb.add(tubeGeo([[c*.05,.96,s*.05],[c*.2,1.08,s*.2],E],.065,.024,8,5),0xa88a76,0xc2a48e);tips.push(E);
+    if(i%2===0){var F=[c*L*.55-s*.18,1.32,s*L*.55+c*.18];pb.add(tubeGeo([[c*.2,1.08,s*.2],[c*.28-s*.08,1.2,s*.28+c*.08],F],.03,.016,6,4),0xa88a76,0xc2a48e);tips.push(F);}});
+  tips.forEach(function(T,k){[[0,.05,0,.17],[.09,.0,.06,.12],[-.08,.02,-.05,.11]].forEach(function(o){pb.add(new THREE.IcosahedronGeometry(o[3],1),0x4a8a3c,0x9fd06a,[T[0]+o[0],T[1]+o[1],T[2]+o[2]],[k,k*1.3,0],[1,.55,1]);});
+    if(k%2===0){var hp=[T[0]*.85,T[1]-.14,T[2]*.85];pg.add(tubeGeo([[T[0]*.88,T[1]-.02,T[2]*.88],hp],.006,.006,3,3),0x8a7a5a,null);
+      var fl=latheGeo([[0,0],[.03,.01],[.05,.04],[.065,.07],[.06,.075]],8,{n:5,a:.25});pg.add(fl,0xfff2d0,0xffffff,hp,[Math.PI,0,0]);
+      pg.add(new THREE.IcosahedronGeometry(.02,0),0xffd86a,null,[hp[0],hp[1]-.075,hp[2]]);}
+    else{pg.add(latheGeo([[0,0],[.03,.02],[.035,.07],[.02,.11],[0,.12]],7),0xc89a3a,0xffe08a,[T[0]*.9,T[1]-.2,T[2]*.9]);}});
+}
+/* ---- Titanwurz: riesiger Kolben in gerüschtem Hochblatt ---- */
+function buildTitanwurz(pb,pg){
+  pb.add(new THREE.SphereGeometry(.26,12,7),0x7a5a3e,0x9a7a56,[0,.02,0],null,[1,.35,1]);
+  ringPts(5,function(a,i){pb.add(leafGeo(.42,.16,{cup:.35,bend:-.25,tipW:.3}),0x2f6a3a,0x7cbf5a,[0,.03,0],[1.32,a+.6,0]);});
+  var prof=[[.12,0],[.2,.06],[.27,.16],[.33,.3],[.4,.44],[.5,.56],[.62,.66],[.7,.72]];
+  pb.add(latheGeo(prof,32,{n:8,a:.17,ya:.07}),0x7fa65a,0x9a4a62,[0,.04,0]);
+  pb.add(flipGeo(latheGeo(prof.map(function(q){return [q[0]*.96,q[1]+.012];}),32,{n:8,a:.17,ya:.07})),0x5a0c26,0xc2405e,[0,.04,0]);
+  ringPts(8,function(a){pb.add(new THREE.CylinderGeometry(.008,.006,.5,3),0x8fb06a,0x9a5a6e,[Math.sin(a+.2)*.33,.34,Math.cos(a+.2)*.33],aimRot(Math.sin(a+.2)*.55,1,Math.cos(a+.2)*.55));});
+  pg.add(latheGeo([[0,0],[.15,0],[.17,.2],[.16,.55],[.135,1.0],[.105,1.4],[.075,1.66],[.04,1.8],[0,1.84]],14,{n:7,a:.035}),0xbd9a4e,0xf8e6a8,[0,.05,0]);
+}
+var RARE_BUILD={edelweiss:{f:buildEdelweiss,em:0xf2f6ff,ei:.16,rough:.85},kanne:{f:buildKanne,em:0xffb84a,ei:.35,rough:.4},blaulotus:{f:buildBlauLotus,em:0x5f8cff,ei:.2,rough:.55},
+  mondblume:{f:buildMondblume,em:0xd6ecff,ei:.42,rough:.6},orchidee:{f:buildOrchidee,em:0xb08cff,ei:.4,rough:.25,metal:.15},drachenbaum:{f:buildDrachenbaum,em:0xff2a1a,ei:.5,rough:.3},
+  baobab:{f:buildBaobab,em:0xffd27a,ei:.4,rough:.6},titanwurz:{f:buildTitanwurz,em:0xffc050,ei:.4,rough:.5}};
+
+/* ---------- Seltenheits-Effekte: Funkeln, Glanz, Goldring ---------- */
+var SPARK_TEX=null;
+function sparkTex(){if(SPARK_TEX)return SPARK_TEX;var c=document.createElement('canvas');c.width=c.height=64;var x=c.getContext('2d');
+  var g=x.createRadialGradient(32,32,0,32,32,30);g.addColorStop(0,'rgba(255,255,255,1)');g.addColorStop(.18,'rgba(255,255,255,.75)');g.addColorStop(.45,'rgba(255,255,255,.12)');g.addColorStop(1,'rgba(255,255,255,0)');
+  x.fillStyle=g;x.fillRect(0,0,64,64);x.fillStyle='rgba(255,255,255,.95)';x.beginPath();x.moveTo(32,2);x.quadraticCurveTo(35,29,62,32);x.quadraticCurveTo(35,35,32,62);x.quadraticCurveTo(29,35,2,32);x.quadraticCurveTo(29,29,32,2);x.fill();
+  SPARK_TEX=new THREE.CanvasTexture(c);return SPARK_TEX;}
+var RAR_FX={s:{n:7,cols:[0xbfe2ff,0xffffff],size:.09,rise:.18,glow:0},e:{n:14,cols:[0xd8bcff,0xffffff,0xbfa0ff],size:.11,rise:.24,glow:.16,gcol:0xc8a8ff},
+  l:{n:22,cols:[0xffd76a,0xfff0b8,0xffc23a],size:.13,rise:.3,glow:.2,gcol:0xffd47a,ring:0xffcf5a}};
+function rarKey(id){var t=MBYID[id];var b=t&&t.mega?t.base:id;return typeof rarOf==='function'?(RAR[b]||'c'):'c';}
+function addRarityFX(root,id,H,foot,extras){var k=rarKey(id);var R=RAR_FX[k];if(!R)return;
+  var n=R.n,pos=new Float32Array(n*3),col=new Float32Array(n*3),seed=[],C=new THREE.Color(),rad=Math.max(.35,foot*.48);
+  for(var i=0;i<n;i++){seed.push({a:Math.random()*6.283,r:rad*(.55+Math.random()*.6),y:Math.random(),w:(.25+Math.random()*.4)*(i%2?1:-1),sp:.6+Math.random()*.7,tw:Math.random()*6});C.set(R.cols[i%R.cols.length]);col[i*3]=C.r;col[i*3+1]=C.g;col[i*3+2]=C.b;}
+  var g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(pos,3));g.setAttribute('color',new THREE.BufferAttribute(col,3));
+  var pts=new THREE.Points(g,new THREE.PointsMaterial({size:R.size,map:sparkTex(),vertexColors:true,transparent:true,opacity:.95,blending:THREE.AdditiveBlending,depthWrite:false}));pts.frustumCulled=false;root.add(pts);
+  var fx={rar:k,pts:pts,seed:seed,H:H,R:R};
+  if(R.glow){var gs=new THREE.Sprite(new THREE.SpriteMaterial({map:dotTex,color:R.gcol,transparent:true,opacity:R.glow,blending:THREE.AdditiveBlending,depthWrite:false}));gs.scale.set(foot*1.9,H*1.25,1);gs.position.y=H*.55;root.add(gs);fx.gs=gs;}
+  if(R.ring){var rg=new THREE.Mesh(geo('rarRing',function(){return new THREE.RingGeometry(.6,.66,56);}),new THREE.MeshBasicMaterial({color:R.ring,transparent:true,opacity:.55,blending:THREE.AdditiveBlending,depthWrite:false,side:THREE.DoubleSide}));
+    rg.rotation.x=-Math.PI/2;rg.position.y=.03;root.add(rg);fx.ring=rg;
+    var dg=new THREE.Mesh(geo('auraPlane',function(){return new THREE.PlaneGeometry(2.0,2.0);}),new THREE.MeshBasicMaterial({map:dotTex,color:R.ring,transparent:true,opacity:.28,blending:THREE.AdditiveBlending,depthWrite:false,side:2}));
+    dg.rotation.x=-Math.PI/2;dg.position.y=.025;root.add(dg);fx.disc=dg;
+    // kleine Goldrauten im Ring
+    var rp=new PB();ringPts(6,function(a){rp.add(new THREE.OctahedronGeometry(.035,0),0xffd060,0xfff2c0,[Math.sin(a)*.63,.06,Math.cos(a)*.63],null,[1,1.6,1]);});
+    var rm=new THREE.Mesh(rp.geo(),new THREE.MeshStandardMaterial({vertexColors:true,emissive:0xffb830,emissiveIntensity:.6,roughness:.3,metalness:.3}));root.add(rm);fx.gems=rm;}
+  extras.push({rfx:fx});return fx;}
+function rarityTick(fx,t){var p=fx.pts.geometry.attributes.position,a=p.array,H=fx.H,R=fx.R;
+  for(var i=0;i<fx.seed.length;i++){var s=fx.seed[i];var y=(s.y+t*R.rise*s.sp/Math.max(1,H))%1;var an=s.a+t*s.w;var rr=s.r*(1-.35*y);
+    a[i*3]=Math.cos(an)*rr;a[i*3+1]=.1+y*H*1.15;a[i*3+2]=Math.sin(an)*rr;}
+  p.needsUpdate=true;fx.pts.material.opacity=.75+.25*Math.sin(t*3.1);fx.pts.material.size=R.size*(.85+.15*Math.sin(t*5.3));
+  if(fx.gs)fx.gs.material.opacity=R.glow*(.8+.3*Math.sin(t*1.6));
+  if(fx.ring){fx.ring.material.opacity=.38+.2*Math.sin(t*2.0);fx.ring.rotation.z=t*.3;fx.gems.rotation.y=t*.45;fx.gems.position.y=Math.sin(t*1.7)*.02;fx.disc.material.opacity=.2+.08*Math.sin(t*2.0);}}
+
+/* ---------- Auftritt nach Seltenheit ---------- */
+function fxRareEntrance(r){var k=rarKey(r.id);if(k==='c')return;var pos=r.g.position.clone(),now=performance.now();
+  if(k==='s'){setTimeout(function(){softBurst(V3(pos.x,.5,pos.z),[0xbfe2ff,0xffffff],12,{speed:.8,up:1.2,life:1100,size:.14,tex:'dot',add:true,grav:.4});},200);return;}
+  var gold=k==='l',col=gold?0xffd060:0xc8a0ff;
+  if(gold)r.growT=now+650;else r.growT=now+250;
+  var pil=new THREE.Mesh(geo('pillarG',function(){var g=new THREE.CylinderGeometry(.42,.6,5,20,1,true);g.translate(0,2.5,0);return g;}),new THREE.MeshBasicMaterial({map:dotTex,color:col,transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false,side:THREE.DoubleSide}));
+  pil.position.set(pos.x,0,pos.z);scene.add(pil);
+  tween(gold?1500:1000,function(t){var a=t<.3?t/.3:1-(t-.3)/.7;pil.material.opacity=(gold?.75:.5)*a;pil.scale.set(1-.5*t,.4+.8*Math.min(1,t*2.2),1-.5*t);pil.rotation.y=t*2;if(t>=1){scene.remove(pil);pil.material.dispose();}});
+  shockwave(V3(pos.x,.1,pos.z),col,gold?2.6:1.6,gold?900:700);
+  softBurst(V3(pos.x,.3,pos.z),gold?[0xffd060,0xfff2c0,0xffb030]:[0xd8bcff,0xffffff],gold?30:16,{speed:1.4,up:2.4,life:1500,size:.16,tex:'dot',add:true,grav:.3,spread:.6});
+  if(gold){setTimeout(function(){if(!E.ok)return;flashSprite(V3(pos.x,2.3,pos.z),0xfff0b0,2.8,480);shockwave(V3(pos.x,.1,pos.z),0xffd980,2.8,800);E.shake=Math.max(E.shake,.32);
+      softBurst(V3(pos.x,1.2,pos.z),[0xffd76a,0xfff0b8,0xffffff],34,{speed:2.6,up:1.2,life:1700,size:.2,tex:'petal',grav:-.8,drag:.97});
+      try{var s=toScreen(V3(pos.x,2.4,pos.z));floatAtXY(s.x,s.y,'✦ Legendär ✦','abil leg');}catch(err){}},650);}
+  else setTimeout(function(){if(!E.ok)return;flashSprite(V3(pos.x,.9,pos.z),0xe8d8ff,2.6,400);softBurst(V3(pos.x,1,pos.z),[0xd8bcff,0xffffff,0xbfa0ff],18,{speed:1.6,up:.8,life:1300,size:.15,tex:'petal',grav:-.6});},250);
 }
 
 /* ================= Echoarena =================
@@ -10646,7 +10908,7 @@ function showInfo(m,isCard){
     var t=MBYID[m.id]||m;var s=m.token?null:specOf(isCard?m.id:(m.sp||m.id));
     var stats=isCard?('💎'+t.cost+' ⚔️'+t.atk+' ❤️'+t.hp):('⚔️'+m.atk+' ❤️'+Math.max(0,m.hp)+'/'+m.maxHp+(m.shield?' 🛡️':'')+(m.frozen||m.stunned?' 🧊':''));
     var ab=isCard?t.ab:m.ab;
-    var html='<div class="ih">'+(m.emoji||t.emoji)+' <b>'+(m.name||t.name)+'</b> <span class="is">'+stats+'</span></div>'+
+    var html='<div class="ih">'+(m.emoji||t.emoji)+' <b>'+(m.name||t.name)+'</b> '+(m.token?'':rarTag(t.id||m.id))+' <span class="is">'+stats+'</span></div>'+
       (ab.length?'<div class="ik">'+ab.map(function(a){return ABIL[a].icon+' '+ABIL[a].name;}).join(' · ')+'</div>':'')+
       (s?'<div class="isp">'+s.i+' <b>'+s.n+':</b> '+s.d+'</div>':(m.token?'<div class="ik">Keimling ohne eigene Fähigkeit.</div>':''))+
       ((m.frozen||m.stunned)?'<div class="ik">🧊 Erstarrt – kann diesen Zug nicht angreifen.</div>':'');
@@ -10671,9 +10933,10 @@ function heroHTML(pi,isActive,targetable,showBacks){
 var CARD_ART={};
 function setCardArt(id,url,quiet){CARD_ART[id]=url;try{var st=document.createElement('style');st.textContent='.art-'+id+'{background:url('+url+') center/contain no-repeat}.card .emo.art{width:100%;height:calc(var(--cw)*.6);margin:calc(var(--cw)*.06) auto 0;filter:drop-shadow(0 3px 3px rgba(0,0,0,.55))}.artmini{display:inline-block;width:2.4em;height:1.6em;vertical-align:middle}';document.head.appendChild(st);}catch(e){}
   if(quiet)return;try{if(document.getElementById('monsterList'))fillMonsterList();if(typeof G!=='undefined'&&G)render();}catch(e){}}
-function fillMonsterList(){$('monsterList').innerHTML=MONSTERS.map(function(m){return '<div>'+(CARD_ART[m.id]?'<span class="art artmini art-'+m.id+'"></span>':m.emoji)+' <b>'+m.name+'</b><br>💎'+m.cost+' ⚔️'+m.atk+' ❤️'+m.hp+(m.ab.length?' · '+m.ab.map(function(a){return ABIL[a].icon+ABIL[a].name;}).join(', '):'')+'<br>'+specLine(m.id)+'</div>';}).join('');}
-function rarity(cost){return cost>=7?'leg':cost>=5?'epic':cost>=3?'rare':'com';}
-var SHORTN={ratte:'Löwenzahn',fleder:'Ahorn',wolf:'Sonnenbl.',schlange:'Ranke',skelett:'Pilz',fee:'Aloe',kroete:'Kaktus',greif:'Lavendel',einhorn:'Seerose',oger:'Falle',golem:'Eiche',drache:'Feuerlilie'};
+function fillMonsterList(){$('monsterList').innerHTML=MONSTERS.map(function(m){return '<div>'+(CARD_ART[m.id]?'<span class="art artmini art-'+m.id+'"></span>':m.emoji)+' <b>'+m.name+'</b> '+rarTag(m.id)+'<br>💎'+m.cost+' ⚔️'+m.atk+' ❤️'+m.hp+(m.ab.length?' · '+m.ab.map(function(a){return ABIL[a].icon+ABIL[a].name;}).join(', '):'')+'<br>'+specLine(m.id)+'</div>';}).join('');}
+function rarity(id){var r=typeof rarOf==='function'?rarOf(id):'c';return {c:'com',s:'rare',e:'epic',l:'leg'}[r]||'com';}
+function rarTag(id){var r=rarOf(id);return r==='c'?'':'<span class="rtag r'+r+'">'+RARITY[r].n+'</span>';}
+var SHORTN={edelweiss:'Edelweiß',kanne:'Kanne',blaulotus:'Bl. Lotus',mondblume:'Mondblume',orchidee:'Orchidee',drachenbaum:'Drachenb.',baobab:'Baobab',titanwurz:'Titanwurz',ratte:'Löwenzahn',fleder:'Ahorn',wolf:'Sonnenbl.',schlange:'Ranke',skelett:'Pilz',fee:'Aloe',kroete:'Kaktus',greif:'Lavendel',einhorn:'Seerose',oger:'Falle',golem:'Eiche',drache:'Feuerlilie'};
 var SHORTS={feuerball:'Sonne',heiltrank:'Tee',blitz:'Gewitter',verstaerkung:'Dünger',wissen:'Buch',frost:'Raureif',spiegel:'Tau',grube:'Stein',giftfalle:'Nessel'};
 function spellCardHTML(s,idx,playable,aimSel){
   return '<div class="card '+(s.type==='trap'?'trapc':'spellc')+' '+(playable?'play':'no')+(aimSel?' aim':'')+'" data-hidx="'+idx+'" title="'+s.name+' ('+s.cost+' Mana): '+s.d+'">'+
@@ -10681,7 +10944,7 @@ function spellCardHTML(s,idx,playable,aimSel){
 function handCardHTML(c,idx,playable,fuseHint,aimSel){
   if(SBYID[c.id])return spellCardHTML(SBYID[c.id],idx,playable,aimSel);
   var t=MBYID[c.id];var s=specOf(t.id);
-  return '<div class="card '+rarity(t.cost)+' '+(playable?'play':'no')+'" data-hidx="'+idx+'" title="'+abilTitle(t)+'">'+(fuseHint?'<span class="fhint" title="Kreuzung möglich mit: '+fuseHint+'">🌀</span>':(s?'<span class="spi">'+s.i+'</span>':''))+
+  return '<div class="card '+rarity(t.id)+' '+(playable?'play':'no')+'" data-hidx="'+idx+'" title="'+abilTitle(t)+'">'+(fuseHint?'<span class="fhint" title="Kreuzung möglich mit: '+fuseHint+'">🌀</span>':(s?'<span class="spi">'+s.i+'</span>':''))+
     '<span class="cost">'+t.cost+'</span>'+(CARD_ART[t.id]?'<div class="emo art art-'+t.id+'"></div>':'<div class="emo">'+t.emoji+'</div>')+'<div class="cn">'+(SHORTN[t.id]||t.name)+'</div>'+
     '<span class="badge atk">'+t.atk+'</span><span class="badge hpb">'+t.hp+'</span></div>';
 }
@@ -10745,7 +11008,7 @@ function init(){
       '<li>🌱 <b>Keimlinge</b> (z.&nbsp;B. Pusteblume, Pilzkeim) wachsen durch Fähigkeiten und haben keine eigene Fähigkeit.</li>'+
       '<li>🧊 <b>Erstarrt:</b> Die Pflanze kann in ihrem nächsten Zug nicht angreifen.</li>';
     $('fusionList').innerHTML='<div><b>2× gleiche Pflanze</b> → Mega-Pflanze: ⚔️ und ❤️ ×1,5 (gerundet), voll geheilt, 🌼 Blütenkranz + zusätzlich 🛡️ Schild (wer schon Schild hat, bekommt ⚡ Schnellwuchs; Ureiche und Sonnenlilie bekommen nichts extra) und eine neue Mega-Fähigkeit:</div>'+
-      MONSTERS.map(function(m){var mg=MBYID['mega_'+m.id];return '<div>'+m.emoji+' <b>'+mg.name+'</b> ⚔️'+mg.atk+' ❤️'+mg.hp+(mg.ab.length?' · '+kwLine(mg.ab):'')+'<br>'+specLine(mg.id)+'</div>';}).join('')+
+      MONSTERS.filter(function(m){return RARITY[rarOf(m.id)].copies>=2;}).map(function(m){var mg=MBYID['mega_'+m.id];return '<div>'+m.emoji+' <b>'+mg.name+'</b> ⚔️'+mg.atk+' ❤️'+mg.hp+(mg.ab.length?' · '+kwLine(mg.ab):'')+'<br>'+specLine(mg.id)+'</div>';}).join('')+
       RECIPES.map(function(r){var a=MBYID[r.a],b=MBYID[r.b];return '<div>'+a.emoji+' '+a.name+' + '+b.emoji+' '+b.name+' → <b>'+r.emoji+' '+r.name+'</b> ⚔️'+r.atk+' ❤️'+r.hp+' · '+kwLine(r.ab)+'<br>'+specLine(r.id)+'</div>';}).join('');
     fillMonsterList();
     $('heroList').innerHTML=HEROES.map(function(h){return '<div>'+h.face+' <b>'+h.name+'</b><br><span class="spl">'+h.pw.i+' <b>'+h.pw.n+'</b> ('+h.pw.cost+'💎): '+h.pw.d+'</span></div>';}).join('');

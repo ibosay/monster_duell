@@ -26,7 +26,7 @@ Alle Modelle wurden einzeln geprüft (keine Gesichter, keine Tiere oder Menschen
 CC0 verlangt keine Namensnennung – wir nennen die Urheber trotzdem gern.
 
 ## Eigene prozedurale Pflanzen (im Code erzeugt)
-Löwenzahn, Pusteblume, Ahornsamen, Fliegenfalle, Seerosen-Teich, Blütenkranz der Kreuzungen sowie alle Partikel (Pollen, Blütenblätter, Blätter, Sporen).
+Löwenzahn, Pusteblume, Ahornsamen, Fliegenfalle, Seerosen-Teich, Blütenkranz der Kreuzungen, die seltenen Pflanzen (Edelweiß, Kannenpflanze, Blauer Lotus, Mondblume, Kristallorchidee, Drachenbaum, Baobab, Titanwurz) mit ihren Seltenheits-Effekten sowie alle Partikel (Pollen, Blütenblätter, Blätter, Sporen, Funken). Eigene Arbeit, keine Fremd-Assets.
 
 ## Code-Bibliotheken (in index.html eingebettet)
 - **three.js** r158 (inkl. GLTFLoader, BufferGeometryUtils, EffectComposer, UnrealBloomPass, OutputPass) – MIT-Lizenz, © 2010-2023 three.js authors – https://github.com/mrdoob/three.js
