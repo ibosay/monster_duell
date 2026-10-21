@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8"><meta name="monster-duell-version" content="v11">
+<meta charset="UTF-8"><meta name="monster-duell-version" content="v12">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#bfe6e2">
@@ -266,6 +266,15 @@ header h1{background:linear-gradient(90deg,#3fb3a5,#9a7fe0);-webkit-background-c
 .pwi{background:#fff;border:1px solid #f2c26a}
 .trp i{background:linear-gradient(160deg,#ffe6ef,#f2b8cc);border:1px solid #fff;color:#b5587e}
 #jsWarn{background:rgba(240,122,142,.15)}
+/* ===== v12: dunkle Echoarena-Bühne (Farben wie in den Renderbildern) ===== */
+html,body{background:#141c20}
+header h1{background:linear-gradient(90deg,#7fe3d4,#c9b6ff);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 1px 1px rgba(0,0,0,.6))}
+header h1 .sprout,header .logo{filter:none}
+#log{background:rgba(20,34,38,.72);color:#dfe9e6;border:1px solid rgba(160,200,195,.28)}
+#log div{opacity:1}
+#turnInfo{color:#cfe0dc;text-shadow:0 1px 2px rgba(0,0,0,.6)}
+.overlay{background:rgba(14,22,26,.6)}
+.clbl{box-shadow:0 2px 10px rgba(0,0,0,.35)}
 </style>
 </head>
 <body>
@@ -9190,16 +9199,16 @@ function initEngine(){
   }catch(e){return false;}
   renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
   renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
-  renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.0;
-  scene=new THREE.Scene();scene.background=new THREE.Color(0xdcd6f2);scene.fog=new THREE.Fog(0xd9e4f0,24,60);
+  renderer.toneMapping=THREE.NoToneMapping;renderer.toneMappingExposure=1.0;
+  scene=new THREE.Scene();scene.background=new THREE.Color(0x141c20);scene.fog=new THREE.Fog(0x141c20,34,90);
   camera=new THREE.PerspectiveCamera(45,1,.1,120);
   raycaster=new THREE.Raycaster();ndc=new THREE.Vector2();
   dotTex=makeDotTex();
-  scene.add(new THREE.HemisphereLight(0xf4f0ff,0x8fbcb6,1.75));
-  var sun=new THREE.DirectionalLight(0xfff3e2,2.1);sun.position.set(5,13,7);sun.castShadow=true;
+  scene.add(new THREE.HemisphereLight(0xffffff,0x4f6466,1.6));
+  var sun=new THREE.DirectionalLight(0xfffaf2,1.3);sun.position.set(3,13,6);sun.castShadow=true;
   sun.shadow.mapSize.set(1024,1024);var sc=sun.shadow.camera;sc.left=-8;sc.right=8;sc.top=8;sc.bottom=-8;sc.near=2;sc.far=35;sun.shadow.bias=-.0006;sun.shadow.normalBias=.025;sun.shadow.radius=4;
   scene.add(sun);
-  var rim=new THREE.DirectionalLight(0xd8ccff,.7);rim.position.set(-6,5,-8);scene.add(rim);
+  var rim=new THREE.DirectionalLight(0xd8ccff,.35);rim.position.set(-6,5,-8);scene.add(rim);
   buildArena();
   setupQuality();
   E.ok=true;
@@ -9257,11 +9266,19 @@ function layout(){
   var vf=portrait?52:40;camera.fov=vf;camera.aspect=aspect;
   var tv=Math.tan(vf*Math.PI/360);
   E.phi=portrait?1.0:.9;
-  var halfW=portrait?3.9:4.1;
-  var dW=halfW/(tv*aspect)+1.5;
-  var dD=(portrait?4.3:4.5)/(tv*(avail/h));
-  E.d=Math.max(dW,dD,8);
-  camera.setViewOffset(w,h,0,(bot-top)/2,w,h);
+  // Ganze Echoarena (Schale, Lamellen, Ecken, beide Kerne) in den freien Bereich zwischen den UI-Leisten einpassen
+  E.phi=portrait?.98:.86;
+  var oy=(bot-top)/2,pad=portrait?6:14,pts=[],X=3.95,Z=5.12;
+  [-X,X].forEach(function(x){[-Z,Z].forEach(function(z){[-.72,.45].forEach(function(y){pts.push(new THREE.Vector3(x,y,z));});});});
+  pts.push(new THREE.Vector3(0,1.45,-4.1),new THREE.Vector3(0,1.45,4.1));
+  var fit=function(d){var hd=d*Math.cos(E.phi);camera.position.set(0,d*Math.sin(E.phi),hd);camera.lookAt(0,.4,0);camera.setViewOffset(w,h,0,oy,w,h);camera.updateProjectionMatrix();camera.updateMatrixWorld(true);
+    var y0=1e9,y1=-1e9,x0=1e9,x1=-1e9,v=new THREE.Vector3();pts.forEach(function(p){v.copy(p).project(camera);var sx=(v.x+1)/2*w,sy=(1-v.y)/2*h;x0=Math.min(x0,sx);x1=Math.max(x1,sx);y0=Math.min(y0,sy);y1=Math.max(y1,sy);});return [x0,x1,y0,y1];};
+  var lo=4,hi=60,r;
+  for(var it=0;it<3;it++){lo=4;hi=60;
+    for(var k=0;k<26;k++){var md=(lo+hi)/2;r=fit(md);if(r[0]>=pad&&r[1]<=w-pad&&r[2]>=top+pad&&r[3]<=h-bot-pad)hi=md;else lo=md;}
+    r=fit(hi);oy+=((r[2]+r[3])/2-(top+(h-bot))/2);}
+  E.d=hi;r=fit(E.d);
+  camera.setViewOffset(w,h,0,oy,w,h);
   camera.updateProjectionMatrix();
   E.uiTop=top;E.uiBot=bot;
 }
@@ -9566,13 +9583,11 @@ function fxFusionAppear(r){
 
 function buildSky(){
   var sky=new THREE.Mesh(new THREE.SphereGeometry(70,32,16),new THREE.ShaderMaterial({side:THREE.BackSide,depthWrite:false,fog:false,
-    uniforms:{top:{value:new THREE.Color(0xd9d0ff)},mid:{value:new THREE.Color(0xfdfbff)},bot:{value:new THREE.Color(0xe2f5f2)}},
+    uniforms:{top:{value:new THREE.Color(0x10171a)},mid:{value:new THREE.Color(0x172226)},bot:{value:new THREE.Color(0x121a1d)}},
     vertexShader:'varying vec3 vP;void main(){vP=normalize(position);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}',
-    fragmentShader:'uniform vec3 top;uniform vec3 mid;uniform vec3 bot;varying vec3 vP;void main(){float h=vP.y;vec3 c=h>0.0?mix(mid,top,smoothstep(0.02,0.7,h)):mix(mid,bot,smoothstep(0.0,-0.9,h));gl_FragColor=vec4(c,1.0);}'}));
+    fragmentShader:'uniform vec3 top;uniform vec3 mid;uniform vec3 bot;varying vec3 vP;void main(){float h=vP.y;vec3 c=h>0.0?mix(mid,top,smoothstep(0.02,0.7,h)):mix(mid,bot,smoothstep(0.0,-0.9,h));gl_FragColor=vec4(c,1.0);\n#include <colorspace_fragment>\n}'}));
   scene.add(sky);
-  var sunS=new THREE.Sprite(new THREE.SpriteMaterial({map:dotTex,color:0xfff6e0,transparent:true,opacity:.8,depthWrite:false,fog:false}));sunS.position.set(-26,26,-44);sunS.scale.set(16,16,1);scene.add(sunS);
-  var cm=new THREE.SpriteMaterial({map:dotTex,color:0xffffff,transparent:true,opacity:.55,depthWrite:false,fog:false});
-  for(var i=0;i<10;i++){var a=i/10*Math.PI*2+.3,c=new THREE.Group();c.position.set(Math.cos(a)*44,-6+(i%3)*6,Math.sin(a)*44);for(var j=0;j<4;j++){var s=new THREE.Sprite(cm);s.position.set(j*3.2-4.8,Math.sin(j*2)*1,0);s.scale.set(9,4.5,1);c.add(s);}scene.add(c);}
+  // dunkler Hintergrund wie in den Echoarena-Renderbildern (keine Wolken)
 }
 
 /* ---------- Qualität / Bloom ---------- */
@@ -9742,7 +9757,7 @@ async function fxPit(uid){
 }
 
 /* ================= PFLANZEN (Meshy-Modelle CC0 + prozedurale Pflanzen) – keine Gesichter ================= */
-var GAME_VERSION='v11';
+var GAME_VERSION='v12';
 var ASSETS={ok:false,done:false,list:{},base:'assets/models/',arena:null};
 var PLANT_FILES=['sunflower','mushroom','thornvine','aloe','cactus','lavender','lotus','oak','crystalflower','pumpkin','rose','pine','bamboo'];
 // h = Höhe (Pflanzen-Einheiten), w = max. Breite, st = Steifigkeit (Exponent der Biegung), am = Wind-Amplitude, atk = Angriffsart, ab = Fähigkeits-Bewegung
@@ -10142,17 +10157,17 @@ function applyEchoArena(sc){
   sc.traverse(function(o){if(!o.isMesh)return;var m=/_(\d\d)_/.exec(o.name)||/_(\d\d)_/.exec(o.parent&&o.parent.name||'')||/(\d\d)/.exec(o.name);var idx=m?+m[1]:-1;
     var g=floatGeo(o.geometry);g.applyMatrix4(o.matrixWorld);g.applyMatrix4(rot);g.applyMatrix4(scl);
     if(g.index)g=g.toNonIndexed();var keep=new THREE.BufferGeometry();keep.setAttribute('position',g.attributes.position);
-    var col=g.attributes.color,n=g.attributes.position.count,ca=new Float32Array(n*3),hc=new THREE.Color(),hs={};for(var i=0;i<n;i++){hc.setRGB(col?col.getX(i):.8,col?col.getY(i):.8,col?col.getZ(i):.8,THREE.SRGBColorSpace);hc.getHSL(hs);hc.setHSL(hs.h,Math.min(1,hs.s*1.25),hs.l);ca[i*3]=hc.r;ca[i*3+1]=hc.g;ca[i*3+2]=hc.b;}
+    var col=g.attributes.color,n=g.attributes.position.count,ca=new Float32Array(n*3),hc=new THREE.Color(),hs={};for(var i=0;i<n;i++){hc.setRGB(col?col.getX(i):.8,col?col.getY(i):.8,col?col.getZ(i):.8,THREE.SRGBColorSpace);ca[i*3]=hc.r;ca[i*3+1]=hc.g;ca[i*3+2]=hc.b;}
     keep.setAttribute('color',new THREE.BufferAttribute(ca,3));keep.computeVertexNormals();
     if(idx===22||idx===26)orb[idx===22?0:1]=keep;else if(idx===20||idx===24)rings[idx===20?0:1].push(keep);else if(idx===21||idx===25)core[idx===21?0:1].push(keep);else stat.push(keep);});
-  var sm=new THREE.MeshStandardMaterial({vertexColors:true,roughness:.78,metalness:0});
+  var sm=new THREE.MeshLambertMaterial({vertexColors:true});
   var all=new THREE.Mesh(THREE.GLX.mergeGeometries(stat),sm);all.receiveShadow=true;all.castShadow=true;scene.add(all);E.arenaMesh=all;
   if(E.fallbackArena){scene.remove(E.fallbackArena);E.fallbackArena=null;}
   [0,1].forEach(function(pi){var h=E.heroes[pi];if(!h)return;var zc=(pi===0?1:-1)*6.2*ARENA_S;
     var mk=function(list,mat){if(!list||!list.length)return null;var g=list.length>1?THREE.GLX.mergeGeometries(list):list[0];g.translate(0,0,-zc);var m=new THREE.Mesh(g,mat);m.castShadow=true;return m;};
     // Rahmen bleibt fest, Resonanzring dreht sich, Kugel schwebt
-    var frame=mk(core[pi],new THREE.MeshStandardMaterial({vertexColors:true,roughness:.6}));
-    var ring=mk(rings[pi],new THREE.MeshStandardMaterial({vertexColors:true,roughness:.35,metalness:.1,emissive:PCOL[pi],emissiveIntensity:.12,transparent:true}));
+    var frame=mk(core[pi],new THREE.MeshLambertMaterial({vertexColors:true}));
+    var ring=mk(rings[pi],new THREE.MeshLambertMaterial({vertexColors:true,emissive:PCOL[pi],emissiveIntensity:.06,transparent:true}));
     var ob=mk(orb[pi]?[orb[pi]]:null,h.cm);
     h.fb.forEach(function(o){o.visible=false;});
     if(frame)h.g.add(frame);
@@ -10171,9 +10186,9 @@ function buildHeroCore(pi,g){
   return {cr:cr,cm:cm,rg:rg,rgm:rg.material,orb:ob,orbY:.95,rgY:.95,fb:[ped,rg,ob]};
 }
 function heroTick(h,pi,t,now){
-  if(h.rg){h.rg.rotation.y=t*.45+pi;h.rg.position.y=h.rgY+Math.sin(t*1.1+pi)*.03;}
+  if(h.rg){h.rg.rotation.y=Math.sin(t*.5+pi)*.22;h.rg.position.y=h.rgY+Math.sin(t*1.1+pi)*.03;}
   if(h.orb){h.orb.position.y=h.orbY+Math.sin(t*1.6+pi)*.06;}
-  if(!h.dead){h.cm.emissiveIntensity=.55+Math.sin(t*2+pi)*.15;h.gl.material.opacity=.2+Math.sin(t*2+pi)*.05;}
+  if(!h.dead){h.cm.emissiveIntensity=(h.glb?.18:.55)+Math.sin(t*2+pi)*.08;h.gl.material.opacity=.16+Math.sin(t*2+pi)*.05;}
   var st=(now-h.shakeT)/450;h.g.position.x=st<1?Math.sin(st*36)*.1*(1-st):0;
 }
 function fxHeroDeath(pi){
