@@ -5,7 +5,8 @@ Pflanzen-Duell ist ein deutsches Kartenspiel im Browser: Du pflanzt deinen Garte
 Das Spiel (`index.html`) ist eine einzelne HTML-Datei mit eingebettetem Three.js; die 3D-Modelle liegen in `assets/models/`.
 
 - **Garten-Arena:** nach dem eigenen Konzeptbild des Entwicklers, komplett im Code aus einfachen Low-Poly-Formen gebaut (Steinplatten, Mauern, Säulen mit Kristallen, Banner, Bäume, Blumen, Teiche, Felsinsel). Keine zusätzlichen Modelldateien.
-- **Pflanzen:** CC0-Modelle von Meshy (Autorinnen und Autoren in `CREDITS.md`) sowie eigene prozedurale Pflanzen (Löwenzahn, Pusteblume, Ahornsamen, Fliegenfalle). Alle Pflanzen bewegen sich über einen eigenen Wind- und Biege-Shader.
+- **Pflanzen:** CC0-Modelle von Meshy (Autorinnen und Autoren in `CREDITS.md`) sowie eigene prozedurale Pflanzen (Löwenzahn, Pusteblume, Ahornsamen, Fliegenfalle und alle seltenen Pflanzen). Alle Pflanzen bewegen sich über einen eigenen Wind- und Biege-Shader.
+- **Seltenheit:** Gewöhnlich (grau), Selten (blau), Episch (lila) und Legendär (gold). Seltene Karten liegen seltener im Deck (3 / 2 / 1 / 1 Kopien); epische und legendäre Pflanzen funkeln, legendäre haben einen Goldring und einen eigenen Auftritt.
 - **Code-Bibliotheken:** Three.js und meshoptimizer (MIT), siehe `THIRD_PARTY_LICENSES.txt`.
 
 **Spielen:** [https://ibosay.github.io/monster_duell/](https://ibosay.github.io/monster_duell/)
