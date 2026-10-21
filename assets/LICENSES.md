@@ -1,46 +1,25 @@
-# Asset-Lizenzen – Monster-Duell 3D
+# Asset-Lizenzen – Pflanzen-Duell
 
-Alle 3D-Modelle in `assets/models/` außer `goblin.glb` (siehe unten, Meshy / lionnik2013, ebenfalls CC0) stammen von **Quaternius** (https://quaternius.com)
-und wurden über **Poly Pizza** bezogen. Jedes Modell ist dort als
-**Public Domain (CC0 1.0)** ausgewiesen: https://creativecommons.org/publicdomain/zero/1.0/
+| Datei | Herkunft | Lizenz |
+|---|---|---|
+| arena.glb | Echoarena-Prototyp, eigenes Modell des Entwicklers | Eigentum des Entwicklers |
+| sunflower.glb | Meshy, „Sunflower“ von keowston84 – https://www.meshy.ai/posts/019d7391-a2b5-7a30-955c-678e117c8585 | CC0 1.0 |
+| mushroom.glb | Meshy, „Mushroom“ von ddverster – https://www.meshy.ai/posts/01981d8f-745f-7444-ad5b-ed5d23f092da | CC0 1.0 |
+| thornvine.glb | Meshy, „Game ready low poly thorn vine“ von the4gatten.og – https://www.meshy.ai/posts/0199bfd5-fb8c-78f6-941c-ba5cbf4fd285 | CC0 1.0 |
+| aloe.glb | Meshy, „close up flowering …“ von design – https://www.meshy.ai/posts/019650e6-a960-784c-89f1-99e57026ae0b | CC0 1.0 |
+| cactus.glb | Meshy, „Cactus“ von gvisco – https://www.meshy.ai/posts/0196f4cd-6104-7c8c-a734-fdd097567bc9 | CC0 1.0 |
+| lavender.glb | Meshy, „Lavender“ von celinanord402 – https://www.meshy.ai/posts/019e3c7d-ee55-7245-926c-87f6cf65f0b9 | CC0 1.0 |
+| lotus.glb | Meshy, „lotus“ von kirinkarwai – https://www.meshy.ai/posts/019bca46-670b-7619-a4d4-2eb4e06b8a83 | CC0 1.0 |
+| oak.glb | Meshy, „Low Poly oak Tree“ von lukaspezzei – https://www.meshy.ai/posts/019aa75e-4067-7971-b726-eb2afb6a0b21 | CC0 1.0 |
+| crystalflower.glb | Meshy, „An elaborate crystal flower“ von aliki – https://www.meshy.ai/posts/0198c369-bdea-7384-bc04-b983ce4e4838 | CC0 1.0 |
+| pumpkin.glb | Meshy, „pumpkin“ von TooPH – https://www.meshy.ai/posts/0196c0d2-ef87-7572-9a59-5caf0a437171 | CC0 1.0 |
+| rose.glb | Meshy, „Pink Rose“ von audrey.dumoulin1802 – https://www.meshy.ai/posts/019dcaa3-3439-741a-9a3b-9a39c9ab555f | CC0 1.0 |
+| pine.glb | Meshy, „pine tree“ von ali.leylekoglu – https://www.meshy.ai/posts/019b4d48-092f-71aa-afe7-ec5e917f62a8 | CC0 1.0 |
+| bamboo.glb | Meshy, „Bamboo tree“ von canetoad43 – https://www.meshy.ai/posts/019889a5-a0f7-7b40-8caf-61999c9c6ad8 | CC0 1.0 |
 
-CC0 bedeutet: frei nutzbar, auch kommerziell, Veränderung erlaubt, keine Namensnennung nötig.
-Wir nennen die Quelle trotzdem gern.
+CC0 1.0: https://creativecommons.org/publicdomain/zero/1.0/
 
-Für das Spiel wurden die Modelle mit gltf-transform optimiert: dedup, prune, resample,
-Texturen auf 256 px, Meshopt-Kompression und Animationen umbenannt (Idle/Attack/Hit/Death).
-Im Spiel werden sie zur Laufzeit eingefärbt und mit Extras ergänzt (Flügel, Horn, Panzer, Krone, Aura).
+Optimierung: gltf-transform (weld, meshoptimizer simplifyWithAttributes, dedup, prune), Texturen als WebP (512 px Farbe, 256 px Normal/Rauheit), Meshopt-Kompression.
+Im Spiel biegt ein Vertex-Shader die Modelle nach Höhe (Wind, Angriff, Treffer, Welken).
 
-| Datei | Original (Poly Pizza) | Autor | Lizenz | Verwendet für |
-|---|---|---|---|---|
-| rat.glb | Rat – https://poly.pizza/m/iltq5bVNaV | Quaternius | CC0 1.0 | Rattenschwarm, Pestschwarm (Fusion) |
-| bat.glb | Bat (Animated Monster Pack) – https://poly.pizza/m/hNO9XvjlKa | Quaternius | CC0 1.0 | Fledermaus |
-| wolf.glb | Wolf (Ultimate Animated Animals) – https://poly.pizza/m/P1gU3Qkr9r | Quaternius | CC0 1.0 | Wolf, Vampirwolf (Fusion) |
-| snake.glb | Snake – https://poly.pizza/m/x9x0viZs8V | Quaternius | CC0 1.0 | Schlange, Hydra (Fusion) |
-| skeleton.glb | Skeleton – https://poly.pizza/m/yq5ATpujSt | Quaternius | CC0 1.0 | Skelett |
-| knight.glb | Skeleton (Krieger) – https://poly.pizza/m/1XZD9GK6Kj | Quaternius | CC0 1.0 | Todesritter (Fusion) |
-| frog.glb | Frog (Ultimate Monsters) – https://poly.pizza/m/37wofOCOzG | Quaternius | CC0 1.0 | Kröte |
-| dragon.glb | Dragon (Ultimate Monsters) – https://poly.pizza/m/3rUm1cN3yp | Quaternius | CC0 1.0 | Feuerdrache |
-| drake.glb | Dragon Evolved (Ultimate Monsters) – https://poly.pizza/m/LlwD0QNUPj | Quaternius | CC0 1.0 | Greif |
-| horse.glb | White Horse (Animated Animal Pack) – https://poly.pizza/m/bEdE4rmZy9 | Quaternius | CC0 1.0 | Einhorn, Pegasus (Fusion) |
-| giant.glb | Giant – https://poly.pizza/m/BldaiPtyJa | Quaternius | CC0 1.0 | Steingolem, Bergkoloss (Fusion) |
-| hywirl.glb | Hywirl (Ultimate Monsters) – https://poly.pizza/m/zjr7CmWGER | Quaternius | CC0 1.0 | Fee |
-| goblin.glb | „Goblin“ auf Meshy – https://www.meshy.ai/3d-models/goblin-019d6dd2-556a-79af-83df-8308aba33c57 | lionnik2013 | CC0 1.0 | Goblin, Goblinkönig (Mega) |
-
-`goblin.glb` (Meshy, statisch, ohne Rig: alter Goblin auf Moosfelsen mit Speer) wurde für Handys optimiert:
-weld, Vereinfachung von 1,45 Mio. auf ca. 25.000 Dreiecke (meshoptimizer simplifyWithAttributes),
-Texturen als WebP (Farbe 1024 px, Normal/Metall-Rauheit 512 px), Meshopt-Kompression – ca. 0,5 MB statt 54 MB.
-Im Spiel wird er prozedural animiert (Atmen, Speerstoß, Rückstoß, Hüpfer, Umkippen).
-Er ersetzt das frühere goblin.glb, dessen Herkunft/Rechte unklar waren.
-
-Pack-Seiten:
-- https://poly.pizza/bundle/Ultimate-Monsters-Bundle-5oyGWAmOB6
-- https://poly.pizza/bundle/Ultimate-Animated-Animal-Pack-ILAPXeUYiS
-- https://quaternius.com (alle Packs dort als CC0 angegeben)
-
-Bewusst NICHT verwendet, weil sie nur CC-BY lizenziert sind: Witch, Golem und Ogre (joney_lol).
-
-## Code-Bibliotheken (lokal eingebettet, kein CDN)
-- three.js r158 inkl. GLTFLoader, SkeletonUtils, BufferGeometryUtils, EffectComposer,
-  UnrealBloomPass, OutputPass – MIT-Lizenz, © three.js authors – https://github.com/mrdoob/three.js
-- meshoptimizer MeshoptDecoder – MIT-Lizenz, © Arseny Kapoulkine – https://github.com/zeux/meshoptimizer
+Code-Bibliotheken: three.js r158 (MIT), meshoptimizer MeshoptDecoder (MIT) – siehe THIRD_PARTY_LICENSES.txt.
