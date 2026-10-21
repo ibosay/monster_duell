@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8"><meta name="monster-duell-version" content="v12">
+<meta charset="UTF-8"><meta name="monster-duell-version" content="v13">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#bfe6e2">
@@ -266,14 +266,14 @@ header h1{background:linear-gradient(90deg,#3fb3a5,#9a7fe0);-webkit-background-c
 .pwi{background:#fff;border:1px solid #f2c26a}
 .trp i{background:linear-gradient(160deg,#ffe6ef,#f2b8cc);border:1px solid #fff;color:#b5587e}
 #jsWarn{background:rgba(240,122,142,.15)}
-/* ===== v12: dunkle Echoarena-Bühne (Farben wie in den Renderbildern) ===== */
-html,body{background:#141c20}
+/* ===== v13: dunkler Nachthimmel hinter der Garten-Insel ===== */
+html,body{background:#1a2034}
 header h1{background:linear-gradient(90deg,#7fe3d4,#c9b6ff);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 1px 1px rgba(0,0,0,.6))}
 header h1 .sprout,header .logo{filter:none}
-#log{background:rgba(20,34,38,.72);color:#dfe9e6;border:1px solid rgba(160,200,195,.28)}
+#log{background:rgba(26,32,54,.75);color:#e6e9f4;border:1px solid rgba(170,180,220,.28)}
 #log div{opacity:1}
 #turnInfo{color:#cfe0dc;text-shadow:0 1px 2px rgba(0,0,0,.6)}
-.overlay{background:rgba(14,22,26,.6)}
+.overlay{background:rgba(18,22,40,.6)}
 .clbl{box-shadow:0 2px 10px rgba(0,0,0,.35)}
 </style>
 </head>
@@ -307,7 +307,7 @@ header h1 .sprout,header .logo{filter:none}
   <div class="panel">
     <div class="big">🌱</div>
     <h2>Pflanzen-Duell</h2>
-    <p>Pflanze deinen Garten in die Echoarena, <b>kreuze</b> Pflanzen zu prächtigen Sorten und bring den Kern deines Gegners zum Erlöschen.</p>
+    <p>Pflanze deinen Garten in die Garten-Arena, <b>kreuze</b> Pflanzen zu prächtigen Sorten und bring den Kristall deines Gegners zum Erlöschen.</p>
     <div class="row">
       <button type="button" class="btn gold" id="btnPvp">👥 Spieler gegen Spieler</button>
       <button type="button" class="btn" id="btnCpu">💻 Gegen Computer</button>
@@ -380,13 +380,13 @@ header h1 .sprout,header .logo{filter:none}
   <div class="panel rules">
     <h2 style="text-align:center">📜 Spielregeln</h2>
     <h3>Ziel</h3>
-    <ul><li>Jeder Spieler hat einen leuchtenden Kern mit <b>30 Lebenspunkten</b> ❤️. Wer die Lebenspunkte des Gegners auf <b>0</b> bringt, gewinnt.</li></ul>
+    <ul><li>Jeder Spieler hat einen leuchtenden Kristall mit <b>30 Lebenspunkten</b> ❤️. Wer die Lebenspunkte des Gegners auf <b>0</b> bringt, gewinnt.</li></ul>
     <h3>Dein Zug</h3>
     <ul>
       <li>Zu Beginn deines Zuges bekommst du einen Mana-Punkt dazu (1, 2, 3 … bis max. <b>10</b> 💎) und ziehst <b>2 Karten</b> (im allerersten Zug spielst du mit deiner Starthand).</li>
       <li><b>🃏 Samenruf:</b> Für <b>2 💎</b> ziehst du eine Extrakarte – so oft du willst, solange Mana, Deck und Handplatz reichen.</li>
       <li><b>Pflanzen:</b> Tippe auf eine Karte in deiner Hand, um die Pflanze für ihre Manakosten in die Arena zu setzen (max. <b>5 Pflanzen</b>).</li>
-      <li><b>Angreifen:</b> Tippe auf eine deiner bereiten Pflanzen (grüner Ring) und dann auf ein Ziel (roter Ring): eine gegnerische Pflanze oder den gegnerischen Kern bzw. das Spielerfeld oben.</li>
+      <li><b>Angreifen:</b> Tippe auf eine deiner bereiten Pflanzen (grüner Ring) und dann auf ein Ziel (roter Ring): eine gegnerische Pflanze oder den gegnerischen Kristall bzw. das Spielerfeld oben.</li>
       <li>Kämpfen zwei Pflanzen, fügen sich <b>beide</b> genau so viel Schaden zu, wie ihr Angriff ⚔️ zeigt (plus Bonus, wenn eine Fähigkeit das ausdrücklich sagt). Fallen die Lebenspunkte ❤️ auf 0, welkt die Pflanze.</li>
       <li><b>🧪 Vergiftet:</b> Eine vergiftete Pflanze verliert zu Beginn jedes eigenen Zuges 1 ❤️ (bis sie welkt).</li>
       <li>Frisch gepflanzte Pflanzen müssen erst anwachsen 💤 und können erst im <b>nächsten Zug</b> angreifen. Jede Pflanze greift einmal pro Zug an.</li>
@@ -405,7 +405,7 @@ header h1 .sprout,header .logo{filter:none}
     <h3>✨ Zauber &amp; 🪤 Fallen</h3>
     <ul>
       <li><b>Zauber</b> (aquafarbene Karten) wirken sofort. Braucht ein Zauber ein Ziel, tippe die Karte an und dann ein leuchtendes Ziel: <b>rot</b> = Gegner, <b>blau/grün</b> = eigene.</li>
-      <li><b>Fallen</b> (lavendelfarbene Karten) legst du verdeckt vor deinen Kern (max. <b>2</b>). Der Gegner sieht nur „?“. Sie schnappen in <b>seinem</b> Zug automatisch zu – jede nur einmal.</li>
+      <li><b>Fallen</b> (rosafarbene Karten) legst du verdeckt vor deinen Kristall (max. <b>2</b>). Der Gegner sieht nur „?“. Sie schnappen in <b>seinem</b> Zug automatisch zu – jede nur einmal.</li>
     </ul>
     <div class="mlist" id="spellList"></div>
     <h3>🌀 Kreuzen</h3>
@@ -8210,13 +8210,13 @@ MONSTERS.forEach(function(m){MBYID[m.id]=m;});
 /* ---------- Zauber- & Fallenkarten ---------- */
 var MAX_TRAPS = 2, SPELL_COPIES = 1;
 var SPELLS = [
-  {id:'feuerball',   type:'spell', name:'Sonnenstrahl',  emoji:'☀️', cost:3, v:5, tgt:'enemyAny', s:'5 Schaden',      d:'5 Schaden an eine gegnerische Pflanze oder den gegnerischen Kern.'},
+  {id:'feuerball',   type:'spell', name:'Sonnenstrahl',  emoji:'☀️', cost:3, v:5, tgt:'enemyAny', s:'5 Schaden',      d:'5 Schaden an eine gegnerische Pflanze oder den gegnerischen Kristall.'},
   {id:'heiltrank',   type:'spell', name:'Kamillentee',   emoji:'🍵', cost:1, v:4, tgt:'ownAny',   s:'+4 ❤️',         d:'Heilt dich oder eine eigene Pflanze um 4 ❤️ und entfernt Gift 🧪.'},
   {id:'blitz',       type:'spell', name:'Gewitter',      emoji:'⚡', cost:4, v:2, tgt:null,       s:'2 an alle',      d:'2 Schaden an alle gegnerischen Pflanzen.'},
   {id:'verstaerkung',type:'spell', name:'Dünger',        emoji:'🌱', cost:2, tgt:'ownMon',   s:'+2/+2',          d:'Eine eigene Pflanze bekommt dauerhaft +2 ⚔️ und +2 ❤️.'},
   {id:'wissen',      type:'spell', name:'Gartenbuch',    emoji:'📖', cost:1, tgt:null,       s:'+2 Karten',      d:'Ziehe 2 Karten.'},
   {id:'frost',       type:'spell', name:'Raureif',       emoji:'❄️', cost:1, tgt:'enemyMon', s:'Erstarrt',       d:'1 Schaden an eine gegnerische Pflanze. Sie erstarrt 🧊 und kann ihren nächsten Zug nicht angreifen.'},
-  {id:'spiegel',     type:'trap',  name:'Tauspiegel',    emoji:'💧', cost:2, on:'atkHero',   s:'Prallt ab', d:'Falle: Greift eine gegnerische Pflanze deinen Kern an, prallt der Angriff ab – die Pflanze erleidet ihren eigenen Schaden.'},
+  {id:'spiegel',     type:'trap',  name:'Tauspiegel',    emoji:'💧', cost:2, on:'atkHero',   s:'Prallt ab', d:'Falle: Greift eine gegnerische Pflanze deinen Kristall an, prallt der Angriff ab – die Pflanze erleidet ihren eigenen Schaden.'},
   {id:'grube',       type:'trap',  name:'Steinboden',    emoji:'🪨', cost:2, v:4, on:'summon',    s:'4 an Neues',     d:'Falle: Pflanzt der Gegner eine Pflanze aus der Hand, erleidet sie sofort 4 Schaden.'},
   {id:'giftfalle',   type:'trap',  name:'Nesselfalle',   emoji:'🥀', cost:1, on:'atk',       s:'Angreifer 🧪',   d:'Falle: Greift eine gegnerische Pflanze an, erleidet sie 1 Schaden und wird vergiftet 🧪.'}
 ];
@@ -8269,11 +8269,11 @@ var SPEC={
   fee:{i:'💚',n:'Heilsaft',s:'Heilt jeden Zug',d:'Zu Beginn deines Zuges: deine Pflanzen +1 ❤️ und du +2 ❤️.',
     turn:function(pi,m){healHero(pi,2);G.players[pi].board.forEach(function(x){healMon(x,1);});}},
   kroete:{i:'🌵',n:'Stacheln',s:'Angreifer −1 ❤️',d:'Wer sie angreift, erleidet 1 Extraschaden.',thorns:1},
-  greif:{i:'🎯',n:'Duftflug',s:'+2 auf Kern',d:'Greift sie den gegnerischen Kern an, macht sie +2 Schaden.',heroBonus:2},
+  greif:{i:'🎯',n:'Duftflug',s:'+2 auf Kristall',d:'Greift sie den gegnerischen Kristall an, macht sie +2 Schaden.',heroBonus:2},
   einhorn:{i:'✨',n:'Blütenschutz',s:'Schild für Freund',d:'Beim Pflanzen bekommt eine andere deiner Pflanzen auch einen 🛡️ Schild.',
     can:function(pi,m){return others(pi,m).some(function(x){return !x.shield;});},
     enter:function(pi,m){var o=others(pi,m).filter(function(x){return !x.shield;});if(o.length)giveShield(o[Math.floor(Math.random()*o.length)]);}},
-  oger:{i:'💰',n:'Wurzelräuber',s:'Kern-Treffer: +1 Karte',d:'Trifft sie den gegnerischen Kern, ziehst du 1 Karte.',
+  oger:{i:'💰',n:'Wurzelräuber',s:'Kristall-Treffer: +1 Karte',d:'Trifft sie den gegnerischen Kristall, ziehst du 1 Karte.',
     heroHit:function(pi,m){drawBonus(pi,1);}},
   golem:{i:'🪵',n:'Rinde',s:'−1 Schaden je Treffer',d:'Erleidet bei jedem Treffer 1 Schaden weniger.',armor:1},
   drache:{i:'🔥',n:'Glutpollen',s:'1 Schaden an alle',d:'Beim Pflanzen: 1 Schaden an alle gegnerischen Pflanzen.',
@@ -8295,7 +8295,7 @@ var SPEC={
     can:function(pi){return G.players[1-pi].board.some(function(x){return x.hp>0;});},after:function(pi,m){aoe(pi,1,false);}},
   mega_einhorn:{i:'🌟',n:'Lotussegen',s:'Schild für alle',d:'Beim Entstehen bekommen alle deine Pflanzen einen 🛡️ Schild.',
     enter:function(pi,m){G.players[pi].board.forEach(function(x){if(!x.shield)giveShield(x);});}},
-  mega_oger:{i:'💎',n:'Goldernte',s:'Kern-Treffer: 2 Karten +2💎',d:'Trifft sie den gegnerischen Kern: Du ziehst 2 Karten und bekommst +2 💎 Mana.',
+  mega_oger:{i:'💎',n:'Goldernte',s:'Kristall-Treffer: 2 Karten +2💎',d:'Trifft sie den gegnerischen Kristall: Du ziehst 2 Karten und bekommst +2 💎 Mana.',
     heroHit:function(pi,m){drawBonus(pi,2);var p=G.players[pi];p.mana=Math.min(MAX_MANA,p.mana+2);}},
   mega_golem:{i:'🌳',n:'Wurzelbeben',s:'1 an alle, −1 Schaden',d:'Beim Entstehen: 1 Schaden an alle gegnerischen Pflanzen. Erleidet bei jedem Treffer 1 Schaden weniger.',armor:1,
     enter:function(pi,m){aoe(pi,1,false);}},
@@ -8609,7 +8609,7 @@ function checkWin(){
   try{if(G.mode!=='sim'&&typeof metaGameEnd==='function')metaGameEnd(winner);}catch(e){console.warn(e);}
   if(winner===-1){fxHeroDeath(0);fxHeroDeath(1);}else fxHeroDeath(1-winner);
   setTimeout(function(){
-    if(winner===-1){$('overTitle').textContent='Unentschieden!';$('overText').textContent='Beide Kerne sind gleichzeitig erloschen.';$('overEmoji').textContent='🤝';}
+    if(winner===-1){$('overTitle').textContent='Unentschieden!';$('overText').textContent='Beide Kristalle sind gleichzeitig erloschen.';$('overEmoji').textContent='🤝';}
     else{
       var w=G.players[winner];
       $('overTitle').textContent=G.mode==='cpu'?(winner===0?'Du hast gewonnen!':'Der Computer gewinnt!'):w.name+' gewinnt!';
@@ -9129,7 +9129,7 @@ function refreshMenuGold(){try{if(SAVE)$('menuGold').textContent=SAVE.gold;}catc
 var E={ok:false,mons:{},heroes:[],tweens:[],fx:[],camA:0,camAT:0,shake:0,hits:[],d:14,phi:0.9,last:0,embers:null,torches:[]};
 var renderer,scene,camera,raycaster,ndc,dotTex,canvas;
 var ROWZ=1.75, SP=1.3, HEROZ=4.09;
-var PCOL=[0x4fd1c5,0xa98be8];
+var PCOL=[0x4aa3ff,0xff5d84];
 var V3=function(x,y,z){return new THREE.Vector3(x,y,z);};
 
 function makeDotTex(){
@@ -9200,13 +9200,13 @@ function initEngine(){
   renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
   renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
   renderer.toneMapping=THREE.NoToneMapping;renderer.toneMappingExposure=1.0;
-  scene=new THREE.Scene();scene.background=new THREE.Color(0x141c20);scene.fog=new THREE.Fog(0x141c20,34,90);
+  scene=new THREE.Scene();scene.background=new THREE.Color(0x1a2034);scene.fog=new THREE.Fog(0x1a2034,40,95);
   camera=new THREE.PerspectiveCamera(45,1,.1,120);
   raycaster=new THREE.Raycaster();ndc=new THREE.Vector2();
   dotTex=makeDotTex();
-  scene.add(new THREE.HemisphereLight(0xffffff,0x4f6466,1.6));
-  var sun=new THREE.DirectionalLight(0xfffaf2,1.3);sun.position.set(3,13,6);sun.castShadow=true;
-  sun.shadow.mapSize.set(1024,1024);var sc=sun.shadow.camera;sc.left=-8;sc.right=8;sc.top=8;sc.bottom=-8;sc.near=2;sc.far=35;sun.shadow.bias=-.0006;sun.shadow.normalBias=.025;sun.shadow.radius=4;
+  scene.add(new THREE.HemisphereLight(0xfff3e4,0x55607a,1.55));
+  var sun=new THREE.DirectionalLight(0xffe7c6,1.45);sun.position.set(-4,13,7);sun.castShadow=true;
+  sun.shadow.mapSize.set(1024,1024);var sc=sun.shadow.camera;sc.left=-9;sc.right=9;sc.top=9;sc.bottom=-9;sc.near=2;sc.far=35;sun.shadow.bias=-.0006;sun.shadow.normalBias=.025;sun.shadow.radius=4;
   scene.add(sun);
   var rim=new THREE.DirectionalLight(0xd8ccff,.35);rim.position.set(-6,5,-8);scene.add(rim);
   buildArena();
@@ -9223,11 +9223,8 @@ function initEngine(){
 }
 
 function buildArena(){
-  // Einfache Ersatz-Arena (bis die Echoarena geladen ist / falls sie fehlt)
-  var fb=new THREE.Group();scene.add(fb);E.fallbackArena=fb;
-  var base=new THREE.Mesh(new THREE.CylinderGeometry(4.6,3.6,.6,8),mat(0x7fb4b0,{roughness:.9}));base.scale.z=1.35;base.position.y=-.32;base.receiveShadow=true;fb.add(base);
-  var top=new THREE.Mesh(BOX(5.4,.1,6.6),mat(0xe7ece4,{roughness:.9}));top.position.y=-.02;top.receiveShadow=true;fb.add(top);
-  [0,1].forEach(function(pi){var s=new THREE.Mesh(BOX(5.2,.02,3.2),new THREE.MeshBasicMaterial({color:PCOL[pi],transparent:true,opacity:.16,depthWrite:false}));s.position.set(0,.04,(pi===0?1:-1)*1.65);fb.add(s);});
+  // Garten-Arena nach dem Konzeptbild (prozedural)
+  gaInitMats();buildGardenArena();
   // sanftes Licht in der Luft: Lichtpunkte + Blütenblätter
   var n=70,pos=new Float32Array(n*3);for(var k=0;k<n;k++){pos[k*3]=(Math.random()-.5)*16;pos[k*3+1]=Math.random()*6;pos[k*3+2]=(Math.random()-.5)*16;}
   var eg=new THREE.BufferGeometry();eg.setAttribute('position',new THREE.BufferAttribute(pos,3));
@@ -9267,10 +9264,10 @@ function layout(){
   var tv=Math.tan(vf*Math.PI/360);
   E.phi=portrait?1.0:.9;
   // Ganze Echoarena (Schale, Lamellen, Ecken, beide Kerne) in den freien Bereich zwischen den UI-Leisten einpassen
-  E.phi=portrait?.98:.86;
-  var oy=(bot-top)/2,pad=portrait?6:14,pts=[],X=3.95,Z=5.12;
-  [-X,X].forEach(function(x){[-Z,Z].forEach(function(z){[-.72,.45].forEach(function(y){pts.push(new THREE.Vector3(x,y,z));});});});
-  pts.push(new THREE.Vector3(0,1.45,-4.1),new THREE.Vector3(0,1.45,4.1));
+  E.phi=portrait?.98:.64;
+  var oy=(bot-top)/2,pad=portrait?4:14,pts=[],X=4.75,Z=6.5;
+  [-X,X].forEach(function(x){[-Z,Z].forEach(function(z){[-.7,.3].forEach(function(y){pts.push(new THREE.Vector3(x,y,z));});});});
+  pts.push(new THREE.Vector3(0,1.6,-4.1),new THREE.Vector3(0,1.6,4.1),new THREE.Vector3(-2.45,1.95,-5.6),new THREE.Vector3(2.45,1.95,-5.6),new THREE.Vector3(-4.25,1.6,-6.0),new THREE.Vector3(4.3,1.6,-5.95));
   var fit=function(d){var hd=d*Math.cos(E.phi);camera.position.set(0,d*Math.sin(E.phi),hd);camera.lookAt(0,.4,0);camera.setViewOffset(w,h,0,oy,w,h);camera.updateProjectionMatrix();camera.updateMatrixWorld(true);
     var y0=1e9,y1=-1e9,x0=1e9,x1=-1e9,v=new THREE.Vector3();pts.forEach(function(p){v.copy(p).project(camera);var sx=(v.x+1)/2*w,sy=(1-v.y)/2*h;x0=Math.min(x0,sx);x1=Math.max(x1,sx);y0=Math.min(y0,sy);y1=Math.max(y1,sy);});return [x0,x1,y0,y1];};
   var lo=4,hi=60,r;
@@ -9493,6 +9490,7 @@ function loop(now){
     for(var q=0;q<f.v.length/3;q++){arr[q*3]+=f.v[q*3]*dt;arr[q*3+1]+=f.v[q*3+1]*dt;arr[q*3+2]+=f.v[q*3+2]*dt;f.v[q*3+1]+=f.grav*dt;var dg=f.drag||.985;f.v[q*3]*=dg;f.v[q*3+2]*=dg;}
     pa.needsUpdate=true;f.pts.material.opacity=Math.max(0,1-age/f.life);
     if(age>f.life){scene.remove(f.pts);f.pts.geometry.dispose();f.pts.material.dispose();E.fx.splice(j,1);}}
+  try{gaTick(t,dt);}catch(err){}
   // Glut
   var ep=E.embers.geometry.attributes.position.array;for(var e2=0;e2<ep.length;e2+=3){ep[e2+1]+=dt*.18;ep[e2]+=Math.sin(t*.6+e2)*dt*.12;if(ep[e2+1]>6)ep[e2+1]=0;}E.embers.geometry.attributes.position.needsUpdate=true;
   if(E.petals){var pp=E.petals.geometry.attributes.position.array;for(var p2=0;p2<pp.length;p2+=3){pp[p2+1]-=dt*.22;pp[p2]+=dt*(.25+Math.sin(t*.7+p2)*.2);pp[p2+2]+=Math.sin(t*.9+p2*.7)*dt*.15;if(pp[p2+1]<-.5){pp[p2+1]=5+Math.random();pp[p2]=(Math.random()-.5)*12-3;pp[p2+2]=(Math.random()-.5)*12;}if(pp[p2]>7)pp[p2]=-7;}E.petals.geometry.attributes.position.needsUpdate=true;}
@@ -9583,7 +9581,7 @@ function fxFusionAppear(r){
 
 function buildSky(){
   var sky=new THREE.Mesh(new THREE.SphereGeometry(70,32,16),new THREE.ShaderMaterial({side:THREE.BackSide,depthWrite:false,fog:false,
-    uniforms:{top:{value:new THREE.Color(0x10171a)},mid:{value:new THREE.Color(0x172226)},bot:{value:new THREE.Color(0x121a1d)}},
+    uniforms:{top:{value:new THREE.Color(0x141a2c)},mid:{value:new THREE.Color(0x1d2439)},bot:{value:new THREE.Color(0x121626)}},
     vertexShader:'varying vec3 vP;void main(){vP=normalize(position);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}',
     fragmentShader:'uniform vec3 top;uniform vec3 mid;uniform vec3 bot;varying vec3 vP;void main(){float h=vP.y;vec3 c=h>0.0?mix(mid,top,smoothstep(0.02,0.7,h)):mix(mid,bot,smoothstep(0.0,-0.9,h));gl_FragColor=vec4(c,1.0);\n#include <colorspace_fragment>\n}'}));
   scene.add(sky);
@@ -9757,7 +9755,7 @@ async function fxPit(uid){
 }
 
 /* ================= PFLANZEN (Meshy-Modelle CC0 + prozedurale Pflanzen) – keine Gesichter ================= */
-var GAME_VERSION='v12';
+var GAME_VERSION='v13';
 var ASSETS={ok:false,done:false,list:{},base:'assets/models/',arena:null};
 var PLANT_FILES=['sunflower','mushroom','thornvine','aloe','cactus','lavender','lotus','oak','crystalflower','pumpkin','rose','pine','bamboo'];
 // h = Höhe (Pflanzen-Einheiten), w = max. Breite, st = Steifigkeit (Exponent der Biegung), am = Wind-Amplitude, atk = Angriffsart, ab = Fähigkeits-Bewegung
@@ -9793,7 +9791,7 @@ function loadModels(onProg,onDone){
   try{
     if(!window.THREE||!THREE.GLX||location.protocol==='file:'||/[?&]models=0/.test(location.search)){done(false);return;}
     var L=new THREE.GLX.GLTFLoader();L.setMeshoptDecoder(THREE.GLX.MeshoptDecoder);
-    var files=['arena'].concat(PLANT_FILES),n=files.length,got=0,prog={},fail=false;
+    var files=PLANT_FILES.slice(),n=files.length,got=0,prog={},fail=false;
     var to=setTimeout(function(){console.warn('Modelle: Zeitüberschreitung');done(false);},60000);
     var upd=function(){var s=0;files.forEach(function(f){s+=prog[f]||0;});onProg(s/n);};
     var one=function(){got++;upd();if(got===n){clearTimeout(to);done(!fail);}};
@@ -10148,49 +10146,6 @@ function addCrownAura(g,inner,info,col){
   return a;
 }
 
-/* ---------- Echoarena (Modell vom Nutzer) ---------- */
-var ARENA_S=.66;
-function applyEchoArena(sc){
-  sc.updateMatrixWorld(true);
-  var rot=new THREE.Matrix4().makeRotationX(-Math.PI/2),scl=new THREE.Matrix4().makeScale(ARENA_S,ARENA_S,ARENA_S);
-  var stat=[],core=[[],[]],orb=[null,null],rings=[[],[]];
-  sc.traverse(function(o){if(!o.isMesh)return;var m=/_(\d\d)_/.exec(o.name)||/_(\d\d)_/.exec(o.parent&&o.parent.name||'')||/(\d\d)/.exec(o.name);var idx=m?+m[1]:-1;
-    var g=floatGeo(o.geometry);g.applyMatrix4(o.matrixWorld);g.applyMatrix4(rot);g.applyMatrix4(scl);
-    if(g.index)g=g.toNonIndexed();var keep=new THREE.BufferGeometry();keep.setAttribute('position',g.attributes.position);
-    var col=g.attributes.color,n=g.attributes.position.count,ca=new Float32Array(n*3),hc=new THREE.Color(),hs={};for(var i=0;i<n;i++){hc.setRGB(col?col.getX(i):.8,col?col.getY(i):.8,col?col.getZ(i):.8,THREE.SRGBColorSpace);ca[i*3]=hc.r;ca[i*3+1]=hc.g;ca[i*3+2]=hc.b;}
-    keep.setAttribute('color',new THREE.BufferAttribute(ca,3));keep.computeVertexNormals();
-    if(idx===22||idx===26)orb[idx===22?0:1]=keep;else if(idx===20||idx===24)rings[idx===20?0:1].push(keep);else if(idx===21||idx===25)core[idx===21?0:1].push(keep);else stat.push(keep);});
-  var sm=new THREE.MeshLambertMaterial({vertexColors:true});
-  var all=new THREE.Mesh(THREE.GLX.mergeGeometries(stat),sm);all.receiveShadow=true;all.castShadow=true;scene.add(all);E.arenaMesh=all;
-  if(E.fallbackArena){scene.remove(E.fallbackArena);E.fallbackArena=null;}
-  [0,1].forEach(function(pi){var h=E.heroes[pi];if(!h)return;var zc=(pi===0?1:-1)*6.2*ARENA_S;
-    var mk=function(list,mat){if(!list||!list.length)return null;var g=list.length>1?THREE.GLX.mergeGeometries(list):list[0];g.translate(0,0,-zc);var m=new THREE.Mesh(g,mat);m.castShadow=true;return m;};
-    // Rahmen bleibt fest, Resonanzring dreht sich, Kugel schwebt
-    var frame=mk(core[pi],new THREE.MeshLambertMaterial({vertexColors:true}));
-    var ring=mk(rings[pi],new THREE.MeshLambertMaterial({vertexColors:true,emissive:PCOL[pi],emissiveIntensity:.06,transparent:true}));
-    var ob=mk(orb[pi]?[orb[pi]]:null,h.cm);
-    h.fb.forEach(function(o){o.visible=false;});
-    if(frame)h.g.add(frame);
-    if(ring){var bx=new THREE.Box3().setFromObject(ring),cy=(bx.min.y+bx.max.y)/2;ring.geometry.translate(0,-cy,0);ring.position.y=cy;h.rgm=ring.material;h.cr.add(ring);h.rg=ring;h.rgY=cy;}
-    if(ob){var b2=new THREE.Box3().setFromObject(ob),oy=(b2.min.y+b2.max.y)/2;ob.geometry.translate(0,-oy,0);ob.position.y=oy;h.cr.add(ob);h.orb=ob;h.orbY=oy;h.gl.position.y=oy;}
-    h.cr.position.y=0;h.cr.scale.set(1,1,1);h.glb=true;});
-}
-// Fallback-Kerne (bis das Modell geladen ist) + Animation
-function buildHeroCore(pi,g){
-  var col=PCOL[pi];var h={};
-  var ped=new THREE.Mesh(CYL(.5,.6,.35,16),mat(0xe9eee8,{roughness:.8}));ped.position.y=.17;ped.castShadow=ped.receiveShadow=true;g.add(ped);
-  var cr=new THREE.Group();g.add(cr);
-  var cm=new THREE.MeshStandardMaterial({color:0xffffff,emissive:col,emissiveIntensity:.6,roughness:.25,transparent:true,opacity:1});
-  var rg=new THREE.Mesh(new THREE.TorusGeometry(.5,.06,10,40),new THREE.MeshStandardMaterial({color:col,roughness:.4,emissive:col,emissiveIntensity:.12,transparent:true}));rg.position.y=.95;rg.castShadow=true;cr.add(rg);
-  var ob=new THREE.Mesh(new THREE.SphereGeometry(.17,20,14),cm);ob.position.y=.95;cr.add(ob);
-  return {cr:cr,cm:cm,rg:rg,rgm:rg.material,orb:ob,orbY:.95,rgY:.95,fb:[ped,rg,ob]};
-}
-function heroTick(h,pi,t,now){
-  if(h.rg){h.rg.rotation.y=Math.sin(t*.5+pi)*.22;h.rg.position.y=h.rgY+Math.sin(t*1.1+pi)*.03;}
-  if(h.orb){h.orb.position.y=h.orbY+Math.sin(t*1.6+pi)*.06;}
-  if(!h.dead){h.cm.emissiveIntensity=(h.glb?.18:.55)+Math.sin(t*2+pi)*.08;h.gl.material.opacity=.16+Math.sin(t*2+pi)*.05;}
-  var st=(now-h.shakeT)/450;h.g.position.x=st<1?Math.sin(st*36)*.1*(1-st):0;
-}
 function fxHeroDeath(pi){
   if(!E.ok)return;var h=E.heroes[pi];h.dead=true;
   var c=V3(h.g.position.x,1.0,h.g.position.z);
@@ -10204,6 +10159,176 @@ function renderAllCardArt(){
   if(!E.ok)return;var ids=MONSTERS.map(function(m){return m.id;});
   ids.forEach(function(id){try{var u=renderCardArt(id);if(u)setCardArt(id,u,true);}catch(err){console.warn(err);}});
   try{fillMonsterList();if(typeof G!=='undefined'&&G)render();}catch(e){}
+}
+
+/* ================= Garten-Arena (prozedural, low-poly) =================
+   Steinplatten-Spielfeld, Mauern + Säulen mit Kristallen, Banner, Gärten,
+   Teiche und eine schwebende Felsinsel. Alles aus einfachen Formen gebaut. */
+var GA={BX:3.36,BZ:5.04,T:.84,banners:[],trees:[],crystals:[],sway:[],water:[],lines:[],U:{uT:{value:0}}};
+function gaRng(seed){var a=seed>>>0;return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+// Ecken etwas verbeulen (gleiche Position -> gleicher Versatz, damit keine Löcher entstehen)
+function gaJitter(g,amt,seed,keepBottom){var q=g.index?g.toNonIndexed():g;var p=q.attributes.position;
+  for(var i=0;i<p.count;i++){var x=p.getX(i),y=p.getY(i),z=p.getZ(i);if(keepBottom&&y<keepBottom)continue;
+    var h=Math.sin(x*12.9898+y*78.233+z*37.719+seed*.917)*43758.5453;h-=Math.floor(h);var h2=Math.sin(x*39.3+y*11.1+z*7.7+seed)*24634.6345;h2-=Math.floor(h2);var h3=Math.sin(x*5.1+y*93.7+z*17.3+seed*1.3)*9631.17;h3-=Math.floor(h3);
+    p.setXYZ(i,x+(h-.5)*amt,y+(h2-.5)*amt*.6,z+(h3-.5)*amt);}
+  q.computeVertexNormals();return q;}
+function gaBox(w,h,d,bev){var g=new THREE.BoxGeometry(w,h,d,1,1,1);g.translate(0,h/2,0);return g;}
+function gaMix(a,b,t){return new THREE.Color(a).lerp(new THREE.Color(b),t).getHex();}
+
+function buildGardenArena(){
+  var R=gaRng(1337),r=function(a,b){return a+(b-a)*R();};
+  var BX=GA.BX,BZ=GA.BZ,T=GA.T;
+  var stone=new PB(),green=new PB(),wood=new PB();
+  var root=new THREE.Group();scene.add(root);GA.root=root;
+  /* --- Spielfeld: Steinplatten --- */
+  stone.add(gaBox(BX*2+.06,.1,BZ*2+.06),0x8d8a86,null,[0,-.16,0]);
+  var cols=Math.round(BX*2/T),rows=Math.round(BZ*2/T);
+  for(var ci=0;ci<cols;ci++)for(var ri=0;ri<rows;ri++){
+    var x=-BX+T*(ci+.5),z=-BZ+T*(ri+.5),opp=z<0;
+    var base=[0xe4e1db,0xd9d6cf,0xeceae4,0xd2cfc8][(ci*7+ri*3+(ci*ri)%5)%4];
+    var tint=opp?0xf3c9cc:0xc6daf0,amt=.38+.12*Math.abs(Math.sin(ci*1.7+ri*2.3));
+    var c=gaMix(base,tint,amt);var hh=.12+R()*.025;
+    stone.add(gaJitter(gaBox(T-.05,hh,T-.05),.012,ci*31+ri),c,gaMix(c,0xffffff,.12),[x,-hh,z],[0,(R()-.5)*.02,0]);}
+  /* --- Rand (Bordsteine) --- */
+  var CW=.28,curb=function(x0,x1,z0,z1,horiz){var len=horiz?(x1-x0):(z1-z0),n=Math.max(1,Math.round(len/1.05)),seg=len/n;
+    for(var k=0;k<n;k++){var c=[0xd9ccb3,0xd2c4aa,0xe0d4bd][(k+(horiz?1:0))%3];var L=seg-.04;
+      var g=horiz?gaBox(L,.16,CW):gaBox(CW,.16,L);g=gaJitter(g,.02,k*13+(horiz?7:3)+x0*5+z0*3);
+      stone.add(g,gaMix(c,0x9a8f7c,.25),c,horiz?[x0+seg*(k+.5),-.06,(z0+z1)/2]:[(x0+x1)/2,-.06,z0+seg*(k+.5)]);}};
+  curb(-BX-CW,BX+CW,-BZ-CW,-BZ,true);curb(-BX-CW,BX+CW,BZ,BZ+CW,true);curb(-BX-CW,-BX,-BZ,BZ,false);curb(BX,BX+CW,-BZ,BZ,false);
+  /* --- Leuchtende Linien --- */
+  var lineMat=function(col,k){var c=new THREE.Color(col).multiplyScalar(k);return new THREE.MeshBasicMaterial({color:c,transparent:true,opacity:.9,depthWrite:false});};
+  var glowMat=function(col){return new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.22,depthWrite:false,blending:THREE.AdditiveBlending});};
+  [[0,0xfff6ea,1.15],[-.95,0xff6b86,1.25],[-2.55,0xff6b86,1.25],[.95,0x5aa8ff,1.25],[2.55,0x5aa8ff,1.25]].forEach(function(L){
+    var m=new THREE.Mesh(new THREE.PlaneGeometry(BX*2-.1,.06),lineMat(L[1],L[2]));m.rotation.x=-Math.PI/2;m.position.set(0,.004,L[0]);root.add(m);
+    var gm=new THREE.Mesh(new THREE.PlaneGeometry(BX*2-.1,.24),glowMat(L[1]));gm.rotation.x=-Math.PI/2;gm.position.set(0,.003,L[0]);root.add(gm);GA.lines.push(gm.material);});
+  /* --- Mauern, Säulen, Kristalle --- */
+  var WX=BX+CW,WZ=BZ+CW,WD=.42;
+  var wallRun=function(x0,x1,z0,z1,horiz,hgt){var len=horiz?(x1-x0):(z1-z0);var pos=0;var k=0;
+    while(pos<len-.05){var L=Math.min(len-pos,r(.55,1.05));var h=hgt*r(.85,1.12);var c=[0xb9b6b1,0xaeaba7,0xc4c1bb][k%3];
+      var g=horiz?gaBox(L-.03,h,WD*r(.92,1)):gaBox(WD*r(.92,1),h,L-.03);g=gaJitter(g,.035,k*17+x0*3+z0*7,.01);
+      var mossy=R()<.35;stone.add(g,gaMix(c,0x6e6c70,.35),mossy?0x8fbf62:c,horiz?[x0+pos+L/2,-.22,(z0+z1)/2]:[(x0+x1)/2,-.22,z0+pos+L/2]);
+      if(R()<.3){green.add(new THREE.IcosahedronGeometry(.13,0),0x4f8f3a,0x7cc457,horiz?[x0+pos+L/2+r(-.2,.2),h-.24,(z0+z1)/2]:[(x0+x1)/2,h-.24,z0+pos+L/2+r(-.2,.2)],null,[1.4,.55,1.1]);}
+      pos+=L;k++;}};
+  wallRun(-WX-WD,WX+WD,-WZ-WD,-WZ,true,.62);wallRun(-WX-WD,-1.25,WZ,WZ+WD,true,.5);wallRun(1.25,WX+WD,WZ,WZ+WD,true,.5);
+  wallRun(-WX-WD,-WX,-WZ,WZ,false,.56);wallRun(WX,WX+WD,-WZ,WZ,false,.56);
+  // Treppe vor der Spielerbasis
+  [[0,.22,WZ+.21,2.5,.52],[0,.06,WZ+.62,2.3,.46],[0,-.1,WZ+1.0,2.1,.42]].forEach(function(s,i){stone.add(gaJitter(gaBox(s[3],.24,s[4]),.02,90+i),0xb7b2a8,0xd6cfc2,[s[0],s[1]-.24,s[2]]);});
+  var pillar=function(x,z,opp,tall,light){var h=tall?1.0:.82;
+    stone.add(gaJitter(gaBox(.62,.22,.62),.02,x*11+z),0x9f9c98,0xbab7b2,[x,-.2,z]);
+    stone.add(gaJitter(gaBox(.5,h,.5),.025,x*7+z*3,.01),0xaeaba6,0xcfccc6,[x,0,z]);
+    stone.add(gaJitter(gaBox(.6,.12,.6),.015,x+z*9),0xc9c6c0,0xdedbd5,[x,h,z]);
+    var col=opp?0xff5d84:0x4aa3ff;
+    var cr=new THREE.Mesh(new THREE.OctahedronGeometry(.13,0),new THREE.MeshStandardMaterial({color:opp?0xff8aaa:0xb3dcff,emissive:opp?0xff2d6a:col,emissiveIntensity:1.35,roughness:.3,flatShading:true}));
+    cr.scale.set(1,1.5,1);cr.position.set(x,h+.42,z);root.add(cr);
+    var gl=new THREE.Sprite(new THREE.SpriteMaterial({map:dotTex,color:col,transparent:true,opacity:.5,blending:THREE.AdditiveBlending,depthWrite:false}));gl.scale.set(.75,.75,1);gl.position.copy(cr.position);root.add(gl);
+    GA.crystals.push({m:cr,g:gl,y:h+.42,ph:x*1.3+z*.7,opp:opp});
+    if(light){var lm=new THREE.Mesh(new THREE.BoxGeometry(.2,.2,.04),new THREE.MeshBasicMaterial({color:new THREE.Color(col).multiplyScalar(1.4)}));lm.position.set(x,h*.55,z+.255);root.add(lm);
+      var lg=new THREE.Sprite(gl.material);lg.scale.set(.55,.55,1);lg.position.set(x,h*.55,z+.3);root.add(lg);GA.crystals.push({m:null,g:lg,y:lg.position.y,ph:x+z,still:true});}};
+  var PXo=WX+WD/2,PZo=WZ+WD/2;
+  [[-PXo,-PZo],[PXo,-PZo],[-PXo,PZo],[PXo,PZo]].forEach(function(p){pillar(p[0],p[1],p[1]<0,true,p[1]>0);});
+  [[-1.25,-PZo],[1.25,-PZo],[-1.25,PZo],[1.25,PZo]].forEach(function(p){pillar(p[0],p[1],p[1]<0,false,true);});
+  [[-PXo,-2.1],[PXo,-2.1],[-PXo,2.1],[PXo,2.1]].forEach(function(p){pillar(p[0],p[1],p[1]<0,false,false);});
+  /* --- Insel: Wiese + Felsen --- */
+  var IX=4.75,IZ=6.55;
+  var sh=new THREE.Shape(),rr=.9;sh.moveTo(-IX+rr,-IZ);sh.lineTo(IX-rr,-IZ);sh.quadraticCurveTo(IX,-IZ,IX,-IZ+rr);sh.lineTo(IX,IZ-rr);sh.quadraticCurveTo(IX,IZ,IX-rr,IZ);sh.lineTo(-IX+rr,IZ);sh.quadraticCurveTo(-IX,IZ,-IX,IZ-rr);sh.lineTo(-IX,-IZ+rr);sh.quadraticCurveTo(-IX,-IZ,-IX+rr,-IZ);
+  var lawn=new THREE.ExtrudeGeometry(sh,{depth:.3,bevelEnabled:false,curveSegments:4});lawn.rotateX(Math.PI/2);lawn.translate(0,-.2,0);
+  green.add(lawn,0x3f7a35,0x6fae4f);
+  // Felsrand rundum (oben moosig)
+  var per=2*(IX*2+IZ*2),nR=46;
+  for(var i=0;i<nR;i++){var u=i/nR*per,px,pz;
+    if(u<IX*2){px=-IX+u;pz=-IZ;}else if(u<IX*2+IZ*2){px=IX;pz=-IZ+(u-IX*2);}else if(u<IX*4+IZ*2){px=IX-(u-IX*2-IZ*2);pz=IZ;}else{px=-IX;pz=IZ-(u-IX*4-IZ*2);}
+    var s=r(.42,.6),g=gaJitter(new THREE.DodecahedronGeometry(s,0),.14,i*7);var ox=Math.sign(px)*(Math.abs(px)>=IX-.01?.12:0),oz=Math.sign(pz)*(Math.abs(pz)>=IZ-.01?.12:0);
+    stone.add(g,0x6d6a78,R()<.55?0x86b45a:0x9a97a3,[px+ox,-.62-r(0,.22),pz+oz],[r(0,3),r(0,3),0],[r(1.1,1.5),r(.75,1.05),r(1.1,1.5)]);
+    var g2=gaJitter(new THREE.DodecahedronGeometry(s*.9,0),.2,i*7+3);stone.add(g2,0x55525e,0x76737f,[px*.93,-1.3-r(0,.3),pz*.95],[r(0,3),r(0,3),0],[1.3,1.0,1.3]);}
+  // Unterseite: hängender Felskegel
+  var cone=gaJitter(new THREE.ConeGeometry(4.6,3.6,9,3),.45,5);cone.rotateX(Math.PI);cone.scale(1,1,1.32);stone.add(cone,0x3e3c49,0x5f5c6a,[0,-2.6,0]);
+  /* --- Teiche --- */
+  var pond=function(x,z,rx,rz){var w=new THREE.Mesh(new THREE.CircleGeometry(1,22),gaWaterMat());w.scale.set(rx,rz,1);w.rotation.x=-Math.PI/2;w.position.set(x,.02,z);root.add(w);
+    for(var k=0;k<14;k++){var a=k/14*Math.PI*2;stone.add(gaJitter(new THREE.DodecahedronGeometry(r(.08,.13),0),.05,k+x*9),0x8e8b94,0xb3b0b8,[x+Math.cos(a)*rx*1.05,.03,z+Math.sin(a)*rz*1.05],null,[1.3,.7,1.1]);}
+    for(var k2=0;k2<3;k2++){var pa=R()*6.28,pr=r(.2,.6);var lp=new THREE.CircleGeometry(r(.09,.13),10,.4,5.6);lp.rotateX(-Math.PI/2);green.add(lp,0x5fae4a,null,[x+Math.cos(pa)*rx*pr,.045,z+Math.sin(pa)*rz*pr],[0,R()*6,0]);
+      if(k2===0)green.add(new THREE.IcosahedronGeometry(.045,0),0xff9ec4,null,[x+Math.cos(pa)*rx*pr,.07,z+Math.sin(pa)*rz*pr]);}};
+  pond(-4.32,-2.95,.4,.8);pond(4.32,-.4,.4,.7);pond(-4.32,3.0,.38,.66);pond(4.32,3.75,.36,.55);
+  /* --- Bäume --- */
+  var tree=function(x,z,s){var pb=new PB();pb.add(new THREE.CylinderGeometry(.07,.11,.75,6),0x6b4a30,0x8a6440,[0,.37,0]);
+    var n=4+Math.floor(R()*2);for(var k=0;k<n;k++){var a=k/n*6.28+R(),d=k===0?0:r(.22,.34);var cs=k===0?r(.42,.5):r(.3,.4);
+      pb.add(new THREE.IcosahedronGeometry(cs,1),0x3f8a35,0x7cc456,[Math.cos(a)*d,.95+(k===0?.25:r(-.05,.15)),Math.sin(a)*d],[R(),R(),0]);}
+    var m=new THREE.Mesh(pb.geo(),GA.matV);m.position.set(x,-.05,z);m.scale.setScalar(s);m.castShadow=true;root.add(m);GA.trees.push({m:m,ph:R()*6});};
+  [[-4.25,-6.0,1.15],[4.3,-5.95,1.05],[-2.6,-6.25,.8],[2.7,-6.2,.85],[-4.35,5.95,.75],[4.35,6.0,.8],[-4.45,-4.4,.7],[4.45,1.6,.68],[-4.45,.9,.62]].forEach(function(t){tree(t[0],t[1],t[2]);});
+  /* --- Büsche --- */
+  var bush=function(x,z,s,fl){green.add(new THREE.IcosahedronGeometry(.3*s,1),0x3c7d33,0x6dba4c,[x,.05,z],[R(),R(),0],[1.2,.8,1.1]);
+    green.add(new THREE.IcosahedronGeometry(.22*s,1),0x468a39,0x80c95a,[x+.2*s,.08,z+.1*s],[R(),R(),0],[1,.8,1]);
+    if(fl)for(var k=0;k<4;k++)green.add(new THREE.IcosahedronGeometry(.04,0),fl,null,[x+r(-.25,.25)*s,.2*s+.06,z+r(-.15,.2)*s]);};
+  var FC=[0xb48cff,0xff8fc0,0xffffff,0xffd36b];
+  [[-3.0,6.2],[3.0,6.2],[-1.9,6.4],[1.9,6.4],[-4.4,4.6],[4.4,5.0],[-4.4,-1.2],[4.45,-2.2],[-1.8,-6.35],[1.8,-6.35],[0,-6.3],[-4.4,-5.2],[4.4,-4.8],[-4.45,1.9],[4.45,2.5]].forEach(function(b,i){bush(b[0],b[1],r(.8,1.15),FC[i%4]);});
+  /* --- Gras + Blumen (Instanzen, wiegen im Wind) --- */
+  var spots=[];var ok=function(x,z){if(Math.abs(x)<BX+CW+WD+.05&&Math.abs(z)<BZ+CW+WD+.05)return false;if(Math.abs(x)<1.3&&z>BZ&&z<BZ+1.25)return false;return Math.abs(x)<IX-.12&&Math.abs(z)<IZ-.12;};
+  for(var t=0;t<900&&spots.length<260;t++){var x=r(-IX,IX),z=r(-IZ,IZ);if(ok(x,z))spots.push([x,z]);}
+  var blade=new PB();for(var b=0;b<5;b++){var a=b/5*6.28;var bg=new THREE.ConeGeometry(.025,r(.16,.26),3);blade.add(bg,0x3f8a35,0x9ad66a,[Math.cos(a)*.04,.1,Math.sin(a)*.04],[Math.cos(a)*.35,0,Math.sin(a)*.35]);}
+  var grass=new THREE.InstancedMesh(blade.geo(),gaSwayMat(true),spots.length);
+  var M4=new THREE.Matrix4(),Q=new THREE.Quaternion(),Sv=new THREE.Vector3(),Pv=new THREE.Vector3();
+  spots.forEach(function(s,i){var sc=r(.8,1.5);M4.compose(Pv.set(s[0],.09,s[1]),Q.setFromEuler(new THREE.Euler(0,R()*6,0)),Sv.set(sc,sc*r(.8,1.3),sc));grass.setMatrixAt(i,M4);});
+  root.add(grass);
+  var fspots=spots.filter(function(s,i){return i%2===0;}).slice(0,120);
+  var stemG=new THREE.CylinderGeometry(.008,.01,.22,3);stemG.translate(0,.11,0);
+  var headG=new PB();for(var p=0;p<5;p++){var pa2=p/5*6.28;headG.add(new THREE.SphereGeometry(.032,5,3),0xffffff,null,[Math.cos(pa2)*.035,.23,Math.sin(pa2)*.035],null,[1,.45,1]);}headG.add(new THREE.SphereGeometry(.022,5,3),0xffe08a,null,[0,.235,0]);
+  var stems=new THREE.InstancedMesh(stemG,gaSwayMat(false,0x4f9a3c),fspots.length),heads=new THREE.InstancedMesh(headG.geo(),gaSwayMat(true),fspots.length);
+  var FCOL=[0xb58cff,0xff8cc0,0xffffff,0xd9a6ff,0xff6fa0,0xfff0f6];var Cc=new THREE.Color();
+  fspots.forEach(function(s,i){var sc=r(.8,1.2);M4.compose(Pv.set(s[0]+r(-.1,.1),.08,s[1]+r(-.1,.1)),Q.setFromEuler(new THREE.Euler(0,R()*6,0)),Sv.set(sc,sc,sc));stems.setMatrixAt(i,M4);heads.setMatrixAt(i,M4);heads.setColorAt(i,Cc.set(FCOL[i%FCOL.length]));});
+  root.add(stems);root.add(heads);
+  /* --- Banner --- */
+  var banner=function(x,z,opp){var col=opp?0xc8344a:0x2f6fd0;var g=new THREE.Group();g.position.set(x,-.05,z);root.add(g);
+    wood.add(new THREE.CylinderGeometry(.045,.055,2.0,6),0x6b4a30,0x8a6440,[x-.36,.95,z]);wood.add(new THREE.CylinderGeometry(.045,.055,2.0,6),0x6b4a30,0x8a6440,[x+.36,.95,z]);
+    wood.add(new THREE.CylinderGeometry(.035,.035,.86,6),0x7a5636,null,[x,1.86,z],[0,0,Math.PI/2]);
+    [-.36,.36].forEach(function(o){wood.add(new THREE.SphereGeometry(.06,6,4),0xd8a948,null,[x+o,1.98,z]);});
+    var pg=new THREE.PlaneGeometry(.6,1.05,4,8);var pa=pg.attributes.position;for(var k=0;k<pa.count;k++){var py=pa.getY(k),px=pa.getX(k);if(py<-.4){pa.setY(k,py-(.3-Math.abs(px))*.45);}}
+    pg.translate(0,-.52,0);var cloth=new THREE.Mesh(pg,new THREE.MeshLambertMaterial({map:gaBannerTex(opp),side:THREE.DoubleSide}));cloth.position.set(0,1.82,.0);cloth.castShadow=true;g.add(cloth);
+    GA.banners.push({m:cloth,base:Float32Array.from(pg.attributes.position.array),ph:x*.7+z});};
+  banner(-2.45,-WZ-WD/2,true);banner(2.45,-WZ-WD/2,true);banner(-4.2,5.35,false);banner(4.2,5.35,false);
+  /* --- Meshes --- */
+  var sm=new THREE.Mesh(stone.geo(),GA.matV);sm.receiveShadow=true;sm.castShadow=true;root.add(sm);
+  var gm2=new THREE.Mesh(green.geo(),GA.matV);gm2.receiveShadow=true;gm2.castShadow=true;root.add(gm2);
+  var wm=new THREE.Mesh(wood.geo(),GA.matV);wm.castShadow=true;root.add(wm);
+}
+GA.matV=null;
+function gaInitMats(){GA.matV=new THREE.MeshLambertMaterial({vertexColors:true,flatShading:true});}
+function gaSwayMat(vc,col){var m=new THREE.MeshLambertMaterial({vertexColors:!!vc,color:col||0xffffff,flatShading:true});
+  m.onBeforeCompile=function(sh){sh.uniforms.uT=GA.U.uT;sh.vertexShader='uniform float uT;\n'+sh.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\n#ifdef USE_INSTANCING\nvec3 ip=instanceMatrix[3].xyz;\n#else\nvec3 ip=vec3(0.0);\n#endif\nfloat sw=sin(uT*1.7+ip.x*1.3+ip.z*.9)*.5+sin(uT*2.9+ip.z*2.1)*.25;transformed.x+=sw*.35*transformed.y*transformed.y*4.0;transformed.z+=sw*.18*transformed.y*transformed.y*4.0;');};
+  m.customProgramCacheKey=function(){return 'gasway'+(vc?1:0);};return m;}
+function gaWaterMat(){var m=new THREE.ShaderMaterial({uniforms:{uT:GA.U.uT,a:{value:new THREE.Color(0x2f9fb8)},b:{value:new THREE.Color(0x8fe3e8)}},
+  vertexShader:'varying vec2 vU;void main(){vU=position.xy;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}',
+  fragmentShader:'uniform float uT;uniform vec3 a;uniform vec3 b;varying vec2 vU;void main(){float r=length(vU);float w=sin(vU.x*9.0+uT*1.3)*sin(vU.y*7.0-uT*1.1)+sin((vU.x+vU.y)*13.0+uT*2.0)*.5;float k=smoothstep(.55,1.2,w)*.55+smoothstep(.6,1.0,r)*.35;vec3 c=mix(a,b,k);gl_FragColor=vec4(c,1.0);\n#include <colorspace_fragment>\n}'});return m;}
+function gaBannerTex(opp){var cv=document.createElement('canvas');cv.width=64;cv.height=128;var x=cv.getContext('2d');
+  x.fillStyle=opp?'#c8344a':'#2f6fd0';x.fillRect(0,0,64,128);x.fillStyle=opp?'#a52238':'#2357b0';x.fillRect(0,0,64,10);
+  x.strokeStyle='#f3d48a';x.lineWidth=3;x.strokeRect(5,3,54,122);
+  var dia=function(cx,cy,s){x.beginPath();x.moveTo(cx,cy-s);x.lineTo(cx+s,cy);x.lineTo(cx,cy+s);x.lineTo(cx-s,cy);x.closePath();x.stroke();};
+  x.strokeStyle='#f6e7c8';x.lineWidth=3;dia(32,56,17);x.lineWidth=2.5;dia(32,56,9);
+  var t=new THREE.CanvasTexture(cv);t.colorSpace=THREE.SRGBColorSpace;return t;}
+function gaTick(t,dt){
+  GA.U.uT.value=t;
+  GA.crystals.forEach(function(c){var p=.75+.25*Math.sin(t*2.2+c.ph);if(c.m){c.m.position.y=c.y+Math.sin(t*1.4+c.ph)*.05;c.m.rotation.y=t*.8+c.ph;c.m.material.emissiveIntensity=(c.opp?.7:1.1)+.4*p;}c.g.material.opacity=c.still?.4:.35+.25*p;if(c.m)c.g.position.y=c.m.position.y;});
+  GA.trees.forEach(function(tr){tr.m.rotation.z=Math.sin(t*.9+tr.ph)*.025;tr.m.rotation.x=Math.sin(t*.7+tr.ph*1.3)*.018;});
+  GA.banners.forEach(function(b){var pa=b.m.geometry.attributes.position,a=pa.array,o=b.base;for(var i=0;i<pa.count;i++){var y=o[i*3+1],x=o[i*3];var k=Math.min(1,-y/1.0);a[i*3+2]=Math.sin(t*2.3+b.ph+y*3.2+x*2.0)*.07*k;a[i*3]=x+Math.sin(t*1.7+b.ph+y*2.0)*.02*k;}pa.needsUpdate=true;});
+  GA.lines.forEach(function(m,i){m.opacity=.18+.08*Math.sin(t*1.6+i);});
+}
+/* ---------- Basen der Gärtner: Kristall auf rundem Steinsockel ---------- */
+function buildHeroCore(pi,g){
+  var col=PCOL[pi],h={};var pb=new PB();
+  pb.add(gaJitter(new THREE.CylinderGeometry(.92,1.0,.14,12),.015,pi+3),0xb5b0a7,0xd2ccc1,[0,.0,0]);
+  pb.add(gaJitter(new THREE.CylinderGeometry(.74,.8,.16,12),.012,pi+5),0xc9c3b8,0xe2ddd3,[0,.15,0]);
+  pb.add(new THREE.CylinderGeometry(.56,.6,.06,12),0xbdb7ad,null,[0,.25,0]);
+  var ped=new THREE.Mesh(pb.geo(),GA.matV||new THREE.MeshLambertMaterial({vertexColors:true}));ped.castShadow=ped.receiveShadow=true;g.add(ped);
+  var pool=new THREE.Mesh(new THREE.CircleGeometry(.54,24),new THREE.MeshBasicMaterial({color:new THREE.Color(col).multiplyScalar(1.15),transparent:true,opacity:.85}));pool.rotation.x=-Math.PI/2;pool.position.y=.285;g.add(pool);
+  var cr=new THREE.Group();g.add(cr);
+  var cm=new THREE.MeshStandardMaterial({color:pi===0?0x9fd2ff:0xff4f7f,emissive:pi===0?col:0xff2d6a,emissiveIntensity:.9,roughness:.25,metalness:0,flatShading:true,transparent:true,opacity:1});
+  var ob=new THREE.Mesh(new THREE.OctahedronGeometry(.36,0),cm);ob.scale.set(1,1.5,1);ob.position.y=1.0;ob.castShadow=true;cr.add(ob);
+  var rg=new THREE.Mesh(new THREE.TorusGeometry(.5,.025,6,40),new THREE.MeshBasicMaterial({color:new THREE.Color(col).multiplyScalar(1.3),transparent:true,opacity:.75}));rg.rotation.x=Math.PI/2;rg.position.y=.45;cr.add(rg);
+  return {cr:cr,cm:cm,rg:rg,rgm:rg.material,orb:ob,orbY:1.0,rgY:.45,fb:[],pool:pool,glb:true};
+}
+function heroTick(h,pi,t,now){
+  if(h.orb){h.orb.position.y=h.orbY+Math.sin(t*1.3+pi)*.07;h.orb.rotation.y=t*.6+pi;}
+  if(h.rg){h.rg.position.y=h.rgY+Math.sin(t*1.3+pi+1)*.03;h.rg.scale.setScalar(1+.04*Math.sin(t*2+pi));}
+  if(!h.dead){h.cm.emissiveIntensity=(pi===0?.85:.45)+Math.sin(t*2+pi)*.18;h.gl.material.opacity=(pi===0?.2:.1)+Math.sin(t*2+pi)*.04;}
+  var st=(now-h.shakeT)/450;h.g.position.x=st<1?Math.sin(st*36)*.1*(1-st):0;
 }
 
 /* ================= UI ================= */

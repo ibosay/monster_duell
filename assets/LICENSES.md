@@ -2,7 +2,6 @@
 
 | Datei | Herkunft | Lizenz |
 |---|---|---|
-| arena.glb | Echoarena-Prototyp, eigenes Modell des Entwicklers | Eigentum des Entwicklers |
 | sunflower.glb | Meshy, „Sunflower“ von keowston84 – https://www.meshy.ai/posts/019d7391-a2b5-7a30-955c-678e117c8585 | CC0 1.0 |
 | mushroom.glb | Meshy, „Mushroom“ von ddverster – https://www.meshy.ai/posts/01981d8f-745f-7444-ad5b-ed5d23f092da | CC0 1.0 |
 | thornvine.glb | Meshy, „Game ready low poly thorn vine“ von the4gatten.og – https://www.meshy.ai/posts/0199bfd5-fb8c-78f6-941c-ba5cbf4fd285 | CC0 1.0 |
