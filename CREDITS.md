@@ -1,8 +1,7 @@
 # Credits – Pflanzen-Duell
 
 ## Arena
-- **Garten-Arena:** nach dem Konzeptbild des Entwicklers prozedural im Spielcode gebaut (eigene Arbeit, keine Fremd-Assets).
-  Für das Web mit gltf-transform/meshoptimizer komprimiert (ca. 75 KB statt 275 KB). Im Spiel eingefärbt und beleuchtet; die zwei Kerne sind die Spielerbasen.
+- **Echoarena:** eigenes 3D-Modell des Entwicklers (Echoarena_Prototyp.glb, 8 × 10 Felder). Geometrie und Farben unverändert, im Spiel eingebettet und auf Spielmaßstab skaliert (0,84). Die zwei Resonanzringe sind die Spielerbasen.
 
 ## Pflanzen-Modelle (Meshy, alle CC0 1.0)
 Alle Modelle wurden einzeln geprüft (keine Gesichter, keine Tiere oder Menschen), für Handys verkleinert
