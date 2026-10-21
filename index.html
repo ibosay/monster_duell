@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8"><meta name="monster-duell-version" content="v17">
+<meta charset="UTF-8"><meta name="monster-duell-version" content="v18">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#bfe6e2">
@@ -277,6 +277,26 @@ header h1 .sprout,header .logo{filter:none}
 #turnInfo{color:#cfe0dc;text-shadow:0 1px 2px rgba(0,0,0,.6)}
 .overlay{background:rgba(18,22,40,.6)}
 .clbl{box-shadow:0 2px 10px rgba(0,0,0,.35)}
+/* ===== Kampagne ===== */
+.campBtn{font-size:clamp(14px,3.6vw,18px);padding:10px 18px}
+.panel.camp{max-width:560px;width:min(94vw,560px);max-height:90vh;overflow-y:auto}
+.campTop{text-align:center;font-weight:700;opacity:.85;margin:2px 0 8px}
+.campCh{margin:8px 0 12px}
+.campChH{font-size:15px;margin-bottom:6px}.campChH small{display:block;opacity:.75;font-size:12px;font-weight:400}
+.campRow{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.campSt{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 4px 7px;border-radius:14px;border:2px solid rgba(62,187,174,.55);background:linear-gradient(170deg,rgba(255,255,255,.95),rgba(214,240,236,.9));color:#2b4a50;font-weight:700;box-shadow:0 3px 0 rgba(30,90,96,.35);cursor:pointer;pointer-events:auto}
+.campSt .cn{position:absolute;top:3px;left:7px;font-size:11px;opacity:.6}
+.campSt .cf{font-size:24px;line-height:1.1}
+.campSt .ct{font-size:11px;line-height:1.15;text-align:center;min-height:2.3em}
+.campSt .cs{font-size:13px;color:#e6a817;letter-spacing:1px}.campSt .cs i{font-style:normal;color:rgba(0,0,0,.18)}
+.campSt.boss{border-color:rgba(168,139,214,.9);background:linear-gradient(170deg,#fff,#e7defa)}
+.campSt.done{border-color:#e6b84a}
+.campSt.locked{opacity:.45;cursor:not-allowed;filter:grayscale(.6)}
+.bigStars{font-size:34px;color:#e6a817;letter-spacing:4px}.bigStars i{font-style:normal;color:rgba(0,0,0,.18)}
+.heroTip{font-size:13px;opacity:.85;margin:2px 0 4px;text-align:center}
+.panel.camp>.row{position:sticky;bottom:-2px;padding:8px 0 2px;background:linear-gradient(180deg,rgba(247,245,252,0),rgba(247,245,252,.96) 35%)}
+@media (max-width:420px){.campRow{grid-template-columns:repeat(2,1fr);gap:6px}.campSt{flex-direction:row;justify-content:flex-start;gap:7px;padding:7px 8px 17px 20px;text-align:left}
+  .campSt .cf{font-size:20px}.campSt .ct{min-height:0;text-align:left;flex:1}.campSt .cs{font-size:11px;position:absolute;right:7px;bottom:3px}.campSt .cn{top:50%;transform:translateY(-50%);left:6px}}
 /* ===== Querformat am Handy: Arena in der Mitte, Leisten links und rechts ===== */
 @media (orientation:landscape) and (max-height:520px){
   :root{--cw:clamp(42px,12.5vh,62px)}
@@ -332,8 +352,9 @@ header h1 .sprout,header .logo{filter:none}
     <div class="big">🌱</div>
     <h2>Pflanzen-Duell</h2>
     <p>Pflanze deinen Garten in die schwebende Echoarena, <b>kreuze</b> Pflanzen zu prächtigen Sorten und bring den Kristall deines Gegners zum Erlöschen.</p>
+    <div class="row"><button type="button" class="btn gold campBtn" id="btnCamp">🗺️ Gartenreise · Kampagne</button></div>
     <div class="row">
-      <button type="button" class="btn gold" id="btnPvp">👥 Spieler gegen Spieler</button>
+      <button type="button" class="btn" id="btnPvp">👥 Spieler gegen Spieler</button>
       <button type="button" class="btn" id="btnCpu">💻 Gegen Computer</button>
     </div>
     <div id="loadBox" style="display:none"><div class="lbar"><i id="loadFill"></i></div><small id="loadTxt">Lade Arena… 0%</small></div>
@@ -360,6 +381,7 @@ header h1 .sprout,header .logo{filter:none}
     <h2 id="overTitle">Spieler 1 gewinnt!</h2>
     <p id="overText"></p>
     <div class="row">
+      <button type="button" class="btn gold" id="btnNext" style="display:none">▶️ Nächste Stufe</button>
       <button type="button" class="btn gold" id="btnAgain">🔄 Nochmal spielen</button>
       <button type="button" class="btn" id="btnOverErfolge">🏆</button>
       <button type="button" class="btn" id="btnOverMenu">🏠 Menü</button>
@@ -382,8 +404,17 @@ header h1 .sprout,header .logo{filter:none}
 <div class="overlay solid hide" id="ovHero">
   <div class="panel">
     <h2 id="heroTitle">Wähle deinen Gärtner</h2>
+    <p id="heroTip" class="heroTip" style="display:none"></p>
     <div class="heroGrid" id="heroGrid"></div>
     <div class="row"><button type="button" class="btn" id="btnHeroRand">🎲 Zufall</button><button type="button" class="btn" id="btnHeroBack">↩️ Zurück</button></div>
+  </div>
+</div>
+
+<div class="overlay solid hide" id="ovCamp">
+  <div class="panel camp">
+    <h2 style="text-align:center">🗺️ Gartenreise</h2>
+    <div id="campList"></div>
+    <div class="row"><button type="button" class="btn" id="btnCampBack">↩️ Zurück</button></div>
   </div>
 </div>
 
@@ -8342,7 +8373,7 @@ function spec(m){return m&&m.sp?SPEC[m.sp]||null:null;}
 function ownerOf(m){for(var i=0;i<2;i++)if(G.players[i].board.indexOf(m)>=0)return i;return -1;}
 function others(pi,m){return G.players[pi].board.filter(function(x){return x!==m&&x.hp>0;});}
 function announce(m){var s=spec(m);if(!s)return;try{fxAbility(m.uid,s.i+' '+s.n);}catch(e){}log('✨ '+m.emoji+' '+m.name+': <b>'+s.n+'</b>!');}
-function healHero(pi,amt){var p=G.players[pi];var h=Math.max(0,Math.min(amt,MAX_HP-p.hp));if(h>0){p.hp+=h;try{fxHealHero(pi,'+'+h);}catch(e){}}return h;}
+function healHero(pi,amt){var p=G.players[pi];var h=Math.max(0,Math.min(amt,(p.maxHp||MAX_HP)-p.hp));if(h>0){p.hp+=h;try{fxHealHero(pi,'+'+h);}catch(e){}}return h;}
 function healMon(m,amt){var d=Math.max(0,Math.min(amt,m.maxHp-m.hp));if(d>0&&m.hp>0){m.hp+=d;try{fxHealMon(m.uid,'+'+d);}catch(e){}}return d;}
 function buffOthers(pi,m,n){others(pi,m).forEach(function(x){x.atk+=n;fxFloatMon(x.uid,'+'+n+' ⚔️','info');});}
 function giveShield(x){x.shield=true;fxFloatMon(x.uid,'🛡️ Schild!','info');}
@@ -8418,12 +8449,15 @@ function viewer(){return G.mode==='pvp'?G.cur:0;}
 function isHumanTurn(){return !!G && !G.over && (G.mode==='pvp' || G.cur===0);}
 function log(msg){G.log.push(msg);if(G.log.length>40)G.log.shift();renderLog();}
 
-function newGame(mode,heroes){
+function newGame(mode,heroes,camp){
   uidc=0;
   if(G) G.over=true;
   heroes=(heroes&&heroes.length===2)?heroes.slice():[randHero(),randHero()];
   G={mode:mode,cur:0,round:1,over:false,busy:false,sel:null,aim:null,log:[],gen:(G?G.gen+1:1),heroIds:heroes,dmg:[0,0],
      players: mode==='cpu' ? [newPlayer('Du',heroes[0]),newPlayer('Computer',heroes[1])] : [newPlayer('Spieler 1',heroes[0]),newPlayer('Spieler 2',heroes[1])]};
+  // Kampagne: Gegner bekommt Lebenspunkte, Deck-Thema und Besonderheiten der Stufe
+  G.camp=(camp&&typeof CBYID!=='undefined'&&CBYID[camp])?camp:null;
+  if(G.camp)applyCampaign(CBYID[G.camp]);
   for(var i=0;i<START_HAND;i++)drawCard(0,true);
   for(var k=0;k<START_HAND+1;k++)drawCard(1,true);
   hideAll();
@@ -8455,7 +8489,8 @@ async function startTurn(){
   if(G.mode==='pvp') setCamAngle(G.cur===0?0:Math.PI,false);
   p.maxMana=Math.min(MAX_MANA,p.maxMana+1);p.mana=p.maxMana;
   // Ausgleich für den Nachziehenden: Spieler 2 bekommt in seinen ersten Zügen +1 💎 Bonus
-  if(G.cur===1&&(p.turns||0)<P2_BONUS_TURNS){p.mana+=1;p.bonusMana=true;log('💎 Ausgleich: '+(isDu(p)?'Du bekommst':p.name+' bekommt')+' +1 Bonus-Mana.');}else p.bonusMana=false;
+  if(G.cur===1&&!p.noBonus&&(p.turns||0)<P2_BONUS_TURNS){p.mana+=1;p.bonusMana=true;log('💎 Ausgleich: '+(isDu(p)?'Du bekommst':p.name+' bekommt')+' +1 Bonus-Mana.');}else p.bonusMana=false;
+  if(p.manaBonus){p.mana+=p.manaBonus;}
   p.board.forEach(function(m){m.canAttack=true;m.fresh=false;m.extraUsed=false;m.stunned=false;if(m.frozen){m.frozen=false;m.stunned=true;m.canAttack=false;}});
   p.fusedThisTurn=false;p.powerUsed=false;G.fuseMode=false;G.fuseFirst=null;G.aim=null;
   G.sel=null;
@@ -8633,6 +8668,7 @@ function checkWin(){
   if(winner===null)return false;
   G.over=true;G.busy=false;G.aim=null;render();
   try{if(G.mode!=='sim'&&typeof metaGameEnd==='function')metaGameEnd(winner);}catch(e){console.warn(e);}
+  var cr=null;try{if(G.camp&&G.mode==='cpu'&&typeof campResult==='function')cr=campResult(winner);}catch(e){console.warn(e);}
   if(winner===-1){fxHeroDeath(0);fxHeroDeath(1);}else fxHeroDeath(1-winner);
   setTimeout(function(){
     if(winner===-1){$('overTitle').textContent='Unentschieden!';$('overText').textContent='Beide Kristalle sind gleichzeitig erloschen.';$('overEmoji').textContent='🤝';}
@@ -8642,6 +8678,10 @@ function checkWin(){
       $('overText').textContent=w.face+' '+w.name+' hat das Duell nach '+G.round+' Runden für sich entschieden.'+(G.fusions?' ('+G.fusions+' Kreuzungen im Spiel)':'');
       $('overEmoji').textContent=(G.mode==='cpu'&&winner===1)?'🥀':'🏆';
     }
+    try{var bn=$('btnNext');if(bn)bn.style.display=(cr&&cr.won&&cr.next)?'':'none';
+      if(cr){var st=cr.st;$('overTitle').textContent=cr.won?'Stufe geschafft!':'Stufe verloren';
+        $('overText').innerHTML=cr.won?('<b>'+st.n+'</b><br><span class="bigStars">'+'★★★'.slice(0,cr.stars)+'<i>'+'★★★'.slice(cr.stars)+'</i></span><br>+'+cr.gold+' 🪙 Gold'+(cr.first?' (erster Sieg)':'')+(cr.next?'':'<br>🎉 Du hast die Gartenreise abgeschlossen!')):('<b>'+st.n+'</b><br>💡 '+st.tip);
+        $('overEmoji').textContent=cr.won?(st.boss?'👑':'🌟'):'🥀';}}catch(e){console.warn(e);}
     $('ovOver').classList.remove('hide');
   },1300);
   return true;
@@ -8872,7 +8912,7 @@ function aiSpellPlan(me,s,late){
       if(late&&e.hp<=12)return {sc:1.6,t:{hero:1-me}};
       return null;}
     case 'heiltrank':{
-      var miss=MAX_HP-p.hp;
+      var miss=(p.maxHp||MAX_HP)-p.hp;
       var bm=aiBest(p.board.filter(function(m){return m.maxHp-m.hp>=3||m.poisoned;}),function(m){return aiMonValue(m)*.35+(m.poisoned?1.5:0);});
       var hv=(miss>=4&&p.hp<=20)?1.4+(20-p.hp)*.12:0;
       if(bm&&bm.v>hv&&bm.v>=1.3)return {sc:bm.v,t:{mon:bm.x.uid}};
@@ -9031,6 +9071,81 @@ function onPowerButton(){
   var tg=targetsFor(pi,pw.tgt);
   if(!tg){usePower(pi,null);return;}
   G.aim={kind:'power',tg:tg,label:pw.i+' '+pw.n+': Ziel wählen'};render();
+}
+
+/* ================= Kampagne "Gartenreise" =================
+   3 Kapitel × 4 Stufen gegen den Computer. Jede Stufe hat einen Gegner-Gärtner,
+   eigene Lebenspunkte, ein Deck-Thema (mehr Karten einer Sorte) und manchmal
+   eine Besonderheit (Start-Pflanze, Bonus-Mana). Fortschritt liegt in SAVE.camp.
+   Sterne: ★ gewonnen · ★★ mit mindestens 15 ❤️ · ★★★ zusätzlich bis Runde 10. */
+var CAMP_CHAPTERS=[
+  {id:'k1',n:'Morgentau-Wiesen',i:'🌅',d:'Sanfter Einstieg: lerne Pflanzen, Angriffe und Kreuzungen.'},
+  {id:'k2',n:'Nebelmoor',i:'🌫️',d:'Zähe Gegner mit Gift, Wächtern und Schilden.'},
+  {id:'k3',n:'Mondgipfel',i:'🌙',d:'Die stärksten Gärtner der Reise.'}
+];
+var CAMP=[
+  {id:'s1', ch:'k1',n:'Erste Keime',        hero:'druide',   hp:10,nobonus:true,theme:['ratte','skelett'],ban:['drache','oger','golem','greif'],gold:40, tip:'Pflanze jede Runde etwas und greif den Kern direkt an.'},
+  {id:'s2', ch:'k1',n:'Löwenzahnfeld',      hero:'nekromant',hp:14,nobonus:true,theme:['ratte','ratte'],ban:['drache','oger','golem'],gold:45, tip:'Viele kleine Pflanzen: Gewitter und Glutpollen räumen auf.'},
+  {id:'s3', ch:'k1',n:'Sonnenhang',         hero:'magier',   hp:18,nobonus:true,theme:['wolf','wolf'],ban:['drache','oger'],gold:50, tip:'Sonnenblumen greifen sofort an. Halte Wächter bereit.'},
+  {id:'s4', ch:'k1',n:'Der alte Eichenwächter',hero:'ritter',hp:16,nobonus:true,theme:['kroete','skelett'],ban:['drache','golem'],board:['kroete'],boss:true,gold:100,tip:'Er startet mit einem Kaktus als Wächter. Schwebende Pflanzen fliegen über Wächter hinweg.'},
+  {id:'s5', ch:'k2',n:'Pilzring',           hero:'nekromant',hp:22,theme:['skelett','skelett','fee'],gold:60, tip:'Pilze wachsen einmal nach. Triff sie zweimal.'},
+  {id:'s6', ch:'k2',n:'Dornendickicht',     hero:'ritter',   hp:24,theme:['schlange','kroete'],gold:65, tip:'Gift tut jede Runde weh: Kamillentee entgiftet.'},
+  {id:'s7', ch:'k2',n:'Lotusteich',         hero:'druide',   hp:25,theme:['einhorn','fee'],gold:70, tip:'Schilde blocken den ersten Treffer. Erst mit kleinen Pflanzen aufbrechen.'},
+  {id:'s8', ch:'k2',n:'Die Moorkönigin',    hero:'nekromant',hp:28,nobonus:true,theme:['schlange','skelett','fee'],board:['schlange','ratte'],boss:true,gold:150,tip:'Sie startet mit Dornenranke und Löwenzahn. Die Ranke heilt sich jede Runde. Gift und Schaden in einem Zug helfen.'},
+  {id:'s9', ch:'k3',n:'Lavendelhöhen',      hero:'haendler', hp:28,theme:['greif','greif'],gold:80, tip:'Lavendel fliegt und trifft den Kern hart. Fallen helfen.'},
+  {id:'s10',ch:'k3',n:'Fallengarten',       hero:'ritter',   hp:28,theme:['spiegel','giftfalle','grube'],gold:85,tip:'Überall Fallen: Lock sie mit kleinen Pflanzen aus.'},
+  {id:'s11',ch:'k3',n:'Glutgrat',           hero:'magier',   hp:30,theme:['drache','wolf'],gold:90, tip:'Feuerlilien brennen alles nieder. Spar Schaden für sie auf.'},
+  {id:'s12',ch:'k3',n:'Die Sonnenlilie erwacht',hero:'magier',hp:32,theme:['drache','greif','oger'],board:['wolf'],boss:true,gold:250,tip:'Der letzte Kampf. Kreuze früh – nur Kreuzungen halten hier mit.'}
+];
+var CBYID={};CAMP.forEach(function(s,i){s.idx=i;CBYID[s.id]=s;});
+
+function campSave(){if(!SAVE)return {cleared:{}};if(!SAVE.camp)SAVE.camp={cleared:{}};return SAVE.camp;}
+function campStars(id){return campSave().cleared[id]||0;}
+function campUnlocked(s){return s.idx===0||campStars(CAMP[s.idx-1].id)>0;}
+function campTotalStars(){var c=campSave().cleared,n=0;for(var k in c)n+=c[k];return n;}
+
+// wird von newGame() aufgerufen, nachdem die Spieler angelegt sind (vor dem Kartenziehen)
+function applyCampaign(st){
+  var e=G.players[1];
+  e.hp=st.hp;e.maxHp=st.hp;if(st.nobonus)e.noBonus=true;
+  if(st.mana)e.manaBonus=st.mana;
+  if(st.ban)e.deck=e.deck.filter(function(c){return st.ban.indexOf(c.id)<0;});
+  if(st.theme){st.theme.forEach(function(id){for(var c=0;c<2;c++)e.deck.push({uid:++uidc,id:id});});shuffle(e.deck);}
+  if(st.board)st.board.forEach(function(id){var t=MBYID[id];if(!t)return;
+    e.board.push({uid:++uidc,id:id,name:t.name,emoji:t.emoji,cost:t.cost,atk:t.atk,hp:t.hp,maxHp:t.hp,ab:t.ab.slice(),shield:has(t,'shield'),canAttack:false,fresh:true,sp:id});});
+}
+// Ergebnis einer Kampagnen-Stufe (nur Sieg des Menschen zählt)
+function campResult(winner){
+  var st=G&&G.camp?CBYID[G.camp]:null;if(!st)return null;
+  if(winner!==0)return {won:false,st:st};
+  var p=G.players[0],stars=1+(p.hp>=15?1:0)+((p.hp>=15&&G.round<=10)?1:0);
+  var cs=campSave(),before=cs.cleared[st.id]||0,first=!before;
+  if(stars>before)cs.cleared[st.id]=stars;
+  var gold=first?st.gold:Math.round(st.gold*.2);
+  if(SAVE){SAVE.gold+=gold;writeSave();}
+  return {won:true,st:st,stars:stars,gold:gold,first:first,next:CAMP[st.idx+1]||null};
+}
+
+/* ---------- Kampagnen-Bildschirm ---------- */
+function fillCamp(){
+  var html='<div class="campTop">⭐ '+campTotalStars()+'/'+(CAMP.length*3)+' Sterne · 🪙 '+(SAVE?SAVE.gold:0)+' Gold</div>';
+  CAMP_CHAPTERS.forEach(function(ch){
+    html+='<div class="campCh"><div class="campChH">'+ch.i+' <b>'+ch.n+'</b><small>'+ch.d+'</small></div><div class="campRow">';
+    CAMP.filter(function(s){return s.ch===ch.id;}).forEach(function(s){
+      var open=campUnlocked(s),stars=campStars(s.id),h=HBYID[s.hero];
+      html+='<button type="button" class="campSt'+(open?'':' locked')+(s.boss?' boss':'')+(stars?' done':'')+'" data-camp="'+s.id+'"'+(open?'':' disabled')+'>'+
+        '<span class="cn">'+(s.idx+1)+'</span><span class="cf">'+(open?(h?h.face:'🌱'):'🔒')+'</span>'+
+        '<span class="ct">'+s.n+'</span><span class="cs">'+(stars?'★★★'.slice(0,stars)+'<i>'+'★★★'.slice(stars)+'</i>':(open?'❤️ '+s.hp:''))+'</span></button>';});
+    html+='</div></div>';});
+  $('campList').innerHTML=html;
+}
+function openCamp(){try{fillCamp();}catch(e){console.warn(e);}hideAll();$('ovCamp').classList.remove('hide');}
+function startCampStage(id){
+  var st=CBYID[id];if(!st||!campUnlocked(st))return;
+  $('ovCamp').classList.add('hide');
+  HS={mode:'cpu',step:0,picks:[],camp:id};
+  fillHeroGrid();$('heroTitle').textContent='Stufe '+(st.idx+1)+': '+st.n+' – wähle deinen Gärtner';
+  $('ovHero').classList.remove('hide');
 }
 
 /* ================= Speicherstand, Erfolge, Tagesaufgaben ================= */
@@ -9824,7 +9939,7 @@ async function fxPit(uid){
 }
 
 /* ================= PFLANZEN (Meshy-Modelle CC0 + prozedurale Pflanzen) – keine Gesichter ================= */
-var GAME_VERSION='v17';
+var GAME_VERSION='v18';
 var ASSETS={ok:false,done:false,list:{},base:'assets/models/',arena:null};
 var PLANT_FILES=['sunflower','mushroom','thornvine','aloe','cactus','lavender','lotus','oak','crystalflower','pumpkin','rose','pine','bamboo'];
 // h = Höhe (Pflanzen-Einheiten), w = max. Breite, st = Steifigkeit (Exponent der Biegung), am = Wind-Amplitude, atk = Angriffsart, ab = Fähigkeits-Bewegung
@@ -10615,7 +10730,7 @@ function fitHand(){var h=$('hand');if(!h)return;var cs=h.querySelectorAll('.card
   h.style.setProperty('--cw','46px');cw=46;
   var ov=Math.min(cw*.45,(n*cw-W)/(n-1));h.classList.add('tight');for(var i=1;i<n;i++)cs[i].style.marginLeft=(-ov)+'px';}
 window.addEventListener('resize',function(){try{fitHand();}catch(e){}});
-function hideAll(){['ovMenu','ovHand','ovOver','ovRules','ovConfirm','ovHero','ovErfolge'].forEach(function(id){$(id).classList.add('hide');});}
+function hideAll(){['ovMenu','ovHand','ovOver','ovRules','ovConfirm','ovHero','ovErfolge','ovCamp'].forEach(function(id){$(id).classList.add('hide');});}
 
 function showError(msg){try{var b=$('errBox');if(b){b.style.display='block';b.textContent='⚠️ Fehler im Spiel: '+msg+'\nBitte die Seite neu laden oder in einem anderen Browser öffnen.';}}catch(e){}}
 window.addEventListener('error',function(e){showError((e&&e.message)||'Unbekannter Fehler');});
@@ -10649,12 +10764,12 @@ function init(){
       return;
     }
     try{
-      $('btnPvp').disabled=true;$('btnCpu').disabled=true;$('loadBox').style.display='block';
+      $('btnPvp').disabled=true;$('btnCpu').disabled=true;$('btnCamp').disabled=true;$('loadBox').style.display='block';
       var fin=function(ok){try{if(ok)renderAllCardArt();}catch(e){console.warn(e);}
-        $('btnPvp').disabled=false;$('btnCpu').disabled=false;
+        $('btnPvp').disabled=false;$('btnCpu').disabled=false;$('btnCamp').disabled=false;
         if(ok){$('loadBox').style.display='none';}else{$('loadTxt').textContent='⚠️ Arena-Modell konnte nicht geladen werden – einfache Arena aktiv.';$('loadFill').style.width='100%';}};
       loadModels(function(p){$('loadFill').style.width=Math.round(p*100)+'%';$('loadTxt').textContent='Lade Arena… '+Math.round(p*100)+'%';},fin);
-    }catch(err){console.warn(err);$('btnPvp').disabled=false;$('btnCpu').disabled=false;}
+    }catch(err){console.warn(err);$('btnPvp').disabled=false;$('btnCpu').disabled=false;$('btnCamp').disabled=false;}
     var lpT=null,lpFired=false;
     var lpCancel=function(){clearTimeout(lpT);lpT=null;};
     $('hand').addEventListener('pointerdown',function(e){var c=e.target.closest('[data-hidx]');lpFired=false;lpCancel();if(!c||!G)return;var idx=+c.dataset.hidx;
@@ -10673,7 +10788,11 @@ function init(){
     $('btnRestart').onclick=function(){if(G&&!G.over){$('ovConfirm').classList.remove('hide');return;}chooseHeroes(G?G.mode:'pvp');};
     $('btnConfYes').onclick=function(){$('ovConfirm').classList.add('hide');chooseHeroes(G?G.mode:'pvp');};
     $('btnConfNo').onclick=function(){$('ovConfirm').classList.add('hide');};
-    $('btnAgain').onclick=function(){chooseHeroes(G.mode);};
+    $('btnAgain').onclick=function(){if(G&&G.camp)startCampStage(G.camp);else chooseHeroes(G.mode);};
+    $('btnNext').onclick=function(){var st=G&&G.camp&&CBYID[G.camp];if(st&&CAMP[st.idx+1])startCampStage(CAMP[st.idx+1].id);else openCamp();};
+    $('btnCamp').onclick=openCamp;
+    $('btnCampBack').onclick=function(){hideAll();refreshMenuGold();$('ovMenu').classList.remove('hide');};
+    $('campList').addEventListener('click',function(e){var b=e.target.closest('[data-camp]');if(b&&!b.disabled)startCampStage(b.dataset.camp);});
     var toMenu=function(){if(G){G.over=true;G.gen++;}hideAll();resetScene();refreshMenuGold();$('ovMenu').classList.remove('hide');};
     $('btnMenu').onclick=toMenu;$('btnOverMenu').onclick=toMenu;
     $('btnPower').onclick=function(){if(pwLp){pwLp=false;return;}onPowerButton();};
@@ -10693,7 +10812,7 @@ function init(){
     $('ovErfolge').addEventListener('click',function(e){if(e.target.id==='ovErfolge'){$('ovErfolge').classList.add('hide');refreshMenuGold();}});
     $('heroGrid').addEventListener('click',function(e){var b=e.target.closest('[data-hid]');if(b)pickHero(b.dataset.hid);});
     $('btnHeroRand').onclick=function(){pickHero(randHero());};
-    $('btnHeroBack').onclick=function(){$('ovHero').classList.add('hide');if(!G||G.over){hideAll();$('ovMenu').classList.remove('hide');}};
+    $('btnHeroBack').onclick=function(){$('ovHero').classList.add('hide');if(HS.camp){openCamp();return;}if(!G||G.over){hideAll();$('ovMenu').classList.remove('hide');}};
     // Tastatur (PC): Leertaste/Enter = Zug beenden, F = Fusion, D = Ziehen, H = Heldenkraft, 1–8 = Handkarte, Esc = Abbrechen
     document.addEventListener('keydown',function(e){
       if(!G||G.over||e.ctrlKey||e.metaKey||e.altKey)return;
@@ -10718,6 +10837,7 @@ function chooseHeroes(mode){
   fillHeroGrid();$('ovHero').classList.remove('hide');
 }
 function fillHeroGrid(){
+  var htip=$('heroTip');if(htip){var cs0=HS.camp&&CBYID[HS.camp];htip.textContent=cs0?('💡 '+cs0.tip):'';htip.style.display=cs0?'':'none';}
   $('heroTitle').textContent=HS.mode==='pvp'?('Spieler '+(HS.step+1)+': Wähle deinen Gärtner'):'Wähle deinen Gärtner';
   var last=SAVE&&SAVE.settings.lastHero;
   $('heroGrid').innerHTML=HEROES.map(function(h){var played=SAVE&&SAVE.heroesPlayed[h.id];
@@ -10728,8 +10848,9 @@ function pickHero(id){
   if(HS.step===0&&SAVE){SAVE.settings.lastHero=id;writeSave();}
   if(HS.mode==='pvp'&&HS.step===0){HS.step=1;fillHeroGrid();return;}
   $('ovHero').classList.add('hide');
-  var hs=HS.mode==='pvp'?HS.picks.slice(0,2):[HS.picks[0],randHero()];
-  newGame(HS.mode,hs);
+  var cst=HS.camp&&CBYID[HS.camp];
+  var hs=HS.mode==='pvp'?HS.picks.slice(0,2):[HS.picks[0],cst?cst.hero:randHero()];
+  newGame(HS.mode,hs,HS.camp||null);
 }
 function openErfolge(){try{fillErfolge();}catch(e){console.warn(e);}$('ovErfolge').classList.remove('hide');}
 window.__game={get G(){return G;},E:E,newGame:newGame,
