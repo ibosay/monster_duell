@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8"><meta name="monster-duell-version" content="v16">
+<meta charset="UTF-8"><meta name="monster-duell-version" content="v17">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#bfe6e2">
@@ -9633,14 +9633,34 @@ function isMobileDevice(){var u=navigator.userAgent||'';return /iPhone|iPad|iPod
 // iPhone/Safari kann bei Speichermangel die 3D-Grafik kurz abschalten (schwarzer Bildschirm).
 // Dann: sparsamer Modus, Grafik neu aufbauen, alle Pflanzen neu erzeugen.
 function setupContextLoss(){
-  canvas.addEventListener('webglcontextlost',function(ev){ev.preventDefault();E.lost=true;try{localStorage.setItem('pd_q','low');}catch(e){}
-    var o=$('glLost');if(o)o.style.display='flex';},false);
-  canvas.addEventListener('webglcontextrestored',function(){
-    E.lost=false;E.tier='low';E.q='low';E.bloomOn=false;
-    try{renderer.setPixelRatio(1);renderer.shadowMap.type=THREE.PCFShadowMap;if(E.sun)E.sun.shadow.mapSize.set(1024,1024);if(E.sun&&E.sun.shadow.map){E.sun.shadow.map.dispose();E.sun.shadow.map=null;}}catch(e){}
+  canvas.addEventListener('webglcontextlost',onGLLost,false);
+}
+// Bei einem Absturz wird nicht auf die (auf dem iPhone unzuverlässige) Wiederherstellung gewartet:
+// Es entsteht eine neue Zeichenfläche mit eigenem Renderer, die alle Modelle frisch hochlädt.
+function onGLLost(ev){
+  ev.preventDefault();if(E.lost)return;E.lost=true;try{localStorage.setItem('pd_q','low');}catch(e){}
+  var o=$('glLost');if(o)o.style.display='flex';
+  setTimeout(rebuildRenderer,350);
+}
+function rebuildRenderer(){
+  try{
+    var old=canvas,nc=document.createElement('canvas');nc.id=old.id;nc.className=old.className;
+    old.removeEventListener('webglcontextlost',onGLLost,false);
+    old.parentNode.replaceChild(nc,old);canvas=nc;
+    renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,powerPreference:'high-performance'});
+    E.tier='low';E.q='low';E.bloomOn=false;E.composer=null;
+    renderer.setPixelRatio(1);
+    renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFShadowMap;
+    renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.0;
+    if(E.sun){E.sun.shadow.mapSize.set(1024,1024);E.sun.shadow.map=null;}
+    // Reflexionen kamen aus einem Puffer des alten Renderers -> abschalten, dafür mehr Grundlicht
+    scene.environment=null;if(E.hemi)E.hemi.intensity=1.2;
+    canvas.addEventListener('click',onCanvasClick);setupLongPress();setupContextLoss();
     try{Object.keys(E.mons).forEach(function(k){removeMon(+k);});}catch(e){}
-    try{layout();sync3D();}catch(e){console.warn(e);}
-    var o=$('glLost');if(o)o.style.display='none';},false);
+    E.lost=false;layout();try{sync3D();}catch(e){console.warn(e);}
+    E.last=performance.now();
+  }catch(err){console.warn('Neuaufbau fehlgeschlagen',err);try{location.reload();}catch(e){}}
+  var o=$('glLost');if(o)o.style.display='none';
 }
 function setupQuality(){
   E.bloomOn=false;E.fpsS=0;E.fpsN=0;E.fpsT0=0;E.downgraded=false;
@@ -9804,7 +9824,7 @@ async function fxPit(uid){
 }
 
 /* ================= PFLANZEN (Meshy-Modelle CC0 + prozedurale Pflanzen) – keine Gesichter ================= */
-var GAME_VERSION='v16';
+var GAME_VERSION='v17';
 var ASSETS={ok:false,done:false,list:{},base:'assets/models/',arena:null};
 var PLANT_FILES=['sunflower','mushroom','thornvine','aloe','cactus','lavender','lotus','oak','crystalflower','pumpkin','rose','pine','bamboo'];
 // h = Höhe (Pflanzen-Einheiten), w = max. Breite, st = Steifigkeit (Exponent der Biegung), am = Wind-Amplitude, atk = Angriffsart, ab = Fähigkeits-Bewegung
