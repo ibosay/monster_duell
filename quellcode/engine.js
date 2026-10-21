@@ -137,6 +137,7 @@ function layout(){
   if(!E.ok)return;
   var w=window.innerWidth,h=window.innerHeight;
   renderer.setSize(w,h,false);if(E.composer){E.composer.setPixelRatio(renderer.getPixelRatio());E.composer.setSize(w,h);}
+  if(typeof MENU!=='undefined'&&MENU.on){menuLayout(w,h);return;}
   // Freier Bereich für die Arena: Hochformat = zwischen oberer und unterer Leiste,
   // Querformat am Handy = zwischen linker (Gegner/Log) und rechter Spalte (Du/Hand)
   var side=sideMode(),tr=$('topUI').getBoundingClientRect(),br=$('botUI').getBoundingClientRect();
@@ -407,6 +408,7 @@ function loop(now){
   if(E.shake>0){var sk=E.shake;camera.position.x+=(Math.sin(t*61.3)*.6+Math.sin(t*37.1+1.7)*.4)*sk*.5;camera.position.y+=(Math.sin(t*53.7+.4)*.6+Math.sin(t*29.9+2.3)*.4)*sk*.5;E.shake=Math.max(0,E.shake-dt*1.4);}
   camera.position.x+=Math.sin(t*.27)*.18;camera.position.y+=Math.sin(t*.35)*.12;
   camera.lookAt(0,.4,0);
+  if(typeof MENU!=='undefined'&&MENU.on)menuCamera(t);
   if(E.closeup){var cu=E.closeup,ca=E.camA+(cu.ang||0);camera.position.set(cu.x+Math.sin(ca)*cu.d*.7,cu.d*(cu.el||.62),cu.z+Math.cos(ca)*cu.d*.7);camera.lookAt(cu.x,cu.y||.3,cu.z);}
   if(E.lost)return;
   try{if(E.composer&&E.bloomOn)E.composer.render();else renderer.render(scene,camera);}catch(err){}

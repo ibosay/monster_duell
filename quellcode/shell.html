@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8"><meta name="monster-duell-version" content="v20">
+<meta charset="UTF-8"><meta name="monster-duell-version" content="v21">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#bfe6e2">
@@ -317,6 +317,22 @@ header h1 .sprout,header .logo{filter:none}
 .panel.camp>.row{position:sticky;bottom:-2px;padding:8px 0 2px;background:linear-gradient(180deg,rgba(247,245,252,0),rgba(247,245,252,.96) 35%)}
 @media (max-width:420px){.campRow{grid-template-columns:repeat(2,1fr);gap:6px}.campSt{flex-direction:row;justify-content:flex-start;gap:7px;padding:7px 8px 17px 20px;text-align:left}
   .campSt .cf{font-size:20px}.campSt .ct{min-height:0;text-align:left;flex:1}.campSt .cs{font-size:11px;position:absolute;right:7px;bottom:3px}.campSt .cn{top:50%;transform:translateY(-50%);left:6px}}
+/* ===== Startmenü über der lebendigen 3D-Arena ===== */
+.menuLogo{display:block;width:min(100%,430px);height:auto;margin:-6px auto 2px;filter:drop-shadow(0 6px 14px rgba(20,60,70,.35)) drop-shadow(0 0 18px rgba(120,230,215,.35))}
+body.menuMode #ui,body.menuMode #labels{opacity:0;pointer-events:none}
+body.menuMode .overlay.solid,body.menuMode #ovErfolge{background:radial-gradient(ellipse at 60% 45%,rgba(12,22,26,0) 35%,rgba(10,18,22,.55) 100%);backdrop-filter:none;-webkit-backdrop-filter:none}
+body.menuMode .overlay .panel{background:linear-gradient(175deg,rgba(255,255,255,.88),rgba(244,241,255,.82));backdrop-filter:blur(12px) saturate(1.1);-webkit-backdrop-filter:blur(12px) saturate(1.1);border:2px solid rgba(255,255,255,.85);box-shadow:0 24px 70px rgba(5,20,25,.45)}
+body.menuMode #ovMenu .panel{max-width:460px;padding:18px 22px 20px}
+body.menuMode #ovMenu .panel>p:first-of-type{font-size:15px;margin:4px 0 2px}
+@media (min-aspect-ratio:23/20){
+  body.menuMode #ovMenu,body.menuMode #ovHero,body.menuMode #ovCamp,body.menuMode #ovErfolge{justify-content:flex-start;padding-left:max(3.5vw,20px)}
+  body.menuMode #ovMenu .panel{width:min(34vw,460px);min-width:330px}
+}
+@media (max-aspect-ratio:23/20){
+  body.menuMode #ovMenu{align-items:flex-end;padding-bottom:max(14px,env(safe-area-inset-bottom))}
+  body.menuMode #ovMenu .panel{max-height:62vh}
+  .menuLogo{width:min(78%,330px)}
+}
 /* ===== PC / große Bildschirme: Oberfläche größer und gut lesbar ===== */
 @media (min-width:1200px) and (min-height:800px){
   :root{--cw:clamp(96px,10.5vh,124px)}
@@ -387,8 +403,7 @@ header h1 .sprout,header .logo{filter:none}
 
 <div class="overlay solid" id="ovMenu">
   <div class="panel">
-    <div class="big">🌱</div>
-    <h2>Pflanzen-Duell</h2>
+<!--LOGO-->
     <p>Pflanze deinen Garten in die schwebende Echoarena, <b>kreuze</b> Pflanzen zu prächtigen Sorten und bring den Kristall deines Gegners zum Erlöschen.</p>
     <div class="row"><button type="button" class="btn gold campBtn" id="btnCamp">🗺️ Gartenreise · Kampagne</button></div>
     <div class="row">

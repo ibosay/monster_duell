@@ -1,5 +1,5 @@
 /* ================= PFLANZEN (Meshy-Modelle CC0 + prozedurale Pflanzen) – keine Gesichter ================= */
-var GAME_VERSION='v20';
+var GAME_VERSION='v21';
 var ASSETS={ok:false,done:false,list:{},base:'assets/models/',arena:null};
 var PLANT_FILES=['sunflower','mushroom','thornvine','aloe','cactus','lavender','lotus','oak','crystalflower','pumpkin','rose','pine','bamboo'];
 // h = Höhe (Pflanzen-Einheiten), w = max. Breite, st = Steifigkeit (Exponent der Biegung), am = Wind-Amplitude, atk = Angriffsart, ab = Fähigkeits-Bewegung

@@ -3,6 +3,13 @@
 ## Arena
 - **Echoarena:** eigenes 3D-Modell des Entwicklers (Echoarena_Prototyp.glb, 8 × 10 Felder). Geometrie und Farben unverändert, im Spiel eingebettet und auf Spielmaßstab skaliert (0,84). Die zwei Resonanzringe sind die Spielerbasen.
 
+## Logo
+- **Pflanzen-Duell-Logo** (`quellcode/assets/logo.webp`): eigene Erzeugung mit ElevenLabs (Bildmodell GPT Image 2),
+  danach freigestellt und zugeschnitten. Keine Gesichter, Menschen oder Tiere.
+  Laut ElevenLabs gilt: Inhalte aus **bezahlten** Abos dürfen kommerziell genutzt werden (nicht aus Beta-Diensten);
+  Inhalte aus dem **kostenlosen** Abo nicht kommerziell und nur mit Hinweis „elevenlabs.io“.
+  → Vor dem Steam-Verkauf prüfen, mit welchem Abo das Logo erzeugt wurde; sonst Logo neu erzeugen.
+
 ## Pflanzen-Modelle (Meshy, alle CC0 1.0)
 Alle Modelle wurden einzeln geprüft (keine Gesichter, keine Tiere oder Menschen), für Handys verkleinert
 (6.000–10.000 Dreiecke, Texturen als WebP mit 512 px) und mit Meshopt komprimiert.

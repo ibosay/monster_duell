@@ -139,9 +139,11 @@ function init(){
       $('btnPvp').disabled=true;$('btnCpu').disabled=true;
       return;
     }
+    try{setupMenuMode();}catch(err){console.warn('menu3d',err);}
     try{
       $('btnPvp').disabled=true;$('btnCpu').disabled=true;$('btnCamp').disabled=true;$('loadBox').style.display='block';
       var fin=function(ok){try{if(ok)renderAllCardArt();}catch(e){console.warn(e);}
+        try{if(MENU.on)menuShowcase();}catch(e){}
         $('btnPvp').disabled=false;$('btnCpu').disabled=false;$('btnCamp').disabled=false;
         if(ok){$('loadBox').style.display='none';}else{$('loadTxt').textContent='⚠️ Arena-Modell konnte nicht geladen werden – einfache Arena aktiv.';$('loadFill').style.width='100%';}};
       loadModels(function(p){$('loadFill').style.width=Math.round(p*100)+'%';$('loadTxt').textContent='Lade Arena… '+Math.round(p*100)+'%';},fin);

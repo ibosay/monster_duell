@@ -45,10 +45,12 @@ ehrlich (auch wenn etwas nicht klappt), Zahlen nur nach Prüfung.
     ├── plants.js         Pflanzenmodelle, Biege-Shader, seltene Pflanzen (prozedural)
     ├── arena.js          Echoarena laden (GLB eingebettet), Kerne
     ├── gfx.js            Grafik: IBL, Bloom, Schutzfilter, Farbkorrektur, Kern-Effekte
+    ├── menu3d.js         Startmenü: lebendige 3D-Arena hinter den Menüs (Kamerafahrt, Schau-Pflanzen)
     ├── ui.js             Bedienung, Hand, Knöpfe, Menüs
     ├── vendor/           three.min.js r158 (MIT)
     ├── pp.js / gl.js     Nachbearbeitung + GLTF-Lader (aus three r158 erzeugt)
     ├── assets/echoarena.glb
+    ├── assets/logo.webp  Spiel-Logo (wird in index.html eingebettet; fehlt es, zeigt das Menü 🌱 + Text)
     └── werkzeuge/        sim.js (Balance), simcamp.js (Kampagne)
 ```
 
@@ -82,6 +84,10 @@ nicht zurückfragen, was er technisch meint – außer es ist wirklich mehrdeuti
   Kerne bei z = ±5,21 (HEROZ), Pflanzenreihen bei z = ±2,06 (ROWZ).
 - **Vertexfarben im GLB sind sRGB** → beim Laden in linear umrechnen (eaSrgbLin).
 - Claude-Testseite (Artifact) nimmt keine .glb-Dateien → Modelle werden dort base64 eingebettet.
+- **Startmenü (v21):** `menu3d.js` schaltet sich über einen MutationObserver auf den Menü-Overlays ein
+  (`ovMenu`, `ovCamp`, `ovHero`, `ovErfolge`) und nur, wenn kein Duell läuft. Schau-Pflanzen haben uid ≥ 800000
+  und werden beim Spielstart entfernt. `layout()` gibt im Menü an `menuLayout()` ab (Arena neben/über dem Fenster).
+  Neues Overlay, hinter dem die Arena laufen soll → in `MENU_OVERLAYS` eintragen.
 
 ## 6. Grafikstufen
 
@@ -102,7 +108,9 @@ URL-Schalter: `?q=high|low|auto`.
    5 Gärtner-Totems, Deko, 2 Arena-Rahmen. Prompts im Claude-Dokument „Pflanzen-Duell – Meshy-Prompts für Steam“.
    Optimierung: Handy ~8.000 Dreiecke / 512er-Texturen, PC ~25.000 / 1024er, meshopt.
 2. **Ton**: Musik + Effekte (Pflanzen, Angriff, Treffer, Kreuzen, Sieg).
-3. **Startmenü** mit Logo und animiertem Hintergrund (Video in Endlosschleife, stumm).
+3. ~~Startmenü mit Logo und animiertem Hintergrund~~ → **erledigt in v21**, als echte 3D-Szene statt Video
+   (scharf in jeder Auflösung, kein Download). Offen: Logo in voller Auflösung (aktuell 963×420 aus der Vorschau)
+   und Lizenz klären (siehe CREDITS.md: ElevenLabs nur mit bezahltem Abo kommerziell nutzbar).
 4. **Steam-Version**: Electron-Hülle, Vollbild, Maus/Tastatur, Einstellungen, Steamworks (Erfolge sind in
    meta.js schon vorbereitet: `window.MonsterDuellSteam`).
 
@@ -110,4 +118,5 @@ URL-Schalter: `?q=high|low|auto`.
 
 v13 Garten-Arena (Cursor) · v14 Echoarena + Balance · v15 Grafik-Upgrade · v16 Handy-Modus ·
 v17 Absturz-Neuaufbau · v18 Kampagne · v19 Zusammenführung mit Cursor-v14 (seltene Pflanzen, Seltenheit) ·
-v20 PC-Fix (NaN-Schutzfilter), Grafik-Schalter, größere PC-Oberfläche · Quellcode ab jetzt im Repo.
+v20 PC-Fix (NaN-Schutzfilter), Grafik-Schalter, größere PC-Oberfläche · Quellcode ab jetzt im Repo ·
+v21 Startmenü mit Logo + lebendiger 3D-Arena im Hintergrund.
